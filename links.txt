@@ -1,0 +1,3 @@
+https://documentacao-arquitetura-ti.prd.bancoamazonia.sa/arquitetura/padrao-desenv-rest-api.html#referencias
+https://documentacao-arquitetura-ti.prd.bancoamazonia.sa/desenvolvimento/ambiente-desenvolvimento-java.html#ferramentas-para-desenvolvimento
+http://gitlab.prd.bancoamazonia.sa/sistemas-internos-coordenadorias/coint/treinamento-codev/sua-conta-basa/api-suacontabasa
