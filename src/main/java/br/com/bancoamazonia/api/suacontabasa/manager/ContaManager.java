@@ -79,4 +79,8 @@ public class ContaManager {
 		return repository.save(obj);
 	}
 
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+	
 }

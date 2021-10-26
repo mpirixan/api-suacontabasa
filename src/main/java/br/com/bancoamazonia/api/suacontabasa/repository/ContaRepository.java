@@ -13,4 +13,6 @@ public interface ContaRepository extends CrudRepository<Conta, Long>{
 	public Conta findByIdFiscal(Long idFiscal);
 
 	public Conta getOne(Long id);
+
+	public void deleteById(Conta obj);
 }
