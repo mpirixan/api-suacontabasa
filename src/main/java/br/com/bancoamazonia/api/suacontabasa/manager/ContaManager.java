@@ -75,5 +75,8 @@ public class ContaManager {
 
 	}
 
+	public Conta insert(Conta obj) {
+		return repository.save(obj);
+	}
 
 }
