@@ -4,8 +4,6 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,17 +17,17 @@ import br.com.amazoniafw.base.components.model.EntityModel;
 public class Conta implements EntityModel<Long>{
 	
 	@Id
-	@Column(name="ID_PESSOA")
-	private Long idPessoa;
+	@Column(name="ID_CONTA")
+	private Long idConta;
 	
-	@Column(name="NUM_CPF_CNPJ")
-	private Long idFiscal;
+	@Column(name="AGENCIA")
+	private Long agencia;
 	
-	@Column(name="NOME")
-	private String nome;
+	@Column(name="STATUS")
+	private String status;
 	
-	@Column(name="ULTIMO_NOME")
-	private String ultimo_nome;
+	@Column(name="SENHA")
+	private String senha;
 	
 	@Column(name="SALDO")
 	private Double saldo;
@@ -42,7 +40,7 @@ public class Conta implements EntityModel<Long>{
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(idPessoa);
+		return Objects.hash(idConta);
 	}
 
 
@@ -55,47 +53,47 @@ public class Conta implements EntityModel<Long>{
 		if (getClass() != obj.getClass())
 			return false;
 		Conta other = (Conta) obj;
-		return Objects.equals(idPessoa, other.idPessoa);
+		return Objects.equals(idConta, other.idConta);
 	}
 
 
 
-	public Long getIdPessoa() {
-		return idPessoa;
+	public Long getIdConta() {
+		return idConta;
 	}
 
 
-	public void setIdPessoa(Long idPessoa) {
-		this.idPessoa = idPessoa;
+	public void setIdConta(Long idConta) {
+		this.idConta = idConta;
 	}
 
 
-	public String getNome() {
-		return nome;
+	public String getStatus() {
+		return status;
 	}
 
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 
-	public Long getIdFiscal() {
-		return idFiscal;
+	public Long getAgencia() {
+		return agencia;
 	}
 
 
-	public void setIdFiscal(Long idFiscal) {
-		this.idFiscal = idFiscal;
+	public void setAgencia(Long agencia) {
+		this.agencia = agencia;
 	}
 
 
-	public Conta(Long idPessoa, Long idFiscal, String nome, String ultimo_nome, Double saldo) {
+	public Conta(Long idConta, Long agencia, String status, String senha, Double saldo) {
 		super();
-		this.idPessoa = idPessoa;
-		this.idFiscal = idFiscal;
-		this.nome = nome;
-		this.ultimo_nome = ultimo_nome;
+		this.idConta = idConta;
+		this.agencia = agencia;
+		this.status = status;
+		this.senha = senha;
 		this.saldo = saldo;
 	}
 
@@ -103,17 +101,17 @@ public class Conta implements EntityModel<Long>{
 	@Override
 	public Long getId() {
 
-		return getIdPessoa();
+		return getIdConta();
 	}
 
 
-	public String getUltimo_nome() {
-		return ultimo_nome;
+	public String getSenha() {
+		return senha;
 	}
 
 
-	public void setUltimo_nome(String ultimo_nome) {
-		this.ultimo_nome = ultimo_nome;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 

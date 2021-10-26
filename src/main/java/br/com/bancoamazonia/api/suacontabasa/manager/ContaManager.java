@@ -64,8 +64,8 @@ public class ContaManager {
 	}
 	
 	private void updateDados(Conta entity, Conta obj) {
-		entity.setNome(obj.getNome());
-		entity.setUltimo_nome(obj.getUltimo_nome());
+		entity.setAgencia(obj.getAgencia());
+		entity.setStatus(obj.getStatus());
 		
 		
 	}
