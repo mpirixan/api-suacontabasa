@@ -15,10 +15,11 @@ import br.com.amazoniafw.base.components.model.EntityModel;
 
 @Entity
 @Immutable
-@Table(name="CONTA")
-public class Conta implements EntityModel<Long>{
+@Table(name="PESSOA")
+public class Pessoa implements EntityModel<Long>{
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="ID_PESSOA")
 	private Long idPessoa;
 	
@@ -28,14 +29,9 @@ public class Conta implements EntityModel<Long>{
 	@Column(name="NOME")
 	private String nome;
 	
-	@Column(name="ULTIMO_NOME")
-	private String ultimo_nome;
 	
-	@Column(name="SALDO")
-	private Double saldo;
-
 	
-	public Conta() {
+	public Pessoa() {
 		
 	}
 
@@ -54,7 +50,7 @@ public class Conta implements EntityModel<Long>{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Conta other = (Conta) obj;
+		Pessoa other = (Pessoa) obj;
 		return Objects.equals(idPessoa, other.idPessoa);
 	}
 
@@ -90,13 +86,11 @@ public class Conta implements EntityModel<Long>{
 	}
 
 
-	public Conta(Long idPessoa, Long idFiscal, String nome, String ultimo_nome, Double saldo) {
+	public Pessoa(Long idPessoa, Long idFiscal, String nome) {
 		super();
 		this.idPessoa = idPessoa;
 		this.idFiscal = idFiscal;
 		this.nome = nome;
-		this.ultimo_nome = ultimo_nome;
-		this.saldo = saldo;
 	}
 
 
@@ -104,26 +98,6 @@ public class Conta implements EntityModel<Long>{
 	public Long getId() {
 
 		return getIdPessoa();
-	}
-
-
-	public String getUltimo_nome() {
-		return ultimo_nome;
-	}
-
-
-	public void setUltimo_nome(String ultimo_nome) {
-		this.ultimo_nome = ultimo_nome;
-	}
-
-
-	public Double getSaldo() {
-		return saldo;
-	}
-
-
-	public void setSaldo(Double saldo) {
-		this.saldo = saldo;
 	}
 
 
