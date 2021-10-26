@@ -13,69 +13,64 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.amazoniafw.base.exceptions.displayable.BusinessException;
-import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
-import br.com.bancoamazonia.api.suacontabasa.repository.ContaRepository;
+import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
+import br.com.bancoamazonia.api.suacontabasa.repository.PessoaRepository;
 
 
 @Component
 @Validated
-public class ContaManager {
+public class PessoaManager {
 
 	@Autowired
-	private ContaRepository repository;
+	private PessoaRepository repository;
 	
-	public List<Conta> findAll(){
-		return (List<Conta>) repository.findAll();
+	public List<Pessoa> findAll(){
+		return (List<Pessoa>) repository.findAll();
 	}
 
-	public Conta findByIdPessoa(@NotNull @Positive @Max(value = 999999999) @Valid Long idPessoa) {
-		Conta conta = repository.findByIdPessoa(idPessoa);
+	public Pessoa findByIdPessoa(@NotNull @Positive @Max(value = 999999999) @Valid Long idPessoa) {
+		Pessoa conta = repository.findByIdPessoa(idPessoa);
 		if(conta == null) {
 			throw new BusinessException("Não foi possivel localizar a pessoa com matricula cadastral "+idPessoa);
 		}
 		return conta;
 	}
 	/*
-	public Conta findByIdFiscal(@NotBlank @CpfCnpj @Valid Long idFiscal) {
-		Conta conta = repository.findByIdFiscal(idFiscal);
+	public Pessoa findByIdFiscal(@NotBlank @CpfCnpj @Valid Long idFiscal) {
+		Pessoa conta = repository.findByIdFiscal(idFiscal);
 		if(conta == null) {
 			throw new BusinessException("Não foi possivel localizar a pessoa com Cpf/Cnpj "+idFiscal);
 		}
 		return conta;
 	}
 	*/
-	public Conta findByAgencia(Long agencia) {
-		Conta conta = repository.findByAgencia(agencia);
+	public Pessoa findByIdFiscal(Long idFiscal) {
+		Pessoa conta = repository.findByIdFiscal(idFiscal);
 		if(conta == null) {
-			throw new BusinessException("Não foi possivel localizar a pessoa com Cpf/Cnpj "+agencia);
+			throw new BusinessException("Não foi possivel localizar a pessoa com Cpf/Cnpj "+idFiscal);
 		}
 		return conta;
 	}
 	
-	public Conta update(Long id, Conta obj) { 
+	public Pessoa update(Long id, Pessoa obj) { 
 		try {
-		Conta entity = repository.getOne(id);
+		Pessoa entity = repository.getOne(id);
 		updateDados(entity, obj);
-		updateSaldo(entity, obj);
 		return repository.save(entity);
 		}catch (EntityNotFoundException e) {
 			throw new BusinessException(("Não foi possivel localizar a pessoa com identificação "+ id));
 		}
 	}
 	
-	private void updateDados(Conta entity, Conta obj) {
-		entity.setAgencia(obj.getAgencia());
-		entity.setStatus(obj.getStatus());
+	private void updateDados(Pessoa entity, Pessoa obj) {
+		entity.setNome(obj.getNome());
+		entity.setNome(obj.getNome());
 		
 		
 	}
 	
-	private void updateSaldo(Conta entity, Conta obj) {
-		entity.setSaldo(obj.getSaldo());
 
-	}
-
-	public Conta insert(Conta obj) {
+	public Pessoa insert(Pessoa obj) {
 		return repository.save(obj);
 	}
 

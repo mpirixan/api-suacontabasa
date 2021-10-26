@@ -4,7 +4,12 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Immutable;
@@ -17,6 +22,7 @@ import br.com.amazoniafw.base.components.model.EntityModel;
 public class Conta implements EntityModel<Long>{
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="ID_CONTA")
 	private Long idConta;
 	
@@ -32,7 +38,12 @@ public class Conta implements EntityModel<Long>{
 	@Column(name="SALDO")
 	private Double saldo;
 
+	@OneToOne
+	@MapsId
+	@JoinColumn(name = "ID_CONTA")
+	private Pessoa idPessoa;
 	
+
 	public Conta() {
 		
 	}

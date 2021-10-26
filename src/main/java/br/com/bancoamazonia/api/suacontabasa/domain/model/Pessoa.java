@@ -2,11 +2,14 @@ package br.com.bancoamazonia.api.suacontabasa.domain.model;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Immutable;
@@ -29,7 +32,9 @@ public class Pessoa implements EntityModel<Long>{
 	@Column(name="NOME")
 	private String nome;
 	
-	
+	@OneToOne(mappedBy = "idPessoa",cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private Conta idConta;
 	
 	public Pessoa() {
 		
@@ -54,6 +59,16 @@ public class Pessoa implements EntityModel<Long>{
 		return Objects.equals(idPessoa, other.idPessoa);
 	}
 
+
+
+	public Conta getIdConta() {
+		return idConta;
+	}
+
+
+	public void setIdConta(Conta idConta) {
+		this.idConta = idConta;
+	}
 
 
 	public Long getIdPessoa() {
