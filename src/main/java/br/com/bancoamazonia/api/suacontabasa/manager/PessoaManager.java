@@ -3,10 +3,6 @@ package br.com.bancoamazonia.api.suacontabasa.manager;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,28 +24,20 @@ public class PessoaManager {
 		return (List<Pessoa>) repository.findAll();
 	}
 
-	public Pessoa findByIdPessoa(@NotNull @Positive @Max(value = 999999999) @Valid Long idPessoa) {
-		Pessoa conta = repository.findByIdPessoa(idPessoa);
-		if(conta == null) {
+	public Pessoa findByIdPessoa(Long idPessoa) {
+		Pessoa pessoa = repository.findByIdPessoa(idPessoa);
+		if(pessoa == null) {
 			throw new BusinessException("Não foi possivel localizar a pessoa com matricula cadastral "+idPessoa);
 		}
-		return conta;
+		return pessoa;
 	}
-	/*
-	public Pessoa findByIdFiscal(@NotBlank @CpfCnpj @Valid Long idFiscal) {
-		Pessoa conta = repository.findByIdFiscal(idFiscal);
-		if(conta == null) {
-			throw new BusinessException("Não foi possivel localizar a pessoa com Cpf/Cnpj "+idFiscal);
-		}
-		return conta;
-	}
-	*/
+	
 	public Pessoa findByIdFiscal(Long idFiscal) {
-		Pessoa conta = repository.findByIdFiscal(idFiscal);
-		if(conta == null) {
+		Pessoa pessoa = repository.findByIdFiscal(idFiscal);
+		if(pessoa == null) {
 			throw new BusinessException("Não foi possivel localizar a pessoa com Cpf/Cnpj "+idFiscal);
 		}
-		return conta;
+		return pessoa;
 	}
 	
 	public Pessoa update(Long id, Pessoa obj) { 
@@ -72,8 +60,10 @@ public class PessoaManager {
 		return repository.save(obj);
 	}
 
-	public void delete(Long id) {
-		repository.deleteById(id);
-	}
+	public Pessoa delete(Long idPessoa, Pessoa pessoa) {
+		Pessoa entity = repository.findByIdPessoa(idPessoa);
+		repository.delete(entity);
+		return null;
 	
 }
+	}

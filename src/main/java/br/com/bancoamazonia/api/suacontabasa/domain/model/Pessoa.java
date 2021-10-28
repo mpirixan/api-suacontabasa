@@ -5,11 +5,11 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Immutable;
@@ -22,8 +22,7 @@ import br.com.amazoniafw.base.components.model.EntityModel;
 public class Pessoa implements EntityModel<Long>{
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="ID_PESSOA")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPessoa;
 	
 	@Column(name="NUM_CPF_CNPJ")
@@ -32,10 +31,16 @@ public class Pessoa implements EntityModel<Long>{
 	@Column(name="NOME")
 	private String nome;
 	
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "pessoa")
+    private Conta conta;	
+	
+	/*
 	@OneToOne(mappedBy = "idPessoa",cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private Conta idConta;
-	
+	*/
 	public Pessoa() {
 		
 	}
@@ -57,17 +62,6 @@ public class Pessoa implements EntityModel<Long>{
 			return false;
 		Pessoa other = (Pessoa) obj;
 		return Objects.equals(idPessoa, other.idPessoa);
-	}
-
-
-
-	public Conta getIdConta() {
-		return idConta;
-	}
-
-
-	public void setIdConta(Conta idConta) {
-		this.idConta = idConta;
 	}
 
 

@@ -8,7 +8,7 @@ import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 @Repository
 public interface ContaRepository extends CrudRepository<Conta, Long>{
 
-	public Conta findByIdPessoa(Long idPessoa);
+	//public Conta findByIdPessoa(Long idPessoa);
 	
 	public Conta findByAgencia(Long agencia);
 

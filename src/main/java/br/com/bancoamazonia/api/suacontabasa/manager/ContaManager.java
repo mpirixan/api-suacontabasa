@@ -3,10 +3,6 @@ package br.com.bancoamazonia.api.suacontabasa.manager;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,7 +23,7 @@ public class ContaManager {
 	public List<Conta> findAll(){
 		return (List<Conta>) repository.findAll();
 	}
-
+	/*
 	public Conta findByIdPessoa(@NotNull @Positive @Max(value = 999999999) @Valid Long idPessoa) {
 		Conta conta = repository.findByIdPessoa(idPessoa);
 		if(conta == null) {
@@ -35,7 +31,7 @@ public class ContaManager {
 		}
 		return conta;
 	}
-	/*
+
 	public Conta findByIdFiscal(@NotBlank @CpfCnpj @Valid Long idFiscal) {
 		Conta conta = repository.findByIdFiscal(idFiscal);
 		if(conta == null) {

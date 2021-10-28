@@ -20,7 +20,7 @@ import br.com.bancoamazonia.api.suacontabasa.manager.ContaManager;
 
 @RestController
 @RequestMapping(value = "/contas")
-public class ContaController<D> {
+public class ContaController {
 	
 	@Autowired
 	private ContaManager manager;
@@ -58,7 +58,7 @@ public class ContaController<D> {
 		return ResponseEntity.created(uri).body(obj);
 	} */
 	
-	@DeleteMapping(value="/desativação/{idConta}")
+	@DeleteMapping(value="/desativacao/{idConta}")
 	public void delete(@PathVariable("idConta") Long idConta, @RequestBody Conta conta) {
 		 conta = manager.delete(idConta, conta);
 	}

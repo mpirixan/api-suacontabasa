@@ -14,7 +14,8 @@ amazonia-framework:
    response-logging-enabled: false # Habilita a auditoria do objeto de retorno dos métodos
    core-pool-size: 50 # Indica a quantidade mínima de threads a alocar para auditoria. Padrão 50
    max-pool-size: 100 # Indica a quantidade máxima de threads a alocar para auditoria. Padrão 50
-  
+
+ 
   persistence:
     database:
       auto-create-datasources: true     
@@ -22,11 +23,12 @@ amazonia-framework:
       primary-datasource: testdb
       jdbc-datasources:
         testdb:
-          url: jdbc:h2:mem:testdb
+          url: jdbc:h2:file:~/data/demo
           username: sa
           password: sa
           dialect: h2
           create-jpa-context: true
+          
         #    console:
        #       enabled: true
       #        path: /h2-console
