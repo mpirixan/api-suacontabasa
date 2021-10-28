@@ -9,24 +9,24 @@ public class ContaResponse implements Serializable {
 
 	private static final long serialVersionUID = -2259094710454561830L;
 
-	@Schema(description = "idPessoa - identificador único de Pessoa")
-	private Long idPessoa;
+	@Schema(description = "idConta - identificador único da Conta")
+	private Long idConta;
 	
-	@Schema(description = "idFiscal - identificador fiscal da Pessoa")
-	private Long idFiscal;
+	@Schema(description = "agencia - identificador agencia da Conta")
+	private Long agencia;
 	
-	@Schema(description = "nome - nome da Pessoa")
-	private String nome;
+	@Schema(description = "status - status da conta")
+	private String status;
 	
-	@Schema(description = "ultimoNome - sobrenome da Pessoa")
-	private String ultimo_nome;
+	@Schema(description = "senha - senha da conta")
+	private String senha;
 
 	@Schema(description = "saldo - Saldo da Conta")
 	private Double saldo;
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(idFiscal, idPessoa);
+		return Objects.hash(agencia, idConta);
 	}
 
 	@Override
@@ -38,39 +38,39 @@ public class ContaResponse implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ContaResponse other = (ContaResponse) obj;
-		return Objects.equals(idFiscal, other.idFiscal) && Objects.equals(idPessoa, other.idPessoa);
+		return Objects.equals(agencia, other.agencia) && Objects.equals(idConta, other.idConta);
 	}
 
 	public Long getIdPessoa() {
-		return idPessoa;
+		return idConta;
 	}
 
 	public void setIdPessoa(Long idPessoa) {
-		this.idPessoa = idPessoa;
+		this.idConta = idPessoa;
 	}
 
 	public Long getIdFiscal() {
-		return idFiscal;
+		return agencia;
 	}
 
 	public void setIdFiscal(Long idFiscal) {
-		this.idFiscal = idFiscal;
+		this.agencia = idFiscal;
 	}
 
 	public String getNome() {
-		return nome;
+		return status;
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.status = nome;
 	}
 
 	public String getUltimo_nome() {
-		return ultimo_nome;
+		return senha;
 	}
 
 	public void setUltimo_nome(String ultimo_nome) {
-		this.ultimo_nome = ultimo_nome;
+		this.senha = ultimo_nome;
 	}
 
 	public Double getSaldo() {

@@ -64,8 +64,6 @@ public class PessoaManager {
 	
 	private void updateDados(Pessoa entity, Pessoa obj) {
 		entity.setNome(obj.getNome());
-		entity.setNome(obj.getNome());
-		
 		
 	}
 	

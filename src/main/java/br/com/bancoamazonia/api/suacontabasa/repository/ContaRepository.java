@@ -13,5 +13,7 @@ public interface ContaRepository extends CrudRepository<Conta, Long>{
 	public Conta findByAgencia(Long agencia);
 
 	public Conta getOne(Long id);
+	
+	public Conta findByIdConta(Long idConta);
 
 }

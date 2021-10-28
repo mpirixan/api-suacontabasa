@@ -5,6 +5,7 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,7 @@ import br.com.bancoamazonia.api.suacontabasa.manager.ContaManager;
 
 @RestController
 @RequestMapping(value = "/contas")
-public class ContaController {
+public class ContaController<D> {
 	
 	@Autowired
 	private ContaManager manager;
@@ -56,4 +57,9 @@ public class ContaController {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{idPessoa}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);
 	} */
+	
+	@DeleteMapping(value="/desativação/{idConta}")
+	public void delete(@PathVariable("idConta") Long idConta, @RequestBody Conta conta) {
+		 conta = manager.delete(idConta, conta);
+	}
 }
