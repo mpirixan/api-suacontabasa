@@ -6,13 +6,15 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.amazoniafw.base.exceptions.displayable.BusinessException;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
 import br.com.bancoamazonia.api.suacontabasa.repository.PessoaRepository;
 
-
+@Service
 @Component
 @Validated
 public class PessoaManager {
@@ -40,6 +42,7 @@ public class PessoaManager {
 		return pessoa;
 	}
 	
+	@Transactional
 	public Pessoa update(Long id, Pessoa obj) { 
 		try {
 		Pessoa entity = repository.getOne(id);
@@ -54,12 +57,13 @@ public class PessoaManager {
 		entity.setNome(obj.getNome());
 		
 	}
-	
 
+	@Transactional
 	public Pessoa insert(Pessoa obj) {
 		return repository.save(obj);
 	}
 
+	@Transactional
 	public Pessoa delete(Long idPessoa, Pessoa pessoa) {
 		Pessoa entity = repository.findByIdPessoa(idPessoa);
 		repository.delete(entity);

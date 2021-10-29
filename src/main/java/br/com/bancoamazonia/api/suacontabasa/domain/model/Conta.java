@@ -12,12 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Immutable;
-
 import br.com.amazoniafw.base.components.model.EntityModel;
 
 @Entity
-@Immutable
 @Table(name="CONTA")
 public class Conta implements EntityModel<Long>{
 	

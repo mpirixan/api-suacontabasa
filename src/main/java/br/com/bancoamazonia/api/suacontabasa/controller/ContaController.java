@@ -33,16 +33,31 @@ public class ContaController {
 		List<Conta> list = manager.findAll();
 		return ResponseEntity.ok().body(list);
 				}
+	@GetMapping(value = "/idconta/{idConta}")
+	public ResponseEntity<Conta> findByIdConta(@PathVariable("idConta") Long idConta){
+		Conta obj = manager.findByIdConta(idConta);
+		return ResponseEntity.ok().body(obj);
+	}
 
-	@GetMapping(value = "/{agencia}")
-	public ResponseEntity<Conta> findById(@PathVariable Long agencia){
+	@GetMapping(value = "/agencia/{agencia}")
+	public ResponseEntity<Conta> findById(@PathVariable("agencia") Long agencia){
 		Conta obj = manager.findByAgencia(agencia);
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@PatchMapping(value="/saldo/{idFiscal}")
-	public void updateSaldo(@PathVariable Long id, @RequestBody Conta conta){
-		conta = manager.update(id, conta);
+	@PatchMapping(value = "/deposito/{idConta}", consumes = "application/json-patch+json")
+	public void depositoSaldo(@PathVariable("idConta") Long idConta, @RequestBody Conta conta) {
+		conta = manager.update(idConta, conta);
+	}
+	
+	@PatchMapping(value="/saque/{idConta}", consumes = "application/json-patch+json")
+	public void saqueSaldo(@PathVariable("idConta") Long idConta, @RequestBody Conta conta){
+		conta = manager.update(idConta, conta);
+		}
+	
+	@PatchMapping(value="/update/{idConta}" , consumes = "application/json-patch+json")
+	public void updateSaldo(@PathVariable("idConta") Long idConta, @RequestBody Conta conta){
+		conta = manager.update(idConta, conta);
 		
 	}
 	@PostMapping(value="/cadastro")

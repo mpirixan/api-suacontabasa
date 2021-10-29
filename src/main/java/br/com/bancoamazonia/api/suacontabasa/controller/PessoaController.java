@@ -34,20 +34,20 @@ public class PessoaController {
 				}
 
 	@GetMapping(value = "/idpessoa/{idPessoa}")
-	public ResponseEntity<Pessoa> findById(@PathVariable Long idPessoa){
+	public ResponseEntity<Pessoa> findById(@PathVariable("idPessoa") Long idPessoa){
 		Pessoa pessoa = manager.findByIdPessoa(idPessoa);
 		return ResponseEntity.ok().body(pessoa);
 	}
 	
 
 	@GetMapping(value = "/cpf-cnpj/{idFiscal}")
-	public ResponseEntity<Pessoa> findByIdFiscal(@PathVariable Long idFiscal){
+	public ResponseEntity<Pessoa> findByIdFiscal(@PathVariable("idFiscal") Long idFiscal){
 		Pessoa pessoa = manager.findByIdFiscal(idFiscal);
 		return ResponseEntity.ok().body(pessoa);
 	}
 	
 	@PatchMapping(value="/dados/{idFiscal}")
-	public void updateDados(@PathVariable Long id, @RequestBody Pessoa pessoa){
+	public void updateDados(@PathVariable("idFiscal") Long id, @RequestBody Pessoa pessoa){
 		pessoa = manager.update(id, pessoa);
 		
 	}

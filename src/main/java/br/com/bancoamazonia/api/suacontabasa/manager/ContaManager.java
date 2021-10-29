@@ -6,12 +6,12 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.amazoniafw.base.exceptions.displayable.BusinessException;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 import br.com.bancoamazonia.api.suacontabasa.repository.ContaRepository;
-
 
 @Component
 @Validated
@@ -20,6 +20,7 @@ public class ContaManager {
 	@Autowired
 	private ContaRepository repository;
 	
+	@Transactional
 	public List<Conta> findAll(){
 		return (List<Conta>) repository.findAll();
 	}
@@ -40,6 +41,14 @@ public class ContaManager {
 		return conta;
 	}
 	*/
+	public Conta findByIdConta(Long idConta) {
+		Conta conta = repository.findByAgencia(idConta);
+		if(idConta == null) {
+			throw new BusinessException("Não foi possivel localizar a pessoa com Cpf/Cnpj "+idConta);
+		}
+		return conta;
+	}
+	
 	public Conta findByAgencia(Long agencia) {
 		Conta conta = repository.findByAgencia(agencia);
 		if(conta == null) {
@@ -48,14 +57,17 @@ public class ContaManager {
 		return conta;
 	}
 	
-	public Conta update(Long id, Conta obj) { 
+	@Transactional
+	public Conta update(Long idConta, Conta obj) { 
 		try {
-		Conta entity = repository.getOne(id);
+		Conta entity = repository.findByIdConta(idConta);
 		updateDados(entity, obj);
 		updateSaldo(entity, obj);
+		saqueSaldo(entity, obj);
+		depositoSaldo(entity, obj);
 		return repository.save(entity);
 		}catch (EntityNotFoundException e) {
-			throw new BusinessException(("Não foi possivel localizar a pessoa com identificação "+ id));
+			throw new BusinessException(("Não foi possivel localizar a pessoa com identificação "+ idConta));
 		}
 	}
 	
@@ -70,11 +82,21 @@ public class ContaManager {
 		entity.setSaldo(obj.getSaldo());
 
 	}
-
+	
+	private void depositoSaldo(Conta entity, Conta obj) {
+		entity.setSaldo(entity.getSaldo() + obj.getSaldo());
+	}
+	
+	private void saqueSaldo(Conta entity, Conta obj) {
+		entity.setSaldo(entity.getSaldo() - obj.getSaldo());
+	}
+	
+	@Transactional
 	public Conta insert(Conta obj) {
 		return repository.save(obj);
 	}
 
+	@Transactional
 	public Conta delete(Long idConta, Conta conta) {
 		Conta entity = repository.findByIdConta(idConta);
 		repository.delete(entity);
