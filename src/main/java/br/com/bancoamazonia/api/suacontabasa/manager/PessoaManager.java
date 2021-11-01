@@ -5,22 +5,23 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.amazoniafw.base.exceptions.displayable.BusinessException;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
+import br.com.bancoamazonia.api.suacontabasa.repository.ContaRepository;
 import br.com.bancoamazonia.api.suacontabasa.repository.PessoaRepository;
 
 @Service
-@Component
 @Validated
 public class PessoaManager {
 
 	@Autowired
 	private PessoaRepository repository;
+	
+	private ContaRepository contaRepository;
 	
 	public List<Pessoa> findAll(){
 		return (List<Pessoa>) repository.findAll();

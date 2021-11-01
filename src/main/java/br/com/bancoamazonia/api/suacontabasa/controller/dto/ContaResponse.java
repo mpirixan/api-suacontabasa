@@ -8,6 +8,19 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class ContaResponse implements Serializable {
 
 	private static final long serialVersionUID = -2259094710454561830L;
+	@Schema(description = "pessoa - pessoa relacionada a conta")
+	private PessoaResponse idPessoa;
+	
+	@Schema(description = "pessoa - pessoa(fiscal) relacionada a conta")
+	private PessoaResponse idFiscal;
+	
+	public PessoaResponse getIdPessoa() {
+		return idPessoa;
+	}
+
+	public PessoaResponse getIdFiscal() {
+		return idFiscal;
+	}
 
 	@Schema(description = "idConta - identificador único da Conta")
 	private Long idConta;
@@ -41,36 +54,40 @@ public class ContaResponse implements Serializable {
 		return Objects.equals(agencia, other.agencia) && Objects.equals(idConta, other.idConta);
 	}
 
-	public Long getIdPessoa() {
+	public Long getIdConta() {
 		return idConta;
 	}
 
-	public void setIdPessoa(Long idPessoa) {
-		this.idConta = idPessoa;
+	public void setIdConta(Long idConta) {
+		this.idConta = idConta;
 	}
 
-	public Long getIdFiscal() {
+	public Long getAgencia() {
 		return agencia;
 	}
 
-	public void setIdFiscal(Long idFiscal) {
-		this.agencia = idFiscal;
+	public void setAgencia(Long agencia) {
+		this.agencia = agencia;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public String getNome() {
 		return status;
-	}
-
-	public void setNome(String nome) {
-		this.status = nome;
-	}
-
-	public String getUltimo_nome() {
-		return senha;
-	}
-
-	public void setUltimo_nome(String ultimo_nome) {
-		this.senha = ultimo_nome;
 	}
 
 	public Double getSaldo() {

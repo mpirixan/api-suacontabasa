@@ -42,7 +42,7 @@ public class ContaManager {
 	}
 	*/
 	public Conta findByIdConta(Long idConta) {
-		Conta conta = repository.findByAgencia(idConta);
+		Conta conta = repository.findByIdConta(idConta);
 		if(idConta == null) {
 			throw new BusinessException("Não foi possivel localizar a pessoa com Cpf/Cnpj "+idConta);
 		}
@@ -88,7 +88,9 @@ public class ContaManager {
 	}
 	
 	private void saqueSaldo(Conta entity, Conta obj) {
-		entity.setSaldo(entity.getSaldo() - obj.getSaldo());
+		Double saque = obj.getSaldo();
+		saque = (entity.getSaldo() - saque);
+		entity.setSaldo(saque);
 	}
 	
 	@Transactional

@@ -2,6 +2,7 @@ package br.com.bancoamazonia.api.suacontabasa.domain.model;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,7 +35,8 @@ public class Conta implements EntityModel<Long>{
 	@Column(name="SALDO")
 	private Double saldo;
 
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	
+	@OneToOne(fetch = FetchType.LAZY, optional = false, cascade =  CascadeType.ALL)
 	@JoinColumn(name = "IDCONTA", nullable = false)
 	private Pessoa pessoa;
 	

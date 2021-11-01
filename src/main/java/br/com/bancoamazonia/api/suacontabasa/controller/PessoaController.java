@@ -22,6 +22,7 @@ import br.com.bancoamazonia.api.suacontabasa.manager.PessoaManager;
 @RequestMapping(value = "/pessoas")
 public class PessoaController {
 
+	@Autowired
 	private PessoaManager manager;
 	
 	@Autowired

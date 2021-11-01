@@ -50,9 +50,10 @@ public class ContaController {
 		conta = manager.update(idConta, conta);
 	}
 	
-	@PatchMapping(value="/saque/{idConta}", consumes = "application/json-patch+json")
+	@PatchMapping(value="/saque/{idConta}")
 	public void saqueSaldo(@PathVariable("idConta") Long idConta, @RequestBody Conta conta){
 		conta = manager.update(idConta, conta);
+		//modelMapper.map(manager.update(idConta, conta), ContaResponse.class);
 		}
 	
 	@PatchMapping(value="/update/{idConta}" , consumes = "application/json-patch+json")

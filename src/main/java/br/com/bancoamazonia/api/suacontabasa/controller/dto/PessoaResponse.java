@@ -18,6 +18,13 @@ public class PessoaResponse implements Serializable {
 	@Schema(description = "nome - nome da Pessoa")
 	private String nome;
 
+	@Schema(description = "conta - conta relacionada a pessoa")
+	private ContaResponse idConta;
+	
+	public ContaResponse getIdConta() {
+		return idConta;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(idFiscal, idPessoa, nome);

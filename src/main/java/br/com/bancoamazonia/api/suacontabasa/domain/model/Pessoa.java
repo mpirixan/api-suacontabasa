@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import br.com.amazoniafw.base.components.model.EntityModel;
 
 @Entity
@@ -28,9 +30,8 @@ public class Pessoa implements EntityModel<Long>{
 	@Column(name="NOME")
 	private String nome;
 	
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "pessoa")
+	@JsonProperty
+    @OneToOne(mappedBy = "pessoa")
     private Conta conta;	
 	
 	/*
