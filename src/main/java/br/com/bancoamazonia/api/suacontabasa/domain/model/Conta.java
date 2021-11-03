@@ -132,7 +132,11 @@ public class Conta implements EntityModel<Long>{
 		this.saldo = saldo;
 	}
 
-
+	public void subSaldo(Double saque) {
+		Double result = (saldo - saque);
+		this.saldo = result;
+	
+}
 
 
 	}
