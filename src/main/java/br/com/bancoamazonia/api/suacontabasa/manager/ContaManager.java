@@ -74,23 +74,11 @@ public class ContaManager {
 		
 		
 	}
-	/*
+
 	@Transactional
 	public Conta services (Long idConta, Double obj) {
 		Conta entity = repository.findByIdConta(idConta);
 		updateSaldo(entity, obj);
-		saqueSaldo(entity, obj);
-		depositoSaldo(entity, obj);
-		return repository.save(entity);
-	}
-	*/
-	
-	@Transactional
-	public Conta services (Long idConta, Double obj) {
-		Conta entity = repository.findByIdConta(idConta);
-		updateSaldo(entity, obj);
-		saqueSaldo(idConta, obj);
-		depositoSaldo(idConta, obj);
 		return repository.save(entity);
 	}
 	private void updateSaldo(Conta entity, Double obj) {
@@ -98,16 +86,12 @@ public class ContaManager {
 
 	}
 	
-	private void depositoSaldo(Long idConta, Double obj) {
-		//entity.setSaldo(entity.getSaldo() + obj);
+	public void depositoSaldo(Long idConta, Double obj) {
+		repository.setDepositoSaldo(obj, idConta);
 	}
 	
-	private void saqueSaldo(Long idConta, Double obj) {
-		// entity.subSaldo(obj);
-		//Double result;
-		// result = saque - obj;
-		//entity.setSaldo(saque);
-		repository.setFixedSaldo(obj, idConta);
+	public void saqueSaldo(Long idConta, Double obj) {
+		repository.setSaqueSaldo(obj, idConta);
 		
 	}
 	

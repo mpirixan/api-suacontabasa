@@ -45,15 +45,15 @@ public class ContaController {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@PatchMapping(value = "/deposito/{idConta}", consumes = "application/json-patch+json")
+	@PatchMapping(value = "/deposito/{idConta}")
 	public void depositoSaldo(@PathVariable("idConta") Long idConta, @RequestBody Double obj) {
-		manager.services(idConta, obj);
+		manager.depositoSaldo(idConta, obj);
 	}
 	
 	@PatchMapping(value="/saque/{idConta}")
 	public void saqueSaldo(@PathVariable("idConta") Long idConta, @RequestBody Double obj){
 	
-		manager.services(idConta, obj);
+		manager.saqueSaldo(idConta, obj);
 		//modelMapper.map(manager.update(idConta, conta), ContaResponse.class);
 		}
 	

@@ -4,10 +4,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 
-
+@Transactional
 @Repository
 public interface ContaRepository extends CrudRepository<Conta, Long>{
 
@@ -17,10 +18,16 @@ public interface ContaRepository extends CrudRepository<Conta, Long>{
 
 	public Conta getOne(Long id);
 	
+	
+	
+	@Modifying
+	@Query("update Conta c set  c.saldo = c.saldo - ?1 where c.idConta = ?2")
+	void setSaqueSaldo(Double saldo, Long idConta);
+
 	public Conta findByIdConta(Long idConta);
 	
 	@Modifying
-	@Query(value = "UPDATE CONTA c SET  c.saldo = c.saldo - ?1 WHERE c.idConta = ?2", nativeQuery = true)
-	void setFixedSaldo(Double saldo, Long idConta);
+	@Query("update Conta c set  c.saldo = c.saldo + ?1 where c.idConta = ?2")
+	void setDepositoSaldo(Double saldo, Long idConta);
 
 }
