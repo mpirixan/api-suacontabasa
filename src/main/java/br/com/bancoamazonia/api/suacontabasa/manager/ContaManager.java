@@ -62,35 +62,41 @@ public class ContaManager {
 		try {
 		Conta entity = repository.findByIdConta(idConta);
 		updateDados(entity, obj);
-		updateSaldo(entity, obj);
-		saqueSaldo(entity, obj);
-		depositoSaldo(entity, obj);
+
 		return repository.save(entity);
 		}catch (EntityNotFoundException e) {
 			throw new BusinessException(("Não foi possivel localizar a pessoa com identificação "+ idConta));
 		}
 	}
-	
 	private void updateDados(Conta entity, Conta obj) {
 		entity.setAgencia(obj.getAgencia());
 		entity.setStatus(obj.getStatus());
 		
 		
 	}
-	
-	private void updateSaldo(Conta entity, Conta obj) {
-		entity.setSaldo(obj.getSaldo());
+	@Transactional
+	public Conta services (Long idConta, Double obj) {
+		Conta entity = repository.findByIdConta(idConta);
+		updateSaldo(entity, obj);
+		saqueSaldo(entity, obj);
+		depositoSaldo(entity, obj);
+		return repository.save(entity);
+	}
+	private void updateSaldo(Conta entity, Double obj) {
+		entity.setSaldo(obj);
 
 	}
 	
-	private void depositoSaldo(Conta entity, Conta obj) {
-		entity.setSaldo(entity.getSaldo() + obj.getSaldo());
+	private void depositoSaldo(Conta entity, Double obj) {
+		entity.setSaldo(entity.getSaldo() + obj);
 	}
 	
-	private void saqueSaldo(Conta entity, Conta obj) {
-		Double saque = obj.getSaldo();
-		saque = (entity.getSaldo() - saque);
-		entity.setSaldo(saque);
+	private void saqueSaldo(Conta entity, Double obj) {
+		Double saque = entity.getSaldo();
+		Double result;
+		result = saque - obj;
+		entity.setSaldo(result);
+		
 	}
 	
 	@Transactional

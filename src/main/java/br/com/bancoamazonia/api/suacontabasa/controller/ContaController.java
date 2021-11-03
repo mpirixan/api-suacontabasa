@@ -46,19 +46,20 @@ public class ContaController {
 	}
 	
 	@PatchMapping(value = "/deposito/{idConta}", consumes = "application/json-patch+json")
-	public void depositoSaldo(@PathVariable("idConta") Long idConta, @RequestBody Conta conta) {
-		conta = manager.update(idConta, conta);
+	public void depositoSaldo(@PathVariable("idConta") Long idConta, @RequestBody Double obj) {
+		manager.services(idConta, obj);
 	}
 	
 	@PatchMapping(value="/saque/{idConta}")
-	public void saqueSaldo(@PathVariable("idConta") Long idConta, @RequestBody Conta conta){
-		conta = manager.update(idConta, conta);
+	public void saqueSaldo(@PathVariable("idConta") Long idConta, @RequestBody Double obj){
+	
+		manager.services(idConta, obj);
 		//modelMapper.map(manager.update(idConta, conta), ContaResponse.class);
 		}
 	
 	@PatchMapping(value="/update/{idConta}" , consumes = "application/json-patch+json")
-	public void updateSaldo(@PathVariable("idConta") Long idConta, @RequestBody Conta conta){
-		conta = manager.update(idConta, conta);
+	public void updateSaldo(@PathVariable("idConta") Long idConta, @RequestBody Double obj){
+		 manager.services(idConta, obj);
 		
 	}
 	@PostMapping(value="/cadastro")
