@@ -15,4 +15,13 @@ public interface PessoaRepository extends CrudRepository<Pessoa, Long>{
 
 	public Pessoa getOne(Long id);
 
+	
+	// insert in json
+	/* {
+	  "idFiscal": 12345678,
+	  "nome": "André Matos",
+	  "dataNascimento": "1984-08-14T13:42:56.151Z",
+	  "tipoPessoa": "FISICA"
+	} 
+	*/
 }

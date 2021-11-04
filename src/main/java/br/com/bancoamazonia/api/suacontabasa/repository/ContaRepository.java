@@ -23,6 +23,7 @@ public interface ContaRepository extends CrudRepository<Conta, Long>{
 	@Modifying
 	@Query("update Conta c set  c.saldo = c.saldo - ?1 where c.idConta = ?2")
 	void setSaqueSaldo(Double saldo, Long idConta);
+	
 
 	public Conta findByIdConta(Long idConta);
 	
@@ -30,4 +31,7 @@ public interface ContaRepository extends CrudRepository<Conta, Long>{
 	@Query("update Conta c set  c.saldo = c.saldo + ?1 where c.idConta = ?2")
 	void setDepositoSaldo(Double saldo, Long idConta);
 
+	
+	// insert to conta sql
+	// insert into CONTA (IDCONTA ,AGENCIA, DATA_VIGENCIA, SALDO, SENHA, STATUS, TIPO_CONTA) values (2,'7', '2025-10-16 00:00:00.000', '500', 'carryon', 'ATIVA', 'CONTA_CORRENTE');
 }
