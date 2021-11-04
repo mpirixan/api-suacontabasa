@@ -1,6 +1,7 @@
 package br.com.bancoamazonia.api.suacontabasa.controller.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,6 +21,9 @@ public class PessoaResponse implements Serializable {
 
 	@Schema(description = "conta - conta relacionada a pessoa")
 	private ContaResponse idConta;
+	
+	@Schema(description = "dataNascimento - Data de Nascimento da pessoa")
+	private Date dataNascimento;
 	
 	public ContaResponse getIdConta() {
 		return idConta;
@@ -57,6 +61,14 @@ public class PessoaResponse implements Serializable {
 
 	public void setIdFiscal(Long idFiscal) {
 		this.idFiscal = idFiscal;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public String getNome() {

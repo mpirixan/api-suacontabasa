@@ -1,9 +1,12 @@
 package br.com.bancoamazonia.api.suacontabasa.domain.model;
 
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +16,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import br.com.amazoniafw.base.components.model.EntityModel;
+import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoPessoaEnum;
 
 @Entity
 @Table(name="PESSOA")
@@ -28,6 +32,32 @@ public class Pessoa implements EntityModel<Long>{
 	@Column(name="NOME")
 	private String nome;
 	
+	@Column(name="DATA_NASC")
+	private Date dataNascimento;
+	
+	public TipoPessoaEnum getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+
+	public void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
+
+	@Enumerated(EnumType.STRING)
+	@Column(name="TIPO_PESSOA")
+	private TipoPessoaEnum tipoPessoa;
+	
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+
 	@JsonProperty
     @OneToOne(mappedBy = "pessoa")
     private Conta conta;	

@@ -1,10 +1,13 @@
 package br.com.bancoamazonia.api.suacontabasa.domain.model;
 
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +17,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.amazoniafw.base.components.model.EntityModel;
+import br.com.bancoamazonia.api.suacontabasa.domain.enums.StatusContaEnum;
+import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoContaEnum;
 
 @Entity
 @Table(name="CONTA")
@@ -26,8 +31,9 @@ public class Conta implements EntityModel<Long>{
 	@Column(name="AGENCIA")
 	private Long agencia;
 	
+	@Enumerated(EnumType.STRING)
 	@Column(name="STATUS")
-	private String status;
+	private StatusContaEnum status;
 	
 	@Column(name="SENHA")
 	private String senha;
@@ -35,7 +41,22 @@ public class Conta implements EntityModel<Long>{
 	@Column(name="SALDO")
 	private Double saldo;
 
+	@Column(name="DATA_VIGENCIA")
+	private Date dataVigencia;
 	
+	@Enumerated(EnumType.STRING)
+	@Column(name="TIPO_CONTA")
+	private TipoContaEnum tipoConta; ;
+	
+	public Date getDataVigencia() {
+		return dataVigencia;
+	}
+
+
+	public void setDataVigencia(Date dataVigencia) {
+		this.dataVigencia = dataVigencia;
+	}
+
 	@OneToOne(fetch = FetchType.LAZY, optional = false, cascade =  CascadeType.ALL)
 	@JoinColumn(name = "IDCONTA", nullable = false)
 	private Pessoa pessoa;
@@ -66,6 +87,16 @@ public class Conta implements EntityModel<Long>{
 
 
 
+	public TipoContaEnum getTipoConta() {
+		return tipoConta;
+	}
+
+
+	public void setTipoConta(TipoContaEnum tipoConta) {
+		this.tipoConta = tipoConta;
+	}
+
+
 	public Long getIdConta() {
 		return idConta;
 	}
@@ -76,12 +107,12 @@ public class Conta implements EntityModel<Long>{
 	}
 
 
-	public String getStatus() {
+	public StatusContaEnum getStatus() {
 		return status;
 	}
 
 
-	public void setStatus(String status) {
+	public void setStatus(StatusContaEnum status) {
 		this.status = status;
 	}
 
@@ -96,12 +127,11 @@ public class Conta implements EntityModel<Long>{
 	}
 
 
-	public Conta(Long idConta, Long agencia, String status, String senha, Double saldo) {
+	public Conta(Long idConta, Long agencia, StatusContaEnum status, Double saldo) {
 		super();
 		this.idConta = idConta;
 		this.agencia = agencia;
 		this.status = status;
-		this.senha = senha;
 		this.saldo = saldo;
 	}
 

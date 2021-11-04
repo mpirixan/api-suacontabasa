@@ -31,8 +31,8 @@ public class ContaResponse implements Serializable {
 	@Schema(description = "status - status da conta")
 	private String status;
 	
-	@Schema(description = "senha - senha da conta")
-	private String senha;
+//	@Schema(description = "senha - senha da conta")
+//	private String senha;
 
 	@Schema(description = "saldo - Saldo da Conta")
 	private Double saldo;
@@ -78,13 +78,13 @@ public class ContaResponse implements Serializable {
 		this.status = status;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
+//	public String getSenha() {
+//		return senha;
+//	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+//	public void setSenha(String senha) {
+//		this.senha = senha;
+//	}
 
 	public String getNome() {
 		return status;

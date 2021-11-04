@@ -1,22 +1,24 @@
 package br.com.bancoamazonia.api.suacontabasa.domain.enums;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum StatusContaEnum implements IEnumObject<String, String> {
-
-	 ATIVA("Ativa"),
-	 DESATIVADO("Desativado");
-
-	private String value;
-
-	@Override
+public enum TipoCadastroEnum implements IEnumObject<String, String>{
+	
+	BASICO("Basico"),
+	COMPLETO("Completo");
+	
+	public String value;
+	
+	@Autowired
 	public String getValue() {
 		return this.value;
 	}
 
 
-	private StatusContaEnum(String value) {
+	private TipoCadastroEnum(String value) {
 		this.value = value;
 	}
 
@@ -24,7 +26,4 @@ public enum StatusContaEnum implements IEnumObject<String, String> {
 	public String getKey() {
 		return this.name();
 	}
-	
-	
-	
 }

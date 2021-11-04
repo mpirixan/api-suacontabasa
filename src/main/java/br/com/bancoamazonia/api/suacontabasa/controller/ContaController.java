@@ -38,7 +38,6 @@ public class ContaController {
 		Conta obj = manager.findByIdConta(idConta);
 		return ResponseEntity.ok().body(obj);
 	}
-
 	@GetMapping(value = "/agencia/{agencia}")
 	public ResponseEntity<Conta> findById(@PathVariable("agencia") Long agencia){
 		Conta obj = manager.findByAgencia(agencia);
