@@ -10,10 +10,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.com.amazoniafw.base.components.model.EntityModel;
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoPessoaEnum;
@@ -26,12 +25,13 @@ public class Pessoa implements EntityModel<Long>{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPessoa;
 	
-	@Column(name="NUM_CPF_CNPJ")
+	@Column(name="NUM_CPF_CNPJ", unique=true)
 	private Long idFiscal;
 	
 	@Column(name="NOME")
 	private String nome;
 	
+	@Temporal(TemporalType.DATE)
 	@Column(name="DATA_NASC")
 	private Date dataNascimento;
 	
@@ -57,15 +57,15 @@ public class Pessoa implements EntityModel<Long>{
 		this.dataNascimento = dataNascimento;
 	}
 
-
+/*
 	@JsonProperty
     @OneToOne(mappedBy = "pessoa")
     private Conta conta;	
 	
-	/*
-	@OneToOne(mappedBy = "idPessoa",cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	private Conta idConta;
+	
+	@OneToOne(fetch = FetchType.LAZY, optional = false, cascade =  CascadeType.ALL)
+	@JoinColumn(name = "IDCONTA")
+	private Conta conta;
 	*/
 	public Pessoa() {
 		

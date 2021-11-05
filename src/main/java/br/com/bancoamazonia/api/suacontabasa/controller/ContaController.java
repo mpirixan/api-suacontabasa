@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.bancoamazonia.api.suacontabasa.controller.dto.ContaResponse;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 import br.com.bancoamazonia.api.suacontabasa.manager.ContaManager;
 
@@ -61,9 +60,9 @@ public class ContaController {
 		 manager.services(idConta, obj);
 		
 	}
-	@PostMapping(value="/cadastro")
-	public ContaResponse insert(@RequestBody Conta obj) {
-		return modelMapper.map(manager.insert(obj), ContaResponse.class);
+	@PostMapping(value="/cadastro/{idConta}")
+	public Conta insert(@PathVariable("idConta") Long idConta, @RequestBody Conta obj) {
+		return modelMapper.map(manager.insert(obj), Conta.class);
 	}
 	
 	/*

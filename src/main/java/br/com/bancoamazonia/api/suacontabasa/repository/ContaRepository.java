@@ -32,6 +32,10 @@ public interface ContaRepository extends CrudRepository<Conta, Long>{
 	void setDepositoSaldo(Double saldo, Long idConta);
 
 	
-	// insert to conta sql
-	// insert into CONTA (IDCONTA ,AGENCIA, DATA_VIGENCIA, SALDO, SENHA, STATUS, TIPO_CONTA) values (2,'7', '2025-10-16 00:00:00.000', '500', 'carryon', 'ATIVA', 'CONTA_CORRENTE');
+	/*
+	//insert to conta sql
+	@Modifying
+	@Query("insert into CONTA (IDCONTA ,AGENCIA, DATA_VIGENCIA, SALDO, SENHA, STATUS, TIPO_CONTA) values (2,'7', '2025-10-16 00:00:00.000', '500', 'carryon', 'ATIVA', 'CONTA_CORRENTE'")
+	void insertConta();
+	*/
 }

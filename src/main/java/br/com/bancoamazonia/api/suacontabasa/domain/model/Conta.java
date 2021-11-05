@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.com.amazoniafw.base.components.model.EntityModel;
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.StatusContaEnum;
@@ -27,6 +29,15 @@ public class Conta implements EntityModel<Long>{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idConta;
+	
+	@OneToOne(fetch = FetchType.LAZY, optional = false, cascade =  CascadeType.ALL)
+	@JoinColumn(name = "IDPESSOA", nullable = false)
+	private Pessoa pessoa;
+	/*
+	 *@JsonProperty
+    @OneToOne(mappedBy = "conta")
+    private Pessoa pessoa;
+	 */
 	
 	@Column(name="AGENCIA")
 	private Long agencia;
@@ -41,6 +52,7 @@ public class Conta implements EntityModel<Long>{
 	@Column(name="SALDO")
 	private Double saldo;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name="DATA_VIGENCIA")
 	private Date dataVigencia;
 	
@@ -57,10 +69,7 @@ public class Conta implements EntityModel<Long>{
 		this.dataVigencia = dataVigencia;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, optional = false, cascade =  CascadeType.ALL)
-	@JoinColumn(name = "IDCONTA", nullable = false)
-	private Pessoa pessoa;
-	
+
 
 	public Conta() {
 		
@@ -127,14 +136,16 @@ public class Conta implements EntityModel<Long>{
 	}
 
 
-	public Conta(Long idConta, Long agencia, StatusContaEnum status, Double saldo) {
+	public Conta(Long agencia, StatusContaEnum status, Double saldo,Date dataVigencia, TipoContaEnum tipoConta) {
 		super();
-		this.idConta = idConta;
+		//this.idConta = idConta;
 		this.agencia = agencia;
 		this.status = status;
 		this.saldo = saldo;
+		this.dataVigencia = dataVigencia;
+		this.tipoConta = tipoConta;
 	}
-
+	
 
 	@Override
 	public Long getId() {
@@ -161,12 +172,6 @@ public class Conta implements EntityModel<Long>{
 	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
 	}
-
-	public void subSaldo(Double saque) {
-		Double result = (saldo - saque);
-		this.saldo = result;
-	
-}
 
 
 	}
