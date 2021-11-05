@@ -1,8 +1,8 @@
 package br.com.bancoamazonia.api.suacontabasa.controller;
 
+import java.util.Date;
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
@@ -24,8 +26,8 @@ public class ContaController {
 	@Autowired
 	private ContaManager manager;
 	
-	@Autowired
-	private ModelMapper modelMapper;
+	//@Autowired
+	//private ModelMapper modelMapper;
 	
 	@GetMapping
 	public ResponseEntity<List<Conta>> findAll(){
@@ -60,11 +62,13 @@ public class ContaController {
 		 manager.services(idConta, obj);
 		
 	}
-	@PostMapping(value="/cadastro/{idConta}")
-	public Conta insert(@PathVariable("idConta") Long idConta, @RequestBody Conta obj) {
-		return modelMapper.map(manager.insert(obj), Conta.class);
-	}
 	
+	@PostMapping(value="/cadastro/{idPessoa}")
+	@ResponseBody
+	public void insert(@PathVariable("idPessoa") Long idPessoa, @RequestParam("agencia") Long agencia, @RequestParam("dataVigencia") Date dataVigencia, @RequestParam("saldo") Double saldo,@RequestParam("senha")String senha,@RequestParam("status")String status,@RequestParam("tipoConta")String tipoConta) {
+		manager.insert(idPessoa, agencia, dataVigencia,saldo, senha,status,tipoConta );
+	}
+	// Long agencia, Date dataVigencia,Double saldo,String senha,String status,String tipoConta );
 	/*
 	@PostMapping(value="/cadastro")
 	public ResponseEntity<Conta> insert(@RequestBody Conta obj){

@@ -1,5 +1,6 @@
 package br.com.bancoamazonia.api.suacontabasa.manager;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -96,8 +97,8 @@ public class ContaManager {
 	}
 	
 	@Transactional
-	public Conta insert(Conta obj) {
-		return repository.save(obj);
+	public void insert(Long idPessoa,Long agencia,Date dataVigencia,Double saldo,String senha, String status,String tipoConta ) {
+		repository.insertConta(idPessoa,agencia,dataVigencia,saldo,senha,status,tipoConta);
 	}
 
 	@Transactional

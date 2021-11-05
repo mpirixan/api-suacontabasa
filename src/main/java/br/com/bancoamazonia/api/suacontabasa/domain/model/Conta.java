@@ -136,7 +136,7 @@ public class Conta implements EntityModel<Long>{
 	}
 
 
-	public Conta(Long agencia, StatusContaEnum status, Double saldo,Date dataVigencia, TipoContaEnum tipoConta) {
+	public Conta(Long agencia, StatusContaEnum status, Double saldo,Date dataVigencia, TipoContaEnum tipoConta, Pessoa pessoa) {
 		super();
 		//this.idConta = idConta;
 		this.agencia = agencia;
@@ -144,6 +144,7 @@ public class Conta implements EntityModel<Long>{
 		this.saldo = saldo;
 		this.dataVigencia = dataVigencia;
 		this.tipoConta = tipoConta;
+		this.pessoa = pessoa;
 	}
 	
 
@@ -171,6 +172,16 @@ public class Conta implements EntityModel<Long>{
 
 	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
+	}
+
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 
