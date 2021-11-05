@@ -101,7 +101,7 @@ public class ContaManager {
 	}
 
 	@Transactional
-	public Conta delete(Long idConta, Conta conta) {
+	public Conta delete(Long idConta) {
 		Conta entity = repository.findByIdConta(idConta);
 		repository.delete(entity);
 		return null;

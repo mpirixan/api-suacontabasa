@@ -11,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 
 import br.com.amazoniafw.base.exceptions.displayable.BusinessException;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
-import br.com.bancoamazonia.api.suacontabasa.repository.ContaRepository;
 import br.com.bancoamazonia.api.suacontabasa.repository.PessoaRepository;
 
 @Service
@@ -21,7 +20,7 @@ public class PessoaManager {
 	@Autowired
 	private PessoaRepository repository;
 	
-	private ContaRepository contaRepository;
+	
 	
 	public List<Pessoa> findAll(){
 		return (List<Pessoa>) repository.findAll();
@@ -65,7 +64,7 @@ public class PessoaManager {
 	}
 
 	@Transactional
-	public Pessoa delete(Long idPessoa, Pessoa pessoa) {
+	public Pessoa delete(Long idPessoa) {
 		Pessoa entity = repository.findByIdPessoa(idPessoa);
 		repository.delete(entity);
 		return null;

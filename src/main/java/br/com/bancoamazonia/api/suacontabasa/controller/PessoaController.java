@@ -66,7 +66,7 @@ public class PessoaController {
 	} */
 	
 	@DeleteMapping(value="/desativacao/{idPessoa}")
-	public void delete(@PathVariable("idPessoa") Long idPessoa, @RequestBody Pessoa pessoa) {
-		 pessoa = manager.delete(idPessoa, pessoa);
+	public void delete(@PathVariable("idPessoa") Long idPessoa) {
+		 manager.delete(idPessoa);
 	}
 }

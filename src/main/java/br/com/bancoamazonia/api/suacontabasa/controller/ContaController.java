@@ -75,7 +75,7 @@ public class ContaController {
 	} */
 	
 	@DeleteMapping(value="/desativacao/{idConta}")
-	public void delete(@PathVariable("idConta") Long idConta, @RequestBody Conta conta) {
-		 conta = manager.delete(idConta, conta);
+	public void delete(@PathVariable("idConta") Long idConta) { 
+		 manager.delete(idConta);
 	}
 }
