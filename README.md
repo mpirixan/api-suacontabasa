@@ -14,10 +14,10 @@ No cadastro de Pessoas, é utilizado um corpo em JSON
 
 ```JSON
 {
-	  "idFiscal": 12345678,
-	  "nome": "André Matos",
-	  "dataNascimento": "1984-08-14T13:42:56.151Z",
-	  "tipoPessoa": "FISICA"
+	"idFiscal": 12345678,
+	"nome": "André Matos",
+	"dataNascimento": "1984-08-14T13:42:56.151Z",
+	"tipoPessoa": "FISICA"
 } 
 ```
 
