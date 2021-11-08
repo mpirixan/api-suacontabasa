@@ -1,9 +1,10 @@
 package br.com.bancoamazonia.api.suacontabasa.manager;
 
-import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.amazoniafw.base.exceptions.displayable.BusinessException;
+import br.com.bancoamazonia.api.suacontabasa.controller.dto.ContaResponse;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 import br.com.bancoamazonia.api.suacontabasa.repository.ContaRepository;
 
@@ -20,6 +22,9 @@ public class ContaManager {
 
 	@Autowired
 	private ContaRepository repository;
+	
+	@PersistenceContext
+	private EntityManager entityManager;
 	
 	@Transactional
 	public List<Conta> findAll(){
@@ -80,11 +85,35 @@ public class ContaManager {
 		
 	}
 	
+/* Inserção com parametros
+	
 	@Transactional
 	public void insert(Long idPessoa,Long agencia,Date dataVigencia,Double saldo,String senha, String status,String tipoConta ) {
 		repository.insertConta(idPessoa,agencia,dataVigencia,saldo,senha,status,tipoConta);
 	}
-
+*/
+	
+	// Inserção com Corpo JSON
+	@Transactional
+	public void cadastro(ContaResponse conta) {
+		entityManager.createNativeQuery("insert into CONTA (IDPESSOA ,AGENCIA, DATA_VIGENCIA, SALDO, SENHA, STATUS, TIPO_CONTA) values (?,?,?,?,?,?,?)")
+		.setParameter(1, conta.getIdPessoa())
+		.setParameter(2, conta.getAgencia())
+		.setParameter(3, conta.getDataVigencia())
+		.setParameter(4, conta.getSaldo())
+		.setParameter(5, conta.getSenha())
+		.setParameter(6, conta.getStatus())
+		.setParameter(7, conta.getTipoConta())
+		.executeUpdate();
+		// return repository.save(conta);
+	}
+	
+	// Inserção com entitymanager
+	@Transactional
+	public void insertComEM(Conta conta) {
+		this.entityManager.persist(conta);
+	}
+	
 	@Transactional
 	public Conta delete(Long idConta) {
 		Conta entity = repository.findByIdConta(idConta);

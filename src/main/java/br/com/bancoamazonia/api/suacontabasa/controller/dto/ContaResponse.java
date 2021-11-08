@@ -1,6 +1,7 @@
 package br.com.bancoamazonia.api.suacontabasa.controller.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -9,21 +10,14 @@ public class ContaResponse implements Serializable {
 
 	private static final long serialVersionUID = -2259094710454561830L;
 	@Schema(description = "pessoa - pessoa relacionada a conta")
-	private PessoaResponse idPessoa;
+	private Long idPessoa;
 	
-	@Schema(description = "pessoa - pessoa(fiscal) relacionada a conta")
-	private PessoaResponse idFiscal;
-	
-	public PessoaResponse getIdPessoa() {
+	public Long getIdPessoa() {
 		return idPessoa;
 	}
 
-	public PessoaResponse getIdFiscal() {
-		return idFiscal;
-	}
-
-	@Schema(description = "idConta - identificador único da Conta")
-	private Long idConta;
+	//@Schema(description = "idConta - identificador único da Conta")
+	//private Long idConta;
 	
 	@Schema(description = "agencia - identificador agencia da Conta")
 	private Long agencia;
@@ -36,10 +30,40 @@ public class ContaResponse implements Serializable {
 
 	@Schema(description = "saldo - Saldo da Conta")
 	private Double saldo;
+
+	@Schema(description = "Data vigencia")
+	private Date dataVigencia;
+
+	@Schema(description = "Tipo de Conta")
+	private String tipoConta;
 	
+	public ContaResponse() {
+		
+	}
+	
+	public ContaResponse(Long idPessoa, Long agencia, String status, String senha, Double saldo,
+			Date dataVigencia, String tipoConta) {
+		super();
+		this.idPessoa = idPessoa;
+		this.agencia = agencia;
+		this.status = status;
+		this.senha = senha;
+		this.saldo = saldo;
+		this.dataVigencia = dataVigencia;
+		this.tipoConta = tipoConta;
+	}
+
+	public Date getDataVigencia() {
+		return dataVigencia;
+	}
+
+	public void setDataVigencia(Date dataVigencia) {
+		this.dataVigencia = dataVigencia;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(agencia, idConta);
+		return Objects.hash(idPessoa);
 	}
 
 	@Override
@@ -51,15 +75,7 @@ public class ContaResponse implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ContaResponse other = (ContaResponse) obj;
-		return Objects.equals(agencia, other.agencia) && Objects.equals(idConta, other.idConta);
-	}
-
-	public Long getIdConta() {
-		return idConta;
-	}
-
-	public void setIdConta(Long idConta) {
-		this.idConta = idConta;
+		return Objects.equals(idPessoa, other.idPessoa);
 	}
 
 	public Long getAgencia() {
@@ -96,6 +112,14 @@ public class ContaResponse implements Serializable {
 
 	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
+	}
+
+	public String getTipoConta() {
+		return tipoConta;
+	}
+
+	public void setTipoConta(String tipoConta) {
+		this.tipoConta = tipoConta;
 	}
 
 	public static long getSerialversionuid() {

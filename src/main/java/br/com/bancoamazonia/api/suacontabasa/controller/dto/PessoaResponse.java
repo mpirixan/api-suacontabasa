@@ -25,10 +25,15 @@ public class PessoaResponse implements Serializable {
 	@Schema(description = "dataNascimento - Data de Nascimento da pessoa")
 	private Date dataNascimento;
 	
+public PessoaResponse() {
+	
+}
+	
 	public ContaResponse getIdConta() {
 		return idConta;
 	}
 
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(idFiscal, idPessoa, nome);
@@ -49,6 +54,15 @@ public class PessoaResponse implements Serializable {
 
 	public Long getIdPessoa() {
 		return idPessoa;
+	}
+
+	public PessoaResponse(Long idPessoa, Long idFiscal, String nome, ContaResponse idConta, Date dataNascimento) {
+		super();
+		this.idPessoa = idPessoa;
+		this.idFiscal = idFiscal;
+		this.nome = nome;
+		this.idConta = idConta;
+		this.dataNascimento = dataNascimento;
 	}
 
 	public void setIdPessoa(Long idPessoa) {

@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.bancoamazonia.api.suacontabasa.controller.dto.ContaResponse;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 
 @Transactional
@@ -42,6 +43,8 @@ public interface ContaRepository extends CrudRepository<Conta, Long>{
 	value = 
 	"insert into CONTA (IDPESSOA ,AGENCIA, DATA_VIGENCIA, SALDO, SENHA, STATUS, TIPO_CONTA) values (:idPessoa, :agencia, :dataVigencia, :saldo, :senha, :status, :tipoConta)", nativeQuery= true)
 	void insertConta(@Param("idPessoa")Long idPessoa, @Param("agencia")Long agencia, @Param("dataVigencia") Date dataVigencia,@Param("saldo")Double saldo,@Param("senha")String senha, @Param("status")String status,@Param("tipoConta")String tipoConta );
+
+	public Conta save(ContaResponse conta);
 	
 	
 }
