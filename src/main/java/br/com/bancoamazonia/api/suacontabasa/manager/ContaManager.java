@@ -7,12 +7,14 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.amazoniafw.base.exceptions.displayable.BusinessException;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.ContaResponse;
+import br.com.bancoamazonia.api.suacontabasa.domain.enums.StatusContaEnum;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 import br.com.bancoamazonia.api.suacontabasa.repository.ContaRepository;
 
@@ -77,12 +79,23 @@ public class ContaManager {
 	}
 	
 	public void depositoSaldo(Long idConta, Double obj) {
+		Conta entity = repository.findByIdConta(idConta);
+		if (entity.getStatus() != StatusContaEnum.ATIVA) {
+			throw new BusinessException(("Conta " + idConta+ " não está Ativa! "));
+		}
+		else {
 		repository.setDepositoSaldo(obj, idConta);
+		}
 	}
 	
 	public void saqueSaldo(Long idConta, Double obj) {
+		Conta entity = repository.findByIdConta(idConta);
+		if (obj >= entity.getSaldo()) {
+			throw new BusinessException(("Saldo insuficiente! "));
+		}		
+		else {
 		repository.setSaqueSaldo(obj, idConta);
-		
+		}
 	}
 	
 /* Inserção com parametros
@@ -108,11 +121,6 @@ public class ContaManager {
 		// return repository.save(conta);
 	}
 	
-	// Inserção com entitymanager
-	@Transactional
-	public void insertComEM(Conta conta) {
-		this.entityManager.persist(conta);
-	}
 	
 	@Transactional
 	public Conta delete(Long idConta) {
