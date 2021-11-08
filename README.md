@@ -4,18 +4,31 @@
 3. Porta padrão: 8080 
 
 ## Requisição POST
-Exemplo de url com criação de contas
+#### Exemplo de url com criação de contas - Antigo
 ```bash
 
 curl -X POST "http://localhost:8080/api/v1/contas/cadastro/9?agencia=7&dataVigencia=2025%2F10%2F02&saldo=500&senha=adm123&status=ATIVA&tipoConta=PJ" -H  "accept: */*" -d ""
 
 ```
-No cadastro de Pessoas, é utilizado um corpo em JSON
+### Cadastro de conta atual
+```JSON
+{
+  "idPessoa": 10,
+  "agencia": 98,
+  "dataVigencia": "2021-11-08",
+  "saldo": 589, 
+  "senha": "string", 
+  "status": "ATIVA",
+  "tipoConta": "PJ"
+}
+```
+
+### No cadastro de Pessoas, é utilizado um corpo em JSON
 
 ```JSON
 {
 	"idFiscal": 12345678,
-	"nome": "André Matos",
+	"nome": "Fulano",
 	"dataNascimento": "1984-08-14T13:42:56.151Z",
 	"tipoPessoa": "FISICA"
 } 
