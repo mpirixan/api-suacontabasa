@@ -25,23 +25,7 @@ public class ContaManager {
 	public List<Conta> findAll(){
 		return (List<Conta>) repository.findAll();
 	}
-	/*
-	public Conta findByIdPessoa(@NotNull @Positive @Max(value = 999999999) @Valid Long idPessoa) {
-		Conta conta = repository.findByIdPessoa(idPessoa);
-		if(conta == null) {
-			throw new BusinessException("Não foi possivel localizar a pessoa com matricula cadastral "+idPessoa);
-		}
-		return conta;
-	}
 
-	public Conta findByIdFiscal(@NotBlank @CpfCnpj @Valid Long idFiscal) {
-		Conta conta = repository.findByIdFiscal(idFiscal);
-		if(conta == null) {
-			throw new BusinessException("Não foi possivel localizar a pessoa com Cpf/Cnpj "+idFiscal);
-		}
-		return conta;
-	}
-	*/
 	public Conta findByIdConta(Long idConta) {
 		Conta conta = repository.findByIdConta(idConta);
 		if(idConta == null) {

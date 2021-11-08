@@ -57,16 +57,7 @@ public class Pessoa implements EntityModel<Long>{
 		this.dataNascimento = dataNascimento;
 	}
 
-/*
-	@JsonProperty
-    @OneToOne(mappedBy = "pessoa")
-    private Conta conta;	
-	
-	
-	@OneToOne(fetch = FetchType.LAZY, optional = false, cascade =  CascadeType.ALL)
-	@JoinColumn(name = "IDCONTA")
-	private Conta conta;
-	*/
+
 	public Pessoa() {
 		
 	}

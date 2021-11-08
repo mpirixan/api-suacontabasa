@@ -33,12 +33,7 @@ public class Conta implements EntityModel<Long>{
 	@OneToOne(fetch = FetchType.LAZY, optional = false, cascade =  CascadeType.ALL)
 	@JoinColumn(name = "IDPESSOA", nullable = false)
 	private Pessoa pessoa;
-	/*
-	 *@JsonProperty
-    @OneToOne(mappedBy = "conta")
-    private Pessoa pessoa;
-	 */
-	
+
 	@Column(name="AGENCIA")
 	private Long agencia;
 	
