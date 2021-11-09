@@ -2,7 +2,6 @@ package br.com.bancoamazonia.api.suacontabasa.controller;
 
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,8 +24,6 @@ public class ContaController {
 	@Autowired
 	private ContaManager manager;
 	
-	@Autowired
-	private ModelMapper modelMapper;
 	
 	@GetMapping
 	public ResponseEntity<List<Conta>> findAll(){
@@ -42,6 +39,18 @@ public class ContaController {
 	public ResponseEntity<Conta> findById(@PathVariable("agencia") Long agencia){
 		Conta obj = manager.findByAgencia(agencia);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping(value = "/saldo/cpf-cnpj")
+	public ResponseEntity<Double> obterSaldoPorIdFiscal(Long idFiscal){
+		Double saldo = manager.obterSaldoPorIdFiscal(idFiscal);
+		return ResponseEntity.ok().body(saldo);
+	}
+	
+	@GetMapping(value = "/saldo/idconta")
+	public ResponseEntity<Double> obterSaldoPorIdConta(Long idConta){
+		Double saldo = manager.obterSaldoIdConta(idConta);
+		return ResponseEntity.ok().body(saldo);
 	}
 	
 	@PatchMapping(value = "/deposito/{idConta}")
@@ -61,15 +70,6 @@ public class ContaController {
 		 manager.services(idConta, obj);
 		
 	}
-	
-	/* Inserção com parametros
-	@PostMapping(value="/cadastro/{idPessoa}")
-	@ResponseBody
-	public void insert(@PathVariable("idPessoa") Long idPessoa, @RequestParam("agencia") Long agencia, @RequestParam("dataVigencia") Date dataVigencia, @RequestParam("saldo") Double saldo,@RequestParam("senha")String senha,@RequestParam("status")String status,@RequestParam("tipoConta")String tipoConta) {
-		manager.insert(idPessoa, agencia, dataVigencia,saldo, senha,status,tipoConta );
-	}
-	
-	*/
 	
 	// inserção com corpo JSON
 

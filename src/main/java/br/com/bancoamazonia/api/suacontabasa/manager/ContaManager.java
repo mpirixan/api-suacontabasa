@@ -7,7 +7,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -16,7 +15,9 @@ import br.com.amazoniafw.base.exceptions.displayable.BusinessException;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.ContaResponse;
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.StatusContaEnum;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
+import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
 import br.com.bancoamazonia.api.suacontabasa.repository.ContaRepository;
+import br.com.bancoamazonia.api.suacontabasa.repository.PessoaRepository;
 
 @Component
 @Validated
@@ -25,8 +26,13 @@ public class ContaManager {
 	@Autowired
 	private ContaRepository repository;
 	
+	@Autowired
+	private PessoaRepository pessoaRepository;
+	
 	@PersistenceContext
 	private EntityManager entityManager;
+	
+
 	
 	@Transactional
 	public List<Conta> findAll(){
@@ -98,14 +104,6 @@ public class ContaManager {
 		}
 	}
 	
-/* Inserção com parametros
-	
-	@Transactional
-	public void insert(Long idPessoa,Long agencia,Date dataVigencia,Double saldo,String senha, String status,String tipoConta ) {
-		repository.insertConta(idPessoa,agencia,dataVigencia,saldo,senha,status,tipoConta);
-	}
-*/
-	
 	// Inserção com Corpo JSON
 	@Transactional
 	public void cadastro(ContaResponse conta) {
@@ -118,7 +116,6 @@ public class ContaManager {
 		.setParameter(6, conta.getStatus())
 		.setParameter(7, conta.getTipoConta())
 		.executeUpdate();
-		// return repository.save(conta);
 	}
 	
 	
@@ -128,6 +125,64 @@ public class ContaManager {
 		repository.delete(entity);
 		return null;
 	}
-
 	
+	public Double obterSaldoIdConta(Long idConta) {
+		Conta conta = repository.findByIdConta(idConta);
+		if (conta == null) {
+			throw new BusinessException(("Conta Inexistente! "));
+		}
+		if (conta != null && conta.getStatus() != StatusContaEnum.ATIVA) {
+			throw new BusinessException(("Conta Desativada! "));
+		}
+		else {
+			return repository.obterSaldoIdConta(idConta);
+		}
+	}
+	
+	@Transactional
+	public Double obterSaldoPorIdFiscal (Long idFiscal) {
+		Pessoa idPessoa = pessoaRepository.findByIdFiscal(idFiscal);
+		Long idConta = repository.obterIdConta(idPessoa.getIdPessoa());
+		Conta conta = repository.findByIdConta(idConta);
+		if (conta == null) {
+			throw new BusinessException(("Conta Inexistente! "));
+		}
+		if (conta != null && conta.getStatus() != StatusContaEnum.ATIVA) {
+			throw new BusinessException(("Conta Desativada! "));
+		}
+		else {
+			return  repository.obterSaldoIdConta(idConta);
+		}
+	}
+	
+	
+	/*
+	@Transactional
+	public Double obterSaldoPorIdFiscal (Long idFiscal) {
+		Pessoa pessoa = pessoaRepository.findByIdFiscal(idFiscal);
+		Conta conta = repository.findByIdPessoa(pessoa.getIdPessoa());
+		if (conta == null) {
+			throw new BusinessException(("Conta Inexistente! "));
+		}
+		if (conta != null && conta.getStatus() != StatusContaEnum.ATIVA) {
+			throw new BusinessException(("Conta Desativada! "));
+		}
+		else {
+			return  conta.getSaldo();
+		}
+	}
+	
+	public Double  obterSaldoPorIdConta(Long idConta) {
+		Conta conta = repository.findByIdConta(idConta);
+		if (conta == null) {
+			throw new BusinessException(("Conta Inexistente! "));
+		}
+		if (conta != null && conta.getStatus() != StatusContaEnum.ATIVA) {
+			throw new BusinessException(("Conta Desativada! "));
+		}
+		else {
+			return conta.getSaldo();
+		}
+	}
+	*/
 }

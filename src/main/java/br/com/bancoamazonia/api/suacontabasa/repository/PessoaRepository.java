@@ -1,6 +1,8 @@
 package br.com.bancoamazonia.api.suacontabasa.repository;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
@@ -15,13 +17,7 @@ public interface PessoaRepository extends CrudRepository<Pessoa, Long>{
 
 	public Pessoa getOne(Long id);
 
-	
-	// insert in json
-	/* {
-	  "idFiscal": 12345678,
-	  "nome": "André Matos",
-	  "dataNascimento": "1984-08-14T13:42:56.151Z",
-	  "tipoPessoa": "FISICA"
-	} 
-	*/
+
+	@Query(value = "select IDPESSOA from PESSOA c where c.IDFISCAL = :idFiscal", nativeQuery=true)
+	public Long obterIdPessoa(@Param("idFiscal")Long idFiscal);
 }

@@ -16,7 +16,6 @@ import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 @Repository
 public interface ContaRepository extends CrudRepository<Conta, Long>{
 
-	//public Conta findByIdPessoa(Long idPessoa);
 	
 	public Conta findByAgencia(Long agencia);
 
@@ -36,7 +35,6 @@ public interface ContaRepository extends CrudRepository<Conta, Long>{
 	void setDepositoSaldo(Double saldo, Long idConta);
 
 	
-	
 	//insert to conta sql
 	@Modifying
 	@Query(
@@ -46,5 +44,13 @@ public interface ContaRepository extends CrudRepository<Conta, Long>{
 
 	public Conta save(ContaResponse conta);
 	
+	@Query(value = "select IdConta from Conta c where c.idPessoa = :idPessoa", nativeQuery=true)
+	public Long obterIdConta(@Param("idPessoa")Long idPessoa);
 	
+
+	@Query(value = "SELECT CONTA.SALDO FROM CONTA LEFT JOIN PESSOA ON PESSOA.IDPESSOA = CONTA.IDPESSOA WHERE PESSOA.NUM_CPF_CNPJ = :idFiscal", nativeQuery=true)
+	public Double obterSaldoIdPessoa(@Param("idFiscal")Long idFiscal);
+	
+	@Query("select saldo from Conta c where c.idConta = :idConta")
+	public Double obterSaldoIdConta(@Param("idConta")Long idConta);
 }
