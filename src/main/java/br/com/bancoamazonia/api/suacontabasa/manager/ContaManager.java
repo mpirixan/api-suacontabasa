@@ -121,8 +121,20 @@ public class ContaManager {
 	
 	@Transactional
 	public Conta delete(Long idConta) {
-		Conta entity = repository.findByIdConta(idConta);
-		repository.delete(entity);
+		Conta conta = repository.findByIdConta(idConta);
+		if(conta == null) {
+			throw new BusinessException(("Conta Inexistente! "));
+		}
+		if(conta.getStatus() != StatusContaEnum.ATIVA) {
+			throw new BusinessException(("Conta Já se encontra Desativada! "));
+		}
+		if (conta.getSaldo() != 0) {
+			throw new BusinessException(("Deixe o Saldo da Conta em R$00.00! "));
+		}
+		else {
+			conta.setStatus(StatusContaEnum.DESATIVADO);	
+		}
+		
 		return null;
 	}
 	
@@ -155,34 +167,5 @@ public class ContaManager {
 		}
 	}
 	
-	
-	/*
-	@Transactional
-	public Double obterSaldoPorIdFiscal (Long idFiscal) {
-		Pessoa pessoa = pessoaRepository.findByIdFiscal(idFiscal);
-		Conta conta = repository.findByIdPessoa(pessoa.getIdPessoa());
-		if (conta == null) {
-			throw new BusinessException(("Conta Inexistente! "));
-		}
-		if (conta != null && conta.getStatus() != StatusContaEnum.ATIVA) {
-			throw new BusinessException(("Conta Desativada! "));
-		}
-		else {
-			return  conta.getSaldo();
-		}
-	}
-	
-	public Double  obterSaldoPorIdConta(Long idConta) {
-		Conta conta = repository.findByIdConta(idConta);
-		if (conta == null) {
-			throw new BusinessException(("Conta Inexistente! "));
-		}
-		if (conta != null && conta.getStatus() != StatusContaEnum.ATIVA) {
-			throw new BusinessException(("Conta Desativada! "));
-		}
-		else {
-			return conta.getSaldo();
-		}
-	}
-	*/
+
 }
