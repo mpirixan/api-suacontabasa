@@ -1,7 +1,8 @@
 # API - Sua Conta Basa
-1. Banco de Dados H2 - Local
-2. Relação OneToOne
-3. Porta padrão: 8080 
+1. Banco de Dados H2 - Local;
+2. Relação OneToOne;
+3. Porta padrão: 8080; 
+4. Classes responses não estão sendo utilizadas até o momento, a ligação com o banco são pelas classes entities.
 
 ## Requisição POST
 #### Exemplo de url com criação de contas - Antigo
