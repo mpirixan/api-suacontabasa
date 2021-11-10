@@ -57,7 +57,27 @@ public class PessoaManager {
 		entity.setNome(obj.getNome());
 		
 	}
-
+	
+	public Pessoa obterPorIdFiscal(Long idFiscal) {
+	Pessoa pessoa = repository.consultarPessoaCPF(idFiscal);
+	if (pessoa == null) {
+		throw new BusinessException("Não foi possivel localizar a pessoa com Cpf/Cnpj "+idFiscal);
+	}
+	else {
+	return pessoa;
+	}
+	}
+	
+	public Pessoa obterPorNome(String nome) {
+		Pessoa pessoa = repository.consultarPessoaNome(nome);
+		if (pessoa == null) {
+			throw new BusinessException("Não foi possivel localizar a pessoa com o Nome "+nome);
+		}
+		else {
+		return pessoa;
+		}
+	}
+	
 	@Transactional
 	public Pessoa insert(Pessoa obj) {
 		return repository.save(obj);

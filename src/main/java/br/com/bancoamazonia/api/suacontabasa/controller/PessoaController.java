@@ -40,10 +40,15 @@ public class PessoaController {
 		return ResponseEntity.ok().body(pessoa);
 	}
 	
-
+	@GetMapping(value="/nome/{nome}")
+	public ResponseEntity<Pessoa> obterPorNome(@PathVariable("nome")String nome){
+		Pessoa pessoa = manager.obterPorNome(nome);
+		return ResponseEntity.ok().body(pessoa);
+	}
+	
 	@GetMapping(value = "/cpf-cnpj/{idFiscal}")
-	public ResponseEntity<Pessoa> findByIdFiscal(@PathVariable("idFiscal") Long idFiscal){
-		Pessoa pessoa = manager.findByIdFiscal(idFiscal);
+	public ResponseEntity<Pessoa> obterPorIdFiscal(@PathVariable("idFiscal") Long idFiscal){
+		Pessoa pessoa = manager.obterPorIdFiscal(idFiscal);
 		return ResponseEntity.ok().body(pessoa);
 	}
 	
