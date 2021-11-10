@@ -62,20 +62,12 @@ public class ContaController {
 	public void saqueSaldo(@PathVariable("idConta") Long idConta, @RequestBody Double obj){
 	
 		manager.saqueSaldo(idConta, obj);
-		//modelMapper.map(manager.update(idConta, conta), ContaResponse.class);
 		}
-	
-	@PatchMapping(value="/update/{idConta}" , consumes = "application/json-patch+json")
-	public void updateSaldo(@PathVariable("idConta") Long idConta, @RequestBody Double obj){
-		 manager.services(idConta, obj);
-		
-	}
 	
 	// inserção com corpo JSON
 
 	@PostMapping(value="/cadastro")
 	public void cadastro( @RequestBody ContaResponse obj){
-		//obj.setIdConta(idPessoa);
 		manager.cadastro(obj);
 	} 
 	

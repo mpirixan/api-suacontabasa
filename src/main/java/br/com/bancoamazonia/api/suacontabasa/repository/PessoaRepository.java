@@ -18,6 +18,9 @@ public interface PessoaRepository extends CrudRepository<Pessoa, Long>{
 	public Pessoa getOne(Long id);
 
 
-	@Query(value = "select IDPESSOA from PESSOA c where c.IDFISCAL = :idFiscal", nativeQuery=true)
-	public Long obterIdPessoa(@Param("idFiscal")Long idFiscal);
+	@Query(value = "select * from PESSOA c where c.IDFISCAL = :idFiscal", nativeQuery=true)
+	public Pessoa consultarPessoaCPF(@Param("idFiscal")Long idFiscal);
+	
+	@Query(value = "select * from PESSOA c where c.NOME = :nome", nativeQuery=true)
+	public Pessoa consultarPessoaNome(@Param("idFiscal")String nome);
 }

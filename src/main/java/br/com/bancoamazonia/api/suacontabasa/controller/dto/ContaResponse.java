@@ -16,9 +16,6 @@ public class ContaResponse implements Serializable {
 		return idPessoa;
 	}
 
-	//@Schema(description = "idConta - identificador único da Conta")
-	//private Long idConta;
-	
 	@Schema(description = "agencia - identificador agencia da Conta")
 	private Long agencia;
 	

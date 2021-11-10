@@ -72,17 +72,6 @@ public class ContaManager {
 		
 		
 	}
-
-	@Transactional
-	public Conta services (Long idConta, Double obj) {
-		Conta entity = repository.findByIdConta(idConta);
-		updateSaldo(entity, obj);
-		return repository.save(entity);
-	}
-	private void updateSaldo(Conta entity, Double obj) {
-		//entity.setSaldo(obj);
-
-	}
 	
 	public void depositoSaldo(Long idConta, Double obj) {
 		Conta entity = repository.findByIdConta(idConta);

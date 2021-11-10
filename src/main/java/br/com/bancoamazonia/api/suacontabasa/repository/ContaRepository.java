@@ -1,7 +1,5 @@
 package br.com.bancoamazonia.api.suacontabasa.repository;
 
-import java.util.Date;
-
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -33,14 +31,6 @@ public interface ContaRepository extends CrudRepository<Conta, Long>{
 	@Modifying
 	@Query("update Conta c set  c.saldo = c.saldo + ?1 where c.idConta = ?2")
 	void setDepositoSaldo(Double saldo, Long idConta);
-
-	
-	//insert to conta sql
-	@Modifying
-	@Query(
-	value = 
-	"insert into CONTA (IDPESSOA ,AGENCIA, DATA_VIGENCIA, SALDO, SENHA, STATUS, TIPO_CONTA) values (:idPessoa, :agencia, :dataVigencia, :saldo, :senha, :status, :tipoConta)", nativeQuery= true)
-	void insertConta(@Param("idPessoa")Long idPessoa, @Param("agencia")Long agencia, @Param("dataVigencia") Date dataVigencia,@Param("saldo")Double saldo,@Param("senha")String senha, @Param("status")String status,@Param("tipoConta")String tipoConta );
 
 	public Conta save(ContaResponse conta);
 	
