@@ -2,6 +2,7 @@ package br.com.bancoamazonia.api.suacontabasa.controller;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +25,8 @@ public class ContaController {
 	@Autowired
 	private ContaManager manager;
 	
+	@Autowired
+	private ModelMapper modelMapper;
 	
 	@GetMapping
 	public ResponseEntity<List<Conta>> findAll(){
@@ -35,10 +38,16 @@ public class ContaController {
 		Conta obj = manager.findByIdConta(idConta);
 		return ResponseEntity.ok().body(obj);
 	}
+	/*
 	@GetMapping(value = "/agencia/{agencia}")
 	public ResponseEntity<Conta> findById(@PathVariable("agencia") Long agencia){
 		Conta obj = manager.findByAgencia(agencia);
 		return ResponseEntity.ok().body(obj);
+	}
+	*/
+	@GetMapping(value = "/agencia/{agencia}")
+	public ContaResponse findById(@PathVariable("agencia") Long agencia){
+		return modelMapper.map(manager.findByAgencia(agencia),ContaResponse.class); 
 	}
 	
 	@GetMapping(value = "/saldo/cpf-cnpj")

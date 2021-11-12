@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class ContaResponse implements Serializable {
 
 	private static final long serialVersionUID = -2259094710454561830L;
+	
 	@Schema(description = "pessoa - pessoa relacionada a conta")
 	private Long idPessoa;
 	
@@ -58,9 +59,10 @@ public class ContaResponse implements Serializable {
 		this.dataVigencia = dataVigencia;
 	}
 
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(idPessoa);
+		return Objects.hash(agencia, dataVigencia, idPessoa, saldo, senha, status, tipoConta);
 	}
 
 	@Override
@@ -72,7 +74,10 @@ public class ContaResponse implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ContaResponse other = (ContaResponse) obj;
-		return Objects.equals(idPessoa, other.idPessoa);
+		return Objects.equals(agencia, other.agencia) && Objects.equals(dataVigencia, other.dataVigencia)
+				&& Objects.equals(idPessoa, other.idPessoa) && Objects.equals(saldo, other.saldo)
+				&& Objects.equals(senha, other.senha) && Objects.equals(status, other.status)
+				&& Objects.equals(tipoConta, other.tipoConta);
 	}
 
 	public Long getAgencia() {

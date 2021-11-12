@@ -42,6 +42,14 @@ public class PessoaManager {
 		return pessoa;
 	}
 	
+	public Pessoa findByNome(String nome) {
+		Pessoa pessoa = repository.findByNome(nome);
+		if(pessoa == null) {
+			throw new BusinessException("Não foi possivel localizar a pessoa com nome "+nome);
+		}
+		return pessoa;
+	}
+	
 	@Transactional
 	public Pessoa update(Long id, Pessoa obj) { 
 		try {
@@ -57,7 +65,8 @@ public class PessoaManager {
 		entity.setNome(obj.getNome());
 		
 	}
-	
+	/*
+	 * 
 	public Pessoa obterPorIdFiscal(Long idFiscal) {
 	Pessoa pessoa = repository.consultarPessoaCPF(idFiscal);
 	if (pessoa == null) {
@@ -77,6 +86,7 @@ public class PessoaManager {
 		return pessoa;
 		}
 	}
+	*/
 	
 	@Transactional
 	public Pessoa insert(Pessoa obj) {

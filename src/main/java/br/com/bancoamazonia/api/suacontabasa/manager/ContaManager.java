@@ -1,5 +1,6 @@
 package br.com.bancoamazonia.api.suacontabasa.manager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -55,6 +56,28 @@ public class ContaManager {
 		return conta;
 	}
 	
+	public List<Conta> findByIdPessoa(Long pessoa) {
+		List<Conta> conta = new ArrayList<>();
+		entityManager.createNativeQuery(" SELECT IDCONTA, AGENCIA, STATUS, DATA_VIGENCIA, TIPO_CONTA FROM CONTA WHERE IDPESSOA = ?", Conta.class)
+		.setParameter(1, pessoa)
+		.getResultList();
+		return conta;
+	}
+	
+	// Inserção com Corpo JSON
+	@Transactional
+	public void cadastro(ContaResponse conta) {
+		entityManager.createNativeQuery("insert into CONTA (IDPESSOA ,AGENCIA, DATA_VIGENCIA, SALDO, SENHA, STATUS, TIPO_CONTA) values (?,?,?,?,?,?,?)")
+		.setParameter(1, conta.getIdPessoa())
+		.setParameter(2, conta.getAgencia())
+		.setParameter(3, conta.getDataVigencia())
+		.setParameter(4, conta.getSaldo())
+		.setParameter(5, conta.getSenha())
+		.setParameter(6, conta.getStatus())
+		.setParameter(7, conta.getTipoConta())
+		.executeUpdate();
+	}
+	
 	@Transactional
 	public Conta update(Long idConta, Conta obj) { 
 		try {
@@ -93,20 +116,7 @@ public class ContaManager {
 		}
 	}
 	
-	// Inserção com Corpo JSON
-	@Transactional
-	public void cadastro(ContaResponse conta) {
-		entityManager.createNativeQuery("insert into CONTA (IDPESSOA ,AGENCIA, DATA_VIGENCIA, SALDO, SENHA, STATUS, TIPO_CONTA) values (?,?,?,?,?,?,?)")
-		.setParameter(1, conta.getIdPessoa())
-		.setParameter(2, conta.getAgencia())
-		.setParameter(3, conta.getDataVigencia())
-		.setParameter(4, conta.getSaldo())
-		.setParameter(5, conta.getSenha())
-		.setParameter(6, conta.getStatus())
-		.setParameter(7, conta.getTipoConta())
-		.executeUpdate();
-	}
-	
+
 	
 	@Transactional
 	public Conta delete(Long idConta) {
