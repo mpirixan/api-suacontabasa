@@ -45,6 +45,12 @@
 		</dependency>
 
 		<!-- Outras Dependências -->
+		    <!--  Gson: Java to Json conversion -->
+    <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <scope>compile</scope>
+    </dependency>
 		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>

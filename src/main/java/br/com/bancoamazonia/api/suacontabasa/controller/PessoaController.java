@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
+
+import br.com.bancoamazonia.api.suacontabasa.controller.dto.ContaResponse;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.PessoaResponse;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
@@ -46,18 +50,22 @@ public class PessoaController {
 		return ResponseEntity.ok().body(pessoa);
 	}
 	
-	@GetMapping(value="/nome/{nome}")
-	public ResponseEntity<List<Conta>> obterPorNome(@PathVariable("nome")String nome){
+	@GetMapping(value="/nome/{nome}" )
+	public String obterPorNome(@PathVariable("nome")String nome){
 		Pessoa pessoa = manager.findByNome(nome);
-		List<Conta> conta = contaManager.findByIdPessoa(pessoa.getIdPessoa());
-		return ((BodyBuilder) ResponseEntity.ok().body(pessoa)).body(conta);
+		String conta = contaManager.findById(pessoa.getIdPessoa());
+		String jsonConta = new Gson().toJson(conta);
+		String jsonPessoa = new Gson().toJson(pessoa);
+		return   "Conta: \n" + jsonConta + " \n "+ "Pessoa: \n" + jsonPessoa;
 	}
 	
 	@GetMapping(value = "/cpf-cnpj/{idFiscal}")
-	public ResponseEntity<List<Conta>> obterPorIdFiscal(@PathVariable("idFiscal") Long idFiscal){
+	public String obterPorIdFiscal(@PathVariable("idFiscal") Long idFiscal){
 		Pessoa pessoa = manager.findByIdFiscal(idFiscal);
-		List<Conta> conta = contaManager.findByIdPessoa(pessoa.getIdPessoa());
-		return ((BodyBuilder) ResponseEntity.ok().body(pessoa)).body(conta);
+		String conta = contaManager.findById(pessoa.getIdPessoa());
+		String jsonConta = new Gson().toJson(conta);
+		String jsonPessoa = new Gson().toJson(pessoa);
+		return   "Conta: \n" + jsonConta + " \n "+ "Pessoa: \n" + jsonPessoa;
 	}
 	
 	@PatchMapping(value="/dados/{idFiscal}")

@@ -37,6 +37,8 @@ public interface ContaRepository extends CrudRepository<Conta, Long>{
 	@Query(value = "select IdConta from Conta c where c.idPessoa = :idPessoa", nativeQuery=true)
 	public Long obterIdConta(@Param("idPessoa")Long idPessoa);
 	
+	@Query("select c.idConta, c.agencia, c.status, c.dataVigencia, c.tipoConta FROM Conta c WHERE c.idConta = :idConta")
+	public String obterPorIdConta(@Param("idConta")Long idConta);
 
 	@Query(value = "SELECT CONTA.SALDO FROM CONTA LEFT JOIN PESSOA ON PESSOA.IDPESSOA = CONTA.IDPESSOA WHERE PESSOA.NUM_CPF_CNPJ = :idFiscal", nativeQuery=true)
 	public Double obterSaldoIdPessoa(@Param("idFiscal")Long idFiscal);

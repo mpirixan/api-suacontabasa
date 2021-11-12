@@ -56,14 +56,28 @@ public class ContaManager {
 		return conta;
 	}
 	
-	public List<Conta> findByIdPessoa(Long pessoa) {
-		List<Conta> conta = new ArrayList<>();
-		entityManager.createNativeQuery(" SELECT IDCONTA, AGENCIA, STATUS, DATA_VIGENCIA, TIPO_CONTA FROM CONTA WHERE IDPESSOA = ?", Conta.class)
+	public String findById(Long pessoa) {
+		Pessoa idPessoa = pessoaRepository.findByIdPessoa(pessoa);
+		Long idConta = repository.obterIdConta(idPessoa.getIdPessoa());
+		Conta conta = repository.findByIdConta(idConta);
+		if(conta == null) {
+			throw new BusinessException("Não foi possivel localizar a pessoa com idPessoa "+pessoa);
+		}
+		else {
+		String conta2 = repository.obterPorIdConta(idConta);
+		return  conta2;
+	}
+	}
+	
+	/*
+	public Conta findByIdPessoa(Long pessoa) {
+		Conta conta = new Conta();
+		entityManager.createNativeQuery(" SELECT IDCONTA, AGENCIA, STATUS, DATA_VIGENCIA, TIPO_CONTA FROM CONTA WHERE IDPESSOA = ?")
 		.setParameter(1, pessoa)
 		.getResultList();
 		return conta;
 	}
-	
+	*/
 	// Inserção com Corpo JSON
 	@Transactional
 	public void cadastro(ContaResponse conta) {
