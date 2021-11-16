@@ -62,7 +62,9 @@ public class Pessoa implements EntityModel<Long>{
 		
 	}
 
-	
+	public Long getId() {
+		return idPessoa;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(idPessoa);
@@ -119,12 +121,6 @@ public class Pessoa implements EntityModel<Long>{
 		this.nome = nome;
 	}
 
-
-	@Override
-	public Long getId() {
-
-		return getIdPessoa();
-	}
 
 
 

@@ -2,17 +2,17 @@ package br.com.bancoamazonia.api.suacontabasa.repository;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.ContaResponse;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
+import br.com.bancoamazonia.sbs.commons.components.springdatajpa.ExtendedJpaRepository;
 
 @Transactional
 @Repository
-public interface ContaRepository extends CrudRepository<Conta, Long>{
+public interface ContaRepository extends ExtendedJpaRepository<Conta, Long>{
 
 	
 	public Conta findByAgencia(Long agencia);

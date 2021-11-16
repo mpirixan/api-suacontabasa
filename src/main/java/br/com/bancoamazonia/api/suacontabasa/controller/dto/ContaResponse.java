@@ -6,10 +6,24 @@ import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+
 public class ContaResponse implements Serializable {
 
 	private static final long serialVersionUID = -2259094710454561830L;
 	
+	private PessoaResponse pessoa;
+	
+	
+	
+	public PessoaResponse getPessoa() {
+		return pessoa;
+	}
+
+
+	public void setPessoa(PessoaResponse pessoa) {
+		this.pessoa = pessoa;
+	}
+
 	@Schema(description = "pessoa - pessoa relacionada a conta")
 	private Long idPessoa;
 	
@@ -39,17 +53,6 @@ public class ContaResponse implements Serializable {
 		
 	}
 	
-	public ContaResponse(Long idPessoa, Long agencia, String status, String senha, Double saldo,
-			Date dataVigencia, String tipoConta) {
-		super();
-		this.idPessoa = idPessoa;
-		this.agencia = agencia;
-		this.status = status;
-		this.senha = senha;
-		this.saldo = saldo;
-		this.dataVigencia = dataVigencia;
-		this.tipoConta = tipoConta;
-	}
 
 	public Date getDataVigencia() {
 		return dataVigencia;
@@ -104,13 +107,6 @@ public class ContaResponse implements Serializable {
 		this.senha = senha;
 	}
 
-	public String getNome() {
-		return status;
-	}
-
-	public Double getSaldo() {
-		return saldo;
-	}
 
 	public void setSaldo(Double saldo) {
 		this.saldo = saldo;

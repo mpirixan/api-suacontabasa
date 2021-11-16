@@ -5,6 +5,7 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -53,19 +54,17 @@ public class PessoaController {
 	@GetMapping(value="/nome/{nome}" )
 	public String obterPorNome(@PathVariable("nome")String nome){
 		Pessoa pessoa = manager.findByNome(nome);
-		String conta = contaManager.findById(pessoa.getIdPessoa());
-		String jsonConta = new Gson().toJson(conta);
 		String jsonPessoa = new Gson().toJson(pessoa);
-		return   "Conta: \n" + jsonConta + " \n "+ "Pessoa: \n" + jsonPessoa;
+		return   "Pessoa: \n" + jsonPessoa;
 	}
 	
 	@GetMapping(value = "/cpf-cnpj/{idFiscal}")
-	public String obterPorIdFiscal(@PathVariable("idFiscal") Long idFiscal){
+	public ContaResponse obterPorIdFiscal(@PathVariable("idFiscal") Long idFiscal){
 		Pessoa pessoa = manager.findByIdFiscal(idFiscal);
-		String conta = contaManager.findById(pessoa.getIdPessoa());
-		String jsonConta = new Gson().toJson(conta);
-		String jsonPessoa = new Gson().toJson(pessoa);
-		return   "Conta: \n" + jsonConta + " \n "+ "Pessoa: \n" + jsonPessoa;
+		PessoaResponse objPessoa = modelMapper.map(manager.findByIdFiscal(idFiscal),PessoaResponse.class);
+		ContaResponse objConta = modelMapper.map(contaManager.findById(pessoa.getIdPessoa()),ContaResponse.class);
+		return    objConta;
+
 	}
 	
 	@PatchMapping(value="/dados/{idFiscal}")

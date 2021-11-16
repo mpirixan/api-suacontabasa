@@ -30,7 +30,7 @@ public class Conta implements EntityModel<Long>{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idConta;
 	
-	@OneToOne(fetch = FetchType.LAZY, optional = false, cascade =  CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, optional = false, cascade =  CascadeType.ALL)
 	@JoinColumn(name = "IDPESSOA", nullable = false)
 	private Pessoa pessoa;
 

@@ -26,7 +26,7 @@ public class ContaController {
 	private ContaManager manager;
 	
 	@Autowired
-	private ModelMapper modelMapper;
+	private ModelMapper modelMapper = new ModelMapper();
 	
 	@GetMapping
 	public ResponseEntity<List<Conta>> findAll(){
@@ -34,9 +34,9 @@ public class ContaController {
 		return ResponseEntity.ok().body(list);
 				}
 	@GetMapping(value = "/idconta/{idConta}")
-	public ResponseEntity<Conta> findByIdConta(@PathVariable("idConta") Long idConta){
-		Conta obj = manager.findByIdConta(idConta);
-		return ResponseEntity.ok().body(obj);
+	public ContaResponse findByIdConta(@PathVariable("idConta") Long idConta) {		
+		return modelMapper.map(manager.findByIdConta(idConta) ,ContaResponse.class);
+		
 	}
 	/*
 	@GetMapping(value = "/agencia/{agencia}")
@@ -69,7 +69,6 @@ public class ContaController {
 	
 	@PatchMapping(value="/saque/{idConta}")
 	public void saqueSaldo(@PathVariable("idConta") Long idConta, @RequestBody Double obj){
-	
 		manager.saqueSaldo(idConta, obj);
 		}
 	

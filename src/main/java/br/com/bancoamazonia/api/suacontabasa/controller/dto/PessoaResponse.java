@@ -19,20 +19,10 @@ public class PessoaResponse implements Serializable {
 	@Schema(description = "nome - nome da Pessoa")
 	private String nome;
 
-	@Schema(description = "conta - conta relacionada a pessoa")
-	private ContaResponse idConta;
 	
 	@Schema(description = "dataNascimento - Data de Nascimento da pessoa")
 	private Date dataNascimento;
 	
-public PessoaResponse() {
-	
-}
-	
-	public ContaResponse getIdConta() {
-		return idConta;
-	}
-
 	
 	@Override
 	public int hashCode() {
@@ -56,14 +46,6 @@ public PessoaResponse() {
 		return idPessoa;
 	}
 
-	public PessoaResponse(Long idPessoa, Long idFiscal, String nome, ContaResponse idConta, Date dataNascimento) {
-		super();
-		this.idPessoa = idPessoa;
-		this.idFiscal = idFiscal;
-		this.nome = nome;
-		this.idConta = idConta;
-		this.dataNascimento = dataNascimento;
-	}
 
 	public void setIdPessoa(Long idPessoa) {
 		this.idPessoa = idPessoa;

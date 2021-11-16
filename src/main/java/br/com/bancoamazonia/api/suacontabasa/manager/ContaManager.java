@@ -1,6 +1,5 @@
 package br.com.bancoamazonia.api.suacontabasa.manager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -42,8 +41,8 @@ public class ContaManager {
 
 	public Conta findByIdConta(Long idConta) {
 		Conta conta = repository.findByIdConta(idConta);
-		if(idConta == null) {
-			throw new BusinessException("Não foi possivel localizar a pessoa com Cpf/Cnpj "+idConta);
+		if(conta == null) {
+			throw new BusinessException("Não foi possivel localizar a conta "+idConta);
 		}
 		return conta;
 	}
@@ -51,12 +50,12 @@ public class ContaManager {
 	public Conta findByAgencia(Long agencia) {
 		Conta conta = repository.findByAgencia(agencia);
 		if(conta == null) {
-			throw new BusinessException("Não foi possivel localizar a pessoa com Cpf/Cnpj "+agencia);
+			throw new BusinessException("Não foi possivel localizar a conta de agencia "+agencia);
 		}
 		return conta;
 	}
 	
-	public String findById(Long pessoa) {
+	public Conta findById(Long pessoa) {
 		Pessoa idPessoa = pessoaRepository.findByIdPessoa(pessoa);
 		Long idConta = repository.obterIdConta(idPessoa.getIdPessoa());
 		Conta conta = repository.findByIdConta(idConta);
@@ -64,28 +63,17 @@ public class ContaManager {
 			throw new BusinessException("Não foi possivel localizar a pessoa com idPessoa "+pessoa);
 		}
 		else {
-		String conta2 = repository.obterPorIdConta(idConta);
-		return  conta2;
+		return  conta;
 	}
 	}
 	
-	/*
-	public Conta findByIdPessoa(Long pessoa) {
-		Conta conta = new Conta();
-		entityManager.createNativeQuery(" SELECT IDCONTA, AGENCIA, STATUS, DATA_VIGENCIA, TIPO_CONTA FROM CONTA WHERE IDPESSOA = ?")
-		.setParameter(1, pessoa)
-		.getResultList();
-		return conta;
-	}
-	*/
 	// Inserção com Corpo JSON
 	@Transactional
 	public void cadastro(ContaResponse conta) {
-		entityManager.createNativeQuery("insert into CONTA (IDPESSOA ,AGENCIA, DATA_VIGENCIA, SALDO, SENHA, STATUS, TIPO_CONTA) values (?,?,?,?,?,?,?)")
+		entityManager.createNativeQuery("insert into CONTA (IDPESSOA ,AGENCIA, DATA_VIGENCIA, SALDO, SENHA, STATUS, TIPO_CONTA) values (?,?,?,0,?,?,?)")
 		.setParameter(1, conta.getIdPessoa())
 		.setParameter(2, conta.getAgencia())
 		.setParameter(3, conta.getDataVigencia())
-		.setParameter(4, conta.getSaldo())
 		.setParameter(5, conta.getSenha())
 		.setParameter(6, conta.getStatus())
 		.setParameter(7, conta.getTipoConta())
