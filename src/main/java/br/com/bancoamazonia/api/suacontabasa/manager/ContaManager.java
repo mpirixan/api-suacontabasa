@@ -3,7 +3,6 @@ package br.com.bancoamazonia.api.suacontabasa.manager;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,13 +46,6 @@ public class ContaManager {
 		return conta;
 	}
 	
-	public Conta findByAgencia(Long agencia) {
-		Conta conta = repository.findByAgencia(agencia);
-		if(conta == null) {
-			throw new BusinessException("Não foi possivel localizar a conta de agencia "+agencia);
-		}
-		return conta;
-	}
 	
 	public Conta findById(Long pessoa) {
 		Pessoa idPessoa = pessoaRepository.findByIdPessoa(pessoa);
@@ -81,23 +73,6 @@ public class ContaManager {
 		.executeUpdate();
 	}
 	
-	@Transactional
-	public Conta update(Long idConta, Conta obj) { 
-		try {
-		Conta entity = repository.findByIdConta(idConta);
-		updateDados(entity, obj);
-
-		return repository.save(entity);
-		}catch (EntityNotFoundException e) {
-			throw new BusinessException(("Não foi possivel localizar a pessoa com identificação "+ idConta));
-		}
-	}
-	private void updateDados(Conta entity, Conta obj) {
-		entity.setAgencia(obj.getAgencia());
-		entity.setStatus(obj.getStatus());
-		
-		
-	}
 	
 	public void depositoSaldo(Long idConta, Double obj) {
 		Conta entity = repository.findByIdConta(idConta);

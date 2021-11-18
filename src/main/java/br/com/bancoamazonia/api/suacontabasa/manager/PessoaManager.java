@@ -2,8 +2,6 @@ package br.com.bancoamazonia.api.suacontabasa.manager;
 
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,44 +47,6 @@ public class PessoaManager {
 		}
 		return pessoa;
 	}
-	
-	@Transactional
-	public Pessoa update(Long id, Pessoa obj) { 
-		try {
-		Pessoa entity = repository.getOne(id);
-		updateDados(entity, obj);
-		return repository.save(entity);
-		}catch (EntityNotFoundException e) {
-			throw new BusinessException(("Não foi possivel localizar a pessoa com identificação "+ id));
-		}
-	}
-	
-	private void updateDados(Pessoa entity, Pessoa obj) {
-		entity.setNome(obj.getNome());
-		
-	}
-	
-	 
-	public Long obterPorIdFiscal(Long idFiscal) {
-	Pessoa pessoa = repository.findByIdFiscal(idFiscal);
-	if (pessoa == null) {
-		throw new BusinessException("Não foi possivel localizar a pessoa com Cpf/Cnpj "+idFiscal);
-	}
-	else {
-	return idFiscal;
-	}
-	}
-	
-	public Pessoa obterPorNome(String nome) {
-		Pessoa pessoa = repository.findByNome(nome);
-		if (pessoa == null) {
-			throw new BusinessException("Não foi possivel localizar a pessoa com o Nome "+nome);
-		}
-		else {
-		return pessoa;
-		}
-	}
-	
 	
 	@Transactional
 	public Pessoa insert(Pessoa obj) {

@@ -9,6 +9,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class DadosGeraisResponse implements Serializable {
 
 	private static final long serialVersionUID = -1054843750347734618L;
+	
+	@Schema(description = "idConta - identificador único de conta")
+	private Long idConta;
 
 	@Schema(description = "idPessoa - identificador único da Pessoa")
 	private Long idPessoa;
@@ -33,6 +36,14 @@ public class DadosGeraisResponse implements Serializable {
 
 	@Schema(description = "Tipo de Conta")
 	private String tipoConta;
+
+	public Long getIdConta() {
+		return idConta;
+	}
+
+	public void setIdConta(Long idConta) {
+		this.idConta = idConta;
+	}
 
 	public Long getIdPessoa() {
 		return idPessoa;

@@ -13,8 +13,6 @@ public class ContaResponse implements Serializable {
 	
 	private PessoaResponse pessoa;
 	
-	
-	
 	public PessoaResponse getPessoa() {
 		return pessoa;
 	}
@@ -23,6 +21,9 @@ public class ContaResponse implements Serializable {
 	public void setPessoa(PessoaResponse pessoa) {
 		this.pessoa = pessoa;
 	}
+
+	@Schema(description = "idConta - identificador único de conta")
+	private Long idConta;
 
 	@Schema(description = "pessoa - pessoa relacionada a conta")
 	private Long idPessoa;
@@ -53,6 +54,21 @@ public class ContaResponse implements Serializable {
 		
 	}
 	
+
+	public Long getIdConta() {
+		return idConta;
+	}
+
+
+	public void setIdConta(Long idConta) {
+		this.idConta = idConta;
+	}
+
+
+	public void setIdPessoa(Long idPessoa) {
+		this.idPessoa = idPessoa;
+	}
+
 
 	public Date getDataVigencia() {
 		return dataVigencia;

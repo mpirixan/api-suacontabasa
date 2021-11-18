@@ -33,33 +33,22 @@ public class ContaController {
 		List<Conta> list = manager.findAll();
 		return ResponseEntity.ok().body(list);
 				}
-	@GetMapping(value = "/idconta/{idConta}")
+	@GetMapping(value = "/obter-por-idconta/{idConta}")
 	public ContaResponse findByIdConta(@PathVariable("idConta") Long idConta) {		
 		return modelMapper.map(manager.findByIdConta(idConta) ,ContaResponse.class);
 		
 	}
-	/*
-	@GetMapping(value = "/agencia/{agencia}")
-	public ResponseEntity<Conta> findById(@PathVariable("agencia") Long agencia){
-		Conta obj = manager.findByAgencia(agencia);
-		return ResponseEntity.ok().body(obj);
-	}
-	*/
-	@GetMapping(value = "/agencia/{agencia}")
-	public ContaResponse findById(@PathVariable("agencia") Long agencia){
-		return modelMapper.map(manager.findByAgencia(agencia),ContaResponse.class); 
-	}
-	
+
 	@GetMapping(value = "/saldo/cpf-cnpj")
-	public ResponseEntity<Double> obterSaldoPorIdFiscal(Long idFiscal){
+	public ResponseEntity<String> obterSaldoPorIdFiscal(Long idFiscal){
 		Double saldo = manager.obterSaldoPorIdFiscal(idFiscal);
-		return ResponseEntity.ok().body(saldo);
+		return ResponseEntity.ok().body("R$ " + saldo);
 	}
 	
 	@GetMapping(value = "/saldo/idconta")
-	public ResponseEntity<Double> obterSaldoPorIdConta(Long idConta){
+	public ResponseEntity<String> obterSaldoPorIdConta(Long idConta){
 		Double saldo = manager.obterSaldoIdConta(idConta);
-		return ResponseEntity.ok().body(saldo);
+		return ResponseEntity.ok().body("R$ "+saldo);
 	}
 	
 	@PatchMapping(value = "/deposito/{idConta}")

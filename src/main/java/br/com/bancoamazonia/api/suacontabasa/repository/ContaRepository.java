@@ -15,24 +15,19 @@ import br.com.bancoamazonia.sbs.commons.components.springdatajpa.ExtendedJpaRepo
 public interface ContaRepository extends ExtendedJpaRepository<Conta, Long>{
 
 	
-	public Conta findByAgencia(Long agencia);
+	public Conta findByIdConta(Long idConta);
+	
+	public Conta save(ContaResponse conta);
+	
+	// SQL - Queries
 
-	public Conta getOne(Long id);
-	
-	
-	
 	@Modifying
 	@Query("update Conta c set  c.saldo = c.saldo - ?1 where c.idConta = ?2")
 	void setSaqueSaldo(Double saldo, Long idConta);
 	
-
-	public Conta findByIdConta(Long idConta);
-	
 	@Modifying
 	@Query("update Conta c set  c.saldo = c.saldo + ?1 where c.idConta = ?2")
 	void setDepositoSaldo(Double saldo, Long idConta);
-
-	public Conta save(ContaResponse conta);
 	
 	@Query(value = "select IdConta from Conta c where c.idPessoa = :idPessoa", nativeQuery=true)
 	public Long obterIdConta(@Param("idPessoa")Long idPessoa);

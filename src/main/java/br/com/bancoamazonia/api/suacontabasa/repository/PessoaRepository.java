@@ -17,12 +17,4 @@ public interface PessoaRepository extends ExtendedJpaRepository<Pessoa, Long>{
 
 	public Pessoa getOne(Long id);
 
-/*
-	@Query(value = "select * from PESSOA p where p.num_cpf_cnpj = :idFiscal", nativeQuery=true)
-	public Pessoa consultarPessoaCPF(@Param("idFiscal")Long idFiscal);
-	
-	@Query(value = "select * from PESSOA c where c.NOME = :nome", nativeQuery=true)
-	public Pessoa consultarPessoaNome(@Param("nome")String nome);
-	
-*/
 }
