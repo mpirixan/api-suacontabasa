@@ -69,7 +69,12 @@ public class ContaController {
 	public void cadastro( @RequestBody ContaResponse obj){
 		manager.cadastro(obj);
 	} 
-	
+	/*
+	@PostMapping(value="/cadastro")
+	public ContaResponse insert(@RequestBody Conta obj) {
+		return modelMapper.map(manager.insert(obj), ContaResponse.class);
+	}
+	*/
 	@DeleteMapping(value="/desativacao/{idConta}")
 	public void delete(@PathVariable("idConta") Long idConta) { 
 		 manager.delete(idConta);

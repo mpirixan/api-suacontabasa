@@ -73,7 +73,12 @@ public class ContaManager {
 		.setParameter(7, conta.getTipoConta())
 		.executeUpdate();
 	}
-	
+	/*
+	@Transactional
+	public Conta insert(Conta obj) {
+		return repository.save(obj);
+	}
+	*/
 	
 	public void depositoSaldo(Long idConta, Double obj) {
 		Conta entity = repository.findByIdConta(idConta);

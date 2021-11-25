@@ -140,6 +140,11 @@ public class ContaResponse implements Serializable {
 		return serialVersionUID;
 	}
 
+
+	public Double getSaldo() {
+		return saldo;
+	}
+
 	
 	
 }
