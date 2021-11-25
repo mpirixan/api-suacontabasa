@@ -63,10 +63,11 @@ public class ContaManager {
 	// Inserção com Corpo JSON
 	@Transactional
 	public void cadastro(ContaResponse conta) {
-		entityManager.createNativeQuery("insert into CONTA (IDPESSOA ,AGENCIA, DATA_VIGENCIA, SALDO, SENHA, STATUS, TIPO_CONTA) values (?,?,?,0,?,?,?)")
+		entityManager.createNativeQuery("insert into CONTA (IDPESSOA ,AGENCIA, DATA_VIGENCIA, SALDO, SENHA, STATUS, TIPO_CONTA) values (?,?,?,?,?,?,?)")
 		.setParameter(1, conta.getIdPessoa())
 		.setParameter(2, conta.getAgencia())
 		.setParameter(3, conta.getDataVigencia())
+		.setParameter(4, conta.getSaldo())
 		.setParameter(5, conta.getSenha())
 		.setParameter(6, conta.getStatus())
 		.setParameter(7, conta.getTipoConta())
