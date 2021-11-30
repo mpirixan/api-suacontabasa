@@ -3,6 +3,7 @@ package br.com.bancoamazonia.api.suacontabasa.domain.model;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,30 +11,40 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.amazoniafw.base.components.model.EntityModel;
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoPessoaEnum;
 
 @Entity
-@Table(name="PESSOA")
-public class Pessoa implements EntityModel<Long>{
+@Table(name="pessoa")
+public class Pessoa {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="idpessoa")
 	private Long idPessoa;
 	
-	@Column(name="NUM_CPF_CNPJ", unique=true)
+	@Column(name="idfiscal", unique=true)
 	private Long idFiscal;
 	
-	@Column(name="NOME")
+	@Column(name="nome")
 	private String nome;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name="DATA_NASC")
+	@Column(name="datanascimento")
 	private Date dataNascimento;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="tipopessoa")
+	private TipoPessoaEnum tipoPessoa;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="idconta")
+	private Conta conta;
 	
 	public TipoPessoaEnum getTipoPessoa() {
 		return tipoPessoa;
@@ -44,10 +55,17 @@ public class Pessoa implements EntityModel<Long>{
 		this.tipoPessoa = tipoPessoa;
 	}
 
-	@Enumerated(EnumType.STRING)
-	@Column(name="TIPO_PESSOA")
-	private TipoPessoaEnum tipoPessoa;
-	
+
+	public Conta getConta() {
+		return conta;
+	}
+
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
+	}
+
+
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
@@ -61,7 +79,15 @@ public class Pessoa implements EntityModel<Long>{
 	public Pessoa() {
 		
 	}
-
+	
+	public Pessoa(Long idPessoa, Long idFiscal, String nome, TipoPessoaEnum tipoPessoa) {
+		super();
+		this.idPessoa = idPessoa;
+		this.idFiscal = idFiscal;
+		this.nome = nome;
+		this.tipoPessoa = tipoPessoa;
+	}
+	
 	public Long getId() {
 		return idPessoa;
 	}
@@ -112,15 +138,6 @@ public class Pessoa implements EntityModel<Long>{
 	public void setIdFiscal(Long idFiscal) {
 		this.idFiscal = idFiscal;
 	}
-
-
-	public Pessoa(Long idPessoa, Long idFiscal, String nome) {
-		super();
-		this.idPessoa = idPessoa;
-		this.idFiscal = idFiscal;
-		this.nome = nome;
-	}
-
 
 
 

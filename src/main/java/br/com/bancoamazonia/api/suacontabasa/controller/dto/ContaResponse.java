@@ -11,6 +11,16 @@ public class ContaResponse implements Serializable {
 
 	private static final long serialVersionUID = -2259094710454561830L;
 	
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	@Schema(description = "pessoa")
 	private PessoaResponse pessoa;
 	
 	public PessoaResponse getPessoa() {
@@ -22,15 +32,11 @@ public class ContaResponse implements Serializable {
 		this.pessoa = pessoa;
 	}
 
+	@Schema(description = "id - identificador único de linha conta")
+	private Long id;
+	
 	@Schema(description = "idConta - identificador único de conta")
 	private Long idConta;
-
-	@Schema(description = "pessoa - pessoa relacionada a conta")
-	private Long idPessoa;
-	
-	public Long getIdPessoa() {
-		return idPessoa;
-	}
 
 	@Schema(description = "agencia - identificador agencia da Conta")
 	private Long agencia;
@@ -65,11 +71,6 @@ public class ContaResponse implements Serializable {
 	}
 
 
-	public void setIdPessoa(Long idPessoa) {
-		this.idPessoa = idPessoa;
-	}
-
-
 	public Date getDataVigencia() {
 		return dataVigencia;
 	}
@@ -81,7 +82,7 @@ public class ContaResponse implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(agencia, dataVigencia, idPessoa, saldo, senha, status, tipoConta);
+		return Objects.hash(agencia, dataVigencia ,saldo, senha, status, tipoConta);
 	}
 
 	@Override
@@ -94,7 +95,6 @@ public class ContaResponse implements Serializable {
 			return false;
 		ContaResponse other = (ContaResponse) obj;
 		return Objects.equals(agencia, other.agencia) && Objects.equals(dataVigencia, other.dataVigencia)
-				&& Objects.equals(idPessoa, other.idPessoa) && Objects.equals(saldo, other.saldo)
 				&& Objects.equals(senha, other.senha) && Objects.equals(status, other.status)
 				&& Objects.equals(tipoConta, other.tipoConta);
 	}

@@ -66,13 +66,13 @@ public class ContaController {
 	// inserção com corpo JSON
 
 	@PostMapping(value="/cadastro")
-	public void cadastro( @RequestBody ContaResponse obj){
-		manager.cadastro(obj);
+	public void cadastro( @RequestBody Conta obj){
+		 manager.cadastro(obj);
 	} 
 	/*
 	@PostMapping(value="/cadastro")
-	public ContaResponse insert(@RequestBody Conta obj) {
-		return modelMapper.map(manager.insert(obj), ContaResponse.class);
+	public void cadastro(@RequestBody ContaResponse obj) {
+		manager.cadastro(obj);
 	}
 	*/
 	@DeleteMapping(value="/desativacao/{idConta}")

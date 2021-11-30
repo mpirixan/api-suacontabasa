@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.amazoniafw.base.exceptions.displayable.BusinessException;
-import br.com.bancoamazonia.api.suacontabasa.controller.dto.ContaResponse;
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.StatusContaEnum;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
@@ -59,11 +58,12 @@ public class ContaManager {
 	}
 
 	}
-	
-	// Inserção com Corpo JSON
+
+
+	/* // Inserção com Corpo JSON
 	@Transactional
 	public void cadastro(ContaResponse conta) {
-		entityManager.createNativeQuery("insert into CONTA (IDPESSOA ,AGENCIA, DATA_VIGENCIA, SALDO, SENHA, STATUS, TIPO_CONTA) values (?,?,?,?,?,?,?)")
+		entityManager.createNativeQuery("insert into CONTA (PESSOA_IDPESSOA ,AGENCIA, DATAVIGENCIA, SALDO, SENHA, STATUS, TIPOCONTA) values (?,?,?,?,?,?,?)")
 		.setParameter(1, conta.getIdPessoa())
 		.setParameter(2, conta.getAgencia())
 		.setParameter(3, conta.getDataVigencia())
@@ -73,13 +73,14 @@ public class ContaManager {
 		.setParameter(7, conta.getTipoConta())
 		.executeUpdate();
 	}
-	/*
-	@Transactional
-	public Conta insert(Conta obj) {
-		return repository.save(obj);
-	}
 	*/
-	
+
+	@Transactional
+	public Conta cadastro(Conta obj) {
+		return repository.save(obj);
+		   
+	}
+
 	public void depositoSaldo(Long idConta, Double obj) {
 		Conta entity = repository.findByIdConta(idConta);
 		if (entity.getStatus() != StatusContaEnum.ATIVA) {

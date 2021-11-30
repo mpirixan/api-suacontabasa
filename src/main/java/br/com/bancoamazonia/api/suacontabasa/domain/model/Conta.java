@@ -3,57 +3,50 @@ package br.com.bancoamazonia.api.suacontabasa.domain.model;
 import java.util.Date;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.amazoniafw.base.components.model.EntityModel;
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.StatusContaEnum;
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoContaEnum;
 
 @Entity
-@Table(name="CONTA")
-public class Conta implements EntityModel<Long>{
+@Table(name="conta")
+public class Conta {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "idconta")
 	private Long idConta;
 	
-	@OneToOne(fetch = FetchType.EAGER, optional = false, cascade =  CascadeType.ALL)
-	@JoinColumn(name = "IDPESSOA", nullable = false)
-	private Pessoa pessoa;
-
-	@Column(name="AGENCIA")
-	private Long agencia;
+	@Column(name="agencia")
+	private Long agencia = null;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="STATUS")
-	private StatusContaEnum status;
+	@Column(name="status")
+	private StatusContaEnum status = StatusContaEnum.DESATIVADO;
 	
-	@Column(name="SENHA")
-	private String senha;
+	@Column(name="senha")
+	private String senha = null;
 	
-	@Column(name="SALDO")
-	private Double saldo;
+	@Column(name="saldo")
+	private Double saldo = null;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="DATA_VIGENCIA")
-	private Date dataVigencia;
+	@Column(name="datavigencia")
+	private Date dataVigencia = null;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="TIPO_CONTA")
-	private TipoContaEnum tipoConta; ;
+	@Column(name="tipoconta")
+	private TipoContaEnum tipoConta = null;
+	
 	
 	public Date getDataVigencia() {
 		return dataVigencia;
@@ -70,6 +63,15 @@ public class Conta implements EntityModel<Long>{
 		
 	}
 
+	public Conta(Long idConta, Long agencia, StatusContaEnum status, Double saldo,Date dataVigencia, TipoContaEnum tipoConta) {
+		super();
+		this.idConta = idConta;
+		this.agencia = agencia;
+		this.status = status;
+		this.saldo = saldo;
+		this.dataVigencia = dataVigencia;
+		this.tipoConta = tipoConta;
+	}
 	
 	@Override
 	public int hashCode() {
@@ -131,23 +133,6 @@ public class Conta implements EntityModel<Long>{
 	}
 
 
-	public Conta(Long agencia, StatusContaEnum status, Double saldo,Date dataVigencia, TipoContaEnum tipoConta, Pessoa pessoa) {
-		super();
-		//this.idConta = idConta;
-		this.agencia = agencia;
-		this.status = status;
-		this.saldo = saldo;
-		this.dataVigencia = dataVigencia;
-		this.tipoConta = tipoConta;
-		this.pessoa = pessoa;
-	}
-	
-
-	@Override
-	public Long getId() {
-
-		return getIdConta();
-	}
 
 
 	public String getSenha() {
@@ -167,16 +152,6 @@ public class Conta implements EntityModel<Long>{
 
 	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
-	}
-
-
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
 	}
 
 
