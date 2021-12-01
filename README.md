@@ -14,12 +14,9 @@ curl -X POST "http://localhost:8080/api/v1/contas/cadastro/9?agencia=7&dataVigen
 ### Cadastro de conta atual
 ```JSON
 {
-  "idPessoa": 10,
   "agencia": 98,
   "dataVigencia": "2021-11-08",
-  "senha": "string",
-  "saldo": 10, 
-  "status": "ATIVA",
+  "senha": "string", 
   "tipoConta": "PJ"
 }
 ```
