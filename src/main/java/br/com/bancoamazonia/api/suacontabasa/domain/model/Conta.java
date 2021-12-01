@@ -22,7 +22,7 @@ import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoContaEnum;
 public class Conta {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idconta")
 	private Long idConta;
 	
