@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.amazoniafw.base.exceptions.displayable.BusinessException;
-import br.com.bancoamazonia.api.suacontabasa.domain.enums.StatusContaEnum;
-import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
 import br.com.bancoamazonia.api.suacontabasa.repository.PessoaRepository;
 
@@ -52,9 +50,6 @@ public class PessoaManager {
 	
 	@Transactional
 	public Pessoa insert(Pessoa obj) {
-		Conta conta = new Conta();
-		conta.setStatus(StatusContaEnum.DESATIVADO);
-		obj.setConta(conta);
 		return repository.save(obj);
 	}
 

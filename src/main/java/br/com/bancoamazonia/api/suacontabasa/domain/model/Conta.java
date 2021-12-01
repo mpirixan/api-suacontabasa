@@ -3,6 +3,7 @@ package br.com.bancoamazonia.api.suacontabasa.domain.model;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,30 +25,34 @@ import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoContaEnum;
 public class Conta {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "idconta")
 	private Long idConta;
 	
 	@Column(name="agencia")
-	private Long agencia = null;
+	private Long agencia;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="status")
-	private StatusContaEnum status = StatusContaEnum.DESATIVADO;
+	private StatusContaEnum status;
 	
 	@Column(name="senha")
-	private String senha = null;
+	private String senha;
 	
 	@Column(name="saldo")
-	private Double saldo = null;
+	private Double saldo;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="datavigencia")
-	private Date dataVigencia = null;
+	private Date dataVigencia;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="tipoconta")
-	private TipoContaEnum tipoConta = null;
+	private TipoContaEnum tipoConta;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="idpessoa", referencedColumnName = "idpessoa")
+	private Pessoa pessoa;
 	
 	
 	public Date getDataVigencia() {
@@ -152,6 +159,16 @@ public class Conta {
 
 	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
+	}
+
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 

@@ -15,7 +15,6 @@ import br.com.bancoamazonia.api.suacontabasa.domain.enums.StatusContaEnum;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
 import br.com.bancoamazonia.api.suacontabasa.repository.ContaRepository;
-import br.com.bancoamazonia.api.suacontabasa.repository.PessoaRepository;
 
 @Component
 @Validated
@@ -24,8 +23,9 @@ public class ContaManager {
 	@Autowired
 	private ContaRepository repository;
 	
+	
 	@Autowired
-	private PessoaRepository pessoaRepository;
+	private PessoaManager pessoaManager;
 	
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -45,19 +45,7 @@ public class ContaManager {
 		return conta;
 	}
 	
-	
-	public Conta findById(Long pessoa) {
-		Pessoa idPessoa = pessoaRepository.findByIdPessoa(pessoa);
-		Long idConta = repository.obterIdConta(idPessoa.getIdPessoa());
-		Conta conta = repository.findByIdConta(idConta);
-		if(conta == null) {
-			throw new BusinessException("Não foi possivel localizar a pessoa com idPessoa "+pessoa);
-		}
-		else {
-		return  conta;
-	}
 
-	}
 
 
 	/* // Inserção com Corpo JSON
@@ -76,8 +64,12 @@ public class ContaManager {
 	*/
 
 	@Transactional
-	public Conta cadastro(Conta obj) {
-		return repository.save(obj);
+	public Conta cadastro(Long idPessoa, Conta conta) {
+		Pessoa pessoa = pessoaManager.findByIdPessoa(idPessoa);
+		conta.setSaldo(00.00);
+		conta.setStatus(StatusContaEnum.ATIVA);
+		conta.setPessoa(pessoa);
+		return repository.save(conta);
 		   
 	}
 
@@ -118,7 +110,6 @@ public class ContaManager {
 		else {
 			conta.setStatus(StatusContaEnum.DESATIVADO);	
 		}
-		
 		return null;
 	}
 	
@@ -137,7 +128,7 @@ public class ContaManager {
 	
 	@Transactional
 	public Double obterSaldoPorIdFiscal (Long idFiscal) {
-		Pessoa idPessoa = pessoaRepository.findByIdFiscal(idFiscal);
+		Pessoa idPessoa = pessoaManager.findByIdFiscal(idFiscal);
 		Long idConta = repository.obterIdConta(idPessoa.getIdPessoa());
 		Conta conta = repository.findByIdConta(idConta);
 		if (conta == null) {

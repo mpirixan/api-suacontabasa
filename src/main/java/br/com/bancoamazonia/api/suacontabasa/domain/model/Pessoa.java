@@ -42,9 +42,6 @@ public class Pessoa {
 	@Column(name="tipopessoa")
 	private TipoPessoaEnum tipoPessoa;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idconta")
-	private Conta conta;
 	
 	public TipoPessoaEnum getTipoPessoa() {
 		return tipoPessoa;
@@ -53,16 +50,6 @@ public class Pessoa {
 
 	public void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
-	}
-
-
-	public Conta getConta() {
-		return conta;
-	}
-
-
-	public void setConta(Conta conta) {
-		this.conta = conta;
 	}
 
 
@@ -138,8 +125,6 @@ public class Pessoa {
 	public void setIdFiscal(Long idFiscal) {
 		this.idFiscal = idFiscal;
 	}
-
-
 
 
 	}
