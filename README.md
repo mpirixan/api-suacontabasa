@@ -2,7 +2,8 @@
 1. Banco de Dados H2 - Local;
 2. Relação OneToOne;
 3. Porta padrão: 8080; 
-4. Classes responses estão sendo utilizadas corretamente.
+4. Classes responses estão sendo utilizadas corretamente;
+5. Em buscar por nome e cpf, caso a pessoa cadastrada não tenha uma conta, é exibido apenas as informações pessoais como nome e cpf. Caso tenha uma conta, é exibido as informações completas com a conta.
 
 ## Requisição POST
 #### Exemplo de url com criação de contas - Antigo

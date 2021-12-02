@@ -44,7 +44,7 @@ public class ContaManager {
 	public Conta findByIdConta(Long idConta) {
 		Conta conta = repository.findByIdConta(idConta);
 		if(conta == null) {
-			throw new BusinessException("Não foi possivel localizar a conta "+idConta);
+			throw new BusinessException(String.format("Não foi possivel localizar a conta "+idConta));
 		}
 		return conta;
 	}
@@ -54,19 +54,15 @@ public class ContaManager {
 		Pessoa idPessoa = pessoaManager.findByIdPessoa(pessoa);
 		Long idConta = repository.obterIdConta(idPessoa.getIdPessoa());
 		Conta conta = repository.findByIdConta(idConta);
-		if(conta == null) {
-			throw new BusinessException("Não foi possivel localizar a conta de idPessoa "+pessoa);
-		}
-		else {
+
 		return  conta;
-	}
 
 	}
 
 	@Transactional
 	public Conta cadastro(Long idPessoa, CadastroContaResponse obj) {
 		if (repository.obterIdConta(idPessoa) != null){
-			throw new BusinessException(("Pessoa com id " + idPessoa+ " já possui conta cadastrada! "));
+			throw new BusinessException(String.format("Pessoa com id %s  já possui conta cadastrada! ",idPessoa));
 		}
 		Date dataLocal = new Date();
 		Calendar c = Calendar.getInstance();

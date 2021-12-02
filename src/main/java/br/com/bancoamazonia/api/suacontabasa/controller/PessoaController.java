@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroPessoaResponse;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.DadosGeraisResponse;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.PessoaResponse;
+import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
 import br.com.bancoamazonia.api.suacontabasa.manager.ContaManager;
 import br.com.bancoamazonia.api.suacontabasa.manager.PessoaManager;
@@ -47,14 +48,22 @@ public class PessoaController {
 	}
 	
 	@GetMapping(value="/nome/{nome}" )
-	public DadosGeraisResponse obterPorNome(@PathVariable("nome")String nome){
+	public Object obterPorNome(@PathVariable("nome")String nome){
 		Pessoa pessoa =  manager.findByNome(nome);
+		Conta conta = contaManager.findById(pessoa.getIdPessoa());
+		if (conta == null) {
+			return modelMapper.map(manager.findByNome(nome), PessoaResponse.class);
+		}
 		return   modelMapper.map(contaManager.findById(pessoa.getIdPessoa()),DadosGeraisResponse.class);
 	}
 	
 	@GetMapping(value = "/cpf-cnpj/{idFiscal}")
-	public DadosGeraisResponse obterPorIdFiscal(@PathVariable("idFiscal") Long idFiscal){
+	public Object obterPorIdFiscal(@PathVariable("idFiscal") Long idFiscal){
 		Pessoa pessoa = manager.findByIdFiscal(idFiscal);
+		Conta conta = contaManager.findById(pessoa.getIdPessoa());
+		if (conta == null) {
+			return modelMapper.map(manager.findByIdFiscal(idFiscal), PessoaResponse.class);
+		}
 		return  modelMapper.map(contaManager.findById(pessoa.getIdPessoa()),DadosGeraisResponse.class);
 	}
 	
