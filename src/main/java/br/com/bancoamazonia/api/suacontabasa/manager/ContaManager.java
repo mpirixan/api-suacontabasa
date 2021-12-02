@@ -5,12 +5,15 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.amazoniafw.base.exceptions.displayable.BusinessException;
+import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroContaResponse;
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.StatusContaEnum;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
@@ -45,7 +48,19 @@ public class ContaManager {
 		return conta;
 	}
 	
+	
+	public Conta findById(Long pessoa) {
+		Pessoa idPessoa = pessoaManager.findByIdPessoa(pessoa);
+		Long idConta = repository.obterIdConta(idPessoa.getIdPessoa());
+		Conta conta = repository.findByIdConta(idConta);
+		if(conta == null) {
+			throw new BusinessException("Não foi possivel localizar a conta de idPessoa "+pessoa);
+		}
+		else {
+		return  conta;
+	}
 
+	}
 
 
 	/* // Inserção com Corpo JSON
@@ -64,13 +79,20 @@ public class ContaManager {
 	*/
 
 	@Transactional
-	public Conta cadastro(Long idPessoa, Conta conta) {
+	public Conta cadastro(Long idPessoa, CadastroContaResponse obj) {
+		if (repository.obterIdConta(idPessoa) != null){
+			throw new BusinessException(("Pessoa com id " + idPessoa+ " já possui conta cadastrada! "));
+		}
 		Pessoa pessoa = pessoaManager.findByIdPessoa(idPessoa);
+		Conta conta = new Conta();
+		conta.setAgencia(obj.getAgencia());
+		conta.setSenha(obj.getSenha());
+		conta.setDataVigencia(obj.getDataVigencia());
+		conta.setTipoConta(obj.getTipoConta());
 		conta.setSaldo(00.00);
 		conta.setStatus(StatusContaEnum.ATIVA);
 		conta.setPessoa(pessoa);
 		return repository.save(conta);
-		   
 	}
 
 	public void depositoSaldo(Long idConta, Double obj) {

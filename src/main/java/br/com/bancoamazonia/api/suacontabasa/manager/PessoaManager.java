@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.amazoniafw.base.exceptions.displayable.BusinessException;
+import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroPessoaResponse;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
 import br.com.bancoamazonia.api.suacontabasa.repository.PessoaRepository;
 
@@ -47,12 +48,21 @@ public class PessoaManager {
 		}
 		return pessoa;
 	}
-	
+	/*
 	@Transactional
 	public Pessoa insert(Pessoa obj) {
 		return repository.save(obj);
 	}
-
+*/
+	@Transactional
+	public Pessoa insert(CadastroPessoaResponse obj) {
+		Pessoa pessoa = new Pessoa();
+		pessoa.setNome(obj.getNome());
+		pessoa.setIdFiscal(obj.getIdFiscal());
+		pessoa.setDataNascimento(obj.getDataNascimento());
+		pessoa.setTipoPessoa(obj.getTipoPessoa());
+		return repository.save(pessoa);
+	}
 	@Transactional
 	public Pessoa delete(Long idPessoa) {
 		Pessoa entity = repository.findByIdPessoa(idPessoa);

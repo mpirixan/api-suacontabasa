@@ -19,6 +19,7 @@ public interface ContaRepository extends ExtendedJpaRepository<Conta, Long>{
 	
 	public Conta save(ContaResponse conta);
 	
+	
 	// SQL - Queries
 
 	@Modifying
@@ -38,7 +39,7 @@ public interface ContaRepository extends ExtendedJpaRepository<Conta, Long>{
 	@Query("select saldo from Conta c where c.idConta = :idConta")
 	public Double obterSaldoIdConta(@Param("idConta")Long idConta);
 /*
-	@Query(value="select p from pessoa p where p.idpessoa = :idPessoa")
+	@Query(value="select p from c p where p.idpessoa = :idPessoa")
 	public Long obterPessoaById (@Param("idPessoa")Long idPessoa);
 	*/
 }

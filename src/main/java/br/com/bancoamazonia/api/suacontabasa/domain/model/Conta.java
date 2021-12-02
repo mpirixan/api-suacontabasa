@@ -51,7 +51,7 @@ public class Conta {
 	private TipoContaEnum tipoConta;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idpessoa", referencedColumnName = "idpessoa")
+	@JoinColumn(name="idpessoa", referencedColumnName = "idpessoa",unique = true)
 	private Pessoa pessoa;
 	
 	

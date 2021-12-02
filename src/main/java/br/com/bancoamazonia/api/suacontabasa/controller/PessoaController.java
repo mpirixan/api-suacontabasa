@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroPessoaResponse;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.DadosGeraisResponse;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.PessoaResponse;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
@@ -59,8 +60,8 @@ public class PessoaController {
 	
 	
 	@PostMapping(value="/cadastro")
-	public PessoaResponse insert(@RequestBody Pessoa obj) {
-		return modelMapper.map(manager.insert(obj), PessoaResponse.class);
+	public CadastroPessoaResponse insert(@RequestBody CadastroPessoaResponse obj) {
+		return modelMapper.map(manager.insert(obj), CadastroPessoaResponse.class);
 	}
 	
 	@DeleteMapping(value="/desativacao/{idPessoa}")
