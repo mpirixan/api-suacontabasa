@@ -1,13 +1,13 @@
 package br.com.bancoamazonia.api.suacontabasa.manager;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +22,7 @@ import br.com.bancoamazonia.api.suacontabasa.repository.ContaRepository;
 @Component
 @Validated
 public class ContaManager {
+	
 
 	@Autowired
 	private ContaRepository repository;
@@ -62,32 +63,21 @@ public class ContaManager {
 
 	}
 
-
-	/* // Inserção com Corpo JSON
-	@Transactional
-	public void cadastro(ContaResponse conta) {
-		entityManager.createNativeQuery("insert into CONTA (PESSOA_IDPESSOA ,AGENCIA, DATAVIGENCIA, SALDO, SENHA, STATUS, TIPOCONTA) values (?,?,?,?,?,?,?)")
-		.setParameter(1, conta.getIdPessoa())
-		.setParameter(2, conta.getAgencia())
-		.setParameter(3, conta.getDataVigencia())
-		.setParameter(4, conta.getSaldo())
-		.setParameter(5, conta.getSenha())
-		.setParameter(6, conta.getStatus())
-		.setParameter(7, conta.getTipoConta())
-		.executeUpdate();
-	}
-	*/
-
 	@Transactional
 	public Conta cadastro(Long idPessoa, CadastroContaResponse obj) {
 		if (repository.obterIdConta(idPessoa) != null){
 			throw new BusinessException(("Pessoa com id " + idPessoa+ " já possui conta cadastrada! "));
 		}
+		Date dataLocal = new Date();
+		Calendar c = Calendar.getInstance();
+		c.setTime(dataLocal);
+		c.add(Calendar.YEAR, 5);	
+		Date dataVigencia = c.getTime();
 		Pessoa pessoa = pessoaManager.findByIdPessoa(idPessoa);
 		Conta conta = new Conta();
 		conta.setAgencia(obj.getAgencia());
 		conta.setSenha(obj.getSenha());
-		conta.setDataVigencia(obj.getDataVigencia());
+		conta.setDataVigencia(dataVigencia);
 		conta.setTipoConta(obj.getTipoConta());
 		conta.setSaldo(00.00);
 		conta.setStatus(StatusContaEnum.ATIVA);

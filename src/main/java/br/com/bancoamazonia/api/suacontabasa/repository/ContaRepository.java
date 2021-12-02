@@ -38,8 +38,5 @@ public interface ContaRepository extends ExtendedJpaRepository<Conta, Long>{
 	
 	@Query("select saldo from Conta c where c.idConta = :idConta")
 	public Double obterSaldoIdConta(@Param("idConta")Long idConta);
-/*
-	@Query(value="select p from c p where p.idpessoa = :idPessoa")
-	public Long obterPessoaById (@Param("idPessoa")Long idPessoa);
-	*/
+
 }

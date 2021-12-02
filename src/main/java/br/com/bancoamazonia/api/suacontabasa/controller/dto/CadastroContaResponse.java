@@ -1,7 +1,6 @@
 package br.com.bancoamazonia.api.suacontabasa.controller.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Objects;
 
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoContaEnum;
@@ -16,9 +15,6 @@ public class CadastroContaResponse implements Serializable{
 	
 	@Schema(description = "senha - senha da conta")
 	private String senha;
-
-	@Schema(description = "Data vigencia")
-	private Date dataVigencia;
 	
 	@Schema(description = "Tipo de Conta")
 	private TipoContaEnum tipoConta;
@@ -56,13 +52,6 @@ public class CadastroContaResponse implements Serializable{
 		this.senha = senha;
 	}
 
-	public Date getDataVigencia() {
-		return dataVigencia;
-	}
-
-	public void setDataVigencia(Date dataVigencia) {
-		this.dataVigencia = dataVigencia;
-	}
 
 	public TipoContaEnum getTipoConta() {
 		return tipoConta;
