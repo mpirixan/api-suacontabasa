@@ -2,7 +2,7 @@
 1. Banco de Dados H2 - Local;
 2. Relação OneToOne;
 3. Porta padrão: 8080; 
-4. Classes responses estão sendo utilizadas corretamente. Porém não 100%.
+4. Classes responses estão sendo utilizadas corretamente.
 
 ## Requisição POST
 #### Exemplo de url com criação de contas - Antigo
@@ -11,13 +11,12 @@
 curl -X POST "http://localhost:8080/api/v1/contas/cadastro/9?agencia=7&dataVigencia=2025%2F10%2F02&saldo=500&senha=adm123&status=ATIVA&tipoConta=PJ" -H  "accept: */*" -d ""
 
 ```
-### Cadastro de conta atual
+### Cadastro de conta atual, necessita do parâmetro idPessoa
 ```JSON
 {
-  "agencia": 98,
-  "dataVigencia": "2021-11-08",
-  "senha": "string", 
-  "tipoConta": "PJ"
+  "agencia": 59,
+  "senha": "copaverde",
+  "tipoConta": "POUPANÇA"
 }
 ```
 
@@ -25,11 +24,11 @@ curl -X POST "http://localhost:8080/api/v1/contas/cadastro/9?agencia=7&dataVigen
 
 ```JSON
 {
-	"idFiscal": 12345678,
-	"nome": "Fulano",
-	"dataNascimento": "1984-08-14T13:42:56.151Z",
-	"tipoPessoa": "FISICA"
-} 
+  "idFiscal": 123456789,
+  "nome": "Fulano",
+  "dataNascimento": "1981-02-25T14:11:34.262Z",
+  "tipoPessoa": "FISICA"
+}
 ```
 
 ## Requisição PATCH
