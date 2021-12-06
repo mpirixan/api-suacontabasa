@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.amazoniafw.base.exceptions.displayable.BusinessException;
-import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroPessoaResponse;
+import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroPessoaRequest;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
 import br.com.bancoamazonia.api.suacontabasa.repository.PessoaRepository;
 
@@ -40,7 +40,7 @@ public class PessoaManager {
 		}
 		return pessoa;
 	}
-	
+	/*
 	public Pessoa findByNome(String nome) {
 		Pessoa pessoa = repository.findByNome(nome);
 		if(pessoa == null) {
@@ -48,19 +48,20 @@ public class PessoaManager {
 		}
 		return pessoa;
 	}
-	/*
-	@Transactional
-	public Pessoa insert(Pessoa obj) {
-		return repository.save(obj);
-	}
 */
+	public List<Pessoa> findByNome (String nome){
+		
+		return (List<Pessoa>) repository.findByNome(nome);
+	}
+	
 	@Transactional
-	public Pessoa insert(CadastroPessoaResponse obj) {
+	public Pessoa insert(CadastroPessoaRequest obj) {
 		Pessoa pessoa = new Pessoa();
 		pessoa.setNome(obj.getNome());
 		pessoa.setIdFiscal(obj.getIdFiscal());
 		pessoa.setDataNascimento(obj.getDataNascimento());
 		pessoa.setTipoPessoa(obj.getTipoPessoa());
+		pessoa.setConta(null);
 		return repository.save(pessoa);
 	}
 	@Transactional

@@ -6,7 +6,7 @@ import java.util.Objects;
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoContaEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-public class CadastroContaResponse implements Serializable{
+public class CadastroContaRequest implements Serializable{
 
 	private static final long serialVersionUID = 1399392304940041785L;
 	
@@ -32,7 +32,7 @@ public class CadastroContaResponse implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CadastroContaResponse other = (CadastroContaResponse) obj;
+		CadastroContaRequest other = (CadastroContaRequest) obj;
 		return Objects.equals(senha, other.senha);
 	}
 

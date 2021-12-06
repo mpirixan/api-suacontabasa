@@ -50,9 +50,6 @@ public class Conta {
 	@Column(name="tipoconta")
 	private TipoContaEnum tipoConta;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idpessoa", referencedColumnName = "idpessoa",unique = true)
-	private Pessoa pessoa;
 	
 	
 	public Date getDataVigencia() {
@@ -161,15 +158,6 @@ public class Conta {
 		this.saldo = saldo;
 	}
 
-
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
 
 
 	}

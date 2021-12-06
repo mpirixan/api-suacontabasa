@@ -3,6 +3,7 @@ package br.com.bancoamazonia.api.suacontabasa.domain.model;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,6 +42,9 @@ public class Pessoa {
 	@Column(name="tipopessoa")
 	private TipoPessoaEnum tipoPessoa;
 
+	@OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+	@JoinColumn(name = "conta", referencedColumnName= "idconta", nullable = true)
+	private Conta conta;
 	
 	public TipoPessoaEnum getTipoPessoa() {
 		return tipoPessoa;
@@ -75,9 +81,12 @@ public class Pessoa {
 	public Long getId() {
 		return idPessoa;
 	}
+
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(idPessoa);
+		return Objects.hash(conta, dataNascimento, idFiscal, idPessoa, nome, tipoPessoa);
 	}
 
 
@@ -90,7 +99,9 @@ public class Pessoa {
 		if (getClass() != obj.getClass())
 			return false;
 		Pessoa other = (Pessoa) obj;
-		return Objects.equals(idPessoa, other.idPessoa);
+		return Objects.equals(conta, other.conta) && Objects.equals(dataNascimento, other.dataNascimento)
+				&& Objects.equals(idFiscal, other.idFiscal) && Objects.equals(idPessoa, other.idPessoa)
+				&& Objects.equals(nome, other.nome) && tipoPessoa == other.tipoPessoa;
 	}
 
 
@@ -121,6 +132,16 @@ public class Pessoa {
 
 	public void setIdFiscal(Long idFiscal) {
 		this.idFiscal = idFiscal;
+	}
+
+
+	public Conta getConta() {
+		return conta;
+	}
+
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
 	}
 
 

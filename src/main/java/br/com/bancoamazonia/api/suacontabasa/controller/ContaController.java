@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroContaResponse;
+import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroContaRequest;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.ContaResponse;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 import br.com.bancoamazonia.api.suacontabasa.manager.ContaManager;
@@ -67,8 +67,8 @@ public class ContaController {
 	// inserção com corpo JSON
 
 	@PostMapping(value="/cadastro/{idPessoa}")
-	public CadastroContaResponse cadastro(@PathVariable("idPessoa") Long idPessoa, @RequestBody CadastroContaResponse obj){
-		 return modelMapper.map(manager.cadastro(idPessoa,obj),CadastroContaResponse.class);
+	public CadastroContaRequest cadastro(@PathVariable("idPessoa") Long idPessoa, @RequestBody CadastroContaRequest obj){
+		 return modelMapper.map(manager.cadastro(idPessoa,obj),CadastroContaRequest.class);
 	} 
 	/*
 	@PostMapping(value="/cadastro")

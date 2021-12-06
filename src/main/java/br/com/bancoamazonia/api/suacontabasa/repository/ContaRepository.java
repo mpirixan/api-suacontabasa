@@ -30,7 +30,7 @@ public interface ContaRepository extends ExtendedJpaRepository<Conta, Long>{
 	@Query("update Conta c set  c.saldo = c.saldo + ?1 where c.idConta = ?2")
 	void setDepositoSaldo(Double saldo, Long idConta);
 	
-	@Query(value = "select IdConta from Conta c where c.idPessoa = :idPessoa", nativeQuery=true)
+	@Query(value = "select conta from Pessoa p where p.idPessoa = :idPessoa", nativeQuery=true)
 	public Long obterIdConta(@Param("idPessoa")Long idPessoa);
 	
 	@Query(value = "SELECT CONTA.SALDO FROM CONTA LEFT JOIN PESSOA ON PESSOA.IDPESSOA = CONTA.IDPESSOA WHERE PESSOA.NUM_CPF_CNPJ = :idFiscal", nativeQuery=true)

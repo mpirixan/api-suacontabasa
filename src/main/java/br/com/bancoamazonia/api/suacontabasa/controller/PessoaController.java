@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroPessoaResponse;
+import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroPessoaRequest;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.DadosGeraisResponse;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.PessoaResponse;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
@@ -48,29 +48,19 @@ public class PessoaController {
 	}
 	
 	@GetMapping(value="/nome/{nome}" )
-	public Object obterPorNome(@PathVariable("nome")String nome){
-		Pessoa pessoa =  manager.findByNome(nome);
-		Conta conta = contaManager.findById(pessoa.getIdPessoa());
-		if (conta == null) {
-			return modelMapper.map(manager.findByNome(nome), PessoaResponse.class);
-		}
-		return   modelMapper.map(contaManager.findById(pessoa.getIdPessoa()),DadosGeraisResponse.class);
+	public DadosGeraisResponse obterPorNome(@PathVariable("nome")String nome){
+		return   modelMapper.map(manager.findByNome(nome),DadosGeraisResponse.class);
 	}
 	
 	@GetMapping(value = "/cpf-cnpj/{idFiscal}")
-	public Object obterPorIdFiscal(@PathVariable("idFiscal") Long idFiscal){
-		Pessoa pessoa = manager.findByIdFiscal(idFiscal);
-		Conta conta = contaManager.findById(pessoa.getIdPessoa());
-		if (conta == null) {
-			return modelMapper.map(manager.findByIdFiscal(idFiscal), PessoaResponse.class);
-		}
-		return  modelMapper.map(contaManager.findById(pessoa.getIdPessoa()),DadosGeraisResponse.class);
+	public DadosGeraisResponse obterPorIdFiscal(@PathVariable("idFiscal") Long idFiscal){
+		return  modelMapper.map(manager.findByIdFiscal(idFiscal),DadosGeraisResponse.class);
 	}
 	
 	
 	@PostMapping(value="/cadastro")
-	public CadastroPessoaResponse insert(@RequestBody CadastroPessoaResponse obj) {
-		return modelMapper.map(manager.insert(obj), CadastroPessoaResponse.class);
+	public CadastroPessoaRequest insert(@RequestBody CadastroPessoaRequest obj) {
+		return modelMapper.map(manager.insert(obj), CadastroPessoaRequest.class);
 	}
 	
 	@DeleteMapping(value="/desativacao/{idPessoa}")

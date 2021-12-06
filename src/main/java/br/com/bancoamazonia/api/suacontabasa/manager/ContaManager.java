@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.amazoniafw.base.exceptions.displayable.BusinessException;
-import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroContaResponse;
+import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroContaRequest;
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.StatusContaEnum;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
@@ -60,7 +60,7 @@ public class ContaManager {
 	}
 
 	@Transactional
-	public Conta cadastro(Long idPessoa, CadastroContaResponse obj) {
+	public Conta cadastro(Long idPessoa, CadastroContaRequest obj) {
 		if (repository.obterIdConta(idPessoa) != null){
 			throw new BusinessException(String.format("Pessoa com id %s  já possui conta cadastrada! ",idPessoa));
 		}
@@ -69,7 +69,6 @@ public class ContaManager {
 		c.setTime(dataLocal);
 		c.add(Calendar.YEAR, 5);	
 		Date dataVigencia = c.getTime();
-		Pessoa pessoa = pessoaManager.findByIdPessoa(idPessoa);
 		Conta conta = new Conta();
 		conta.setAgencia(obj.getAgencia());
 		conta.setSenha(obj.getSenha());
@@ -77,7 +76,8 @@ public class ContaManager {
 		conta.setTipoConta(obj.getTipoConta());
 		conta.setSaldo(00.00);
 		conta.setStatus(StatusContaEnum.ATIVA);
-		conta.setPessoa(pessoa);
+		Pessoa pessoa = pessoaManager.findByIdPessoa(idPessoa);
+		pessoa.setConta(conta);
 		return repository.save(conta);
 	}
 

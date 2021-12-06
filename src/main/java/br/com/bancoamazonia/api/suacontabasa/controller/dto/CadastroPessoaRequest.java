@@ -7,7 +7,7 @@ import java.util.Objects;
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoPessoaEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-public class CadastroPessoaResponse implements Serializable {
+public class CadastroPessoaRequest implements Serializable {
 
 	private static final long serialVersionUID = 5126712833721927079L;
 	
@@ -36,7 +36,7 @@ public class CadastroPessoaResponse implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CadastroPessoaResponse other = (CadastroPessoaResponse) obj;
+		CadastroPessoaRequest other = (CadastroPessoaRequest) obj;
 		return Objects.equals(idFiscal, other.idFiscal) && Objects.equals(nome, other.nome);
 	}
 
