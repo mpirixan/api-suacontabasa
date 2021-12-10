@@ -1,6 +1,6 @@
 package br.com.bancoamazonia.api.suacontabasa.domain.model;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
@@ -36,7 +36,7 @@ public class Pessoa {
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="datanascimento")
-	private Date dataNascimento;
+	private Calendar dataNascimento;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="tipopessoa")
@@ -56,12 +56,12 @@ public class Pessoa {
 	}
 
 
-	public Date getDataNascimento() {
+	public Calendar getDataNascimento() {
 		return dataNascimento;
 	}
 
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(Calendar dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 

@@ -1,5 +1,6 @@
 package br.com.bancoamazonia.api.suacontabasa.manager;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -68,11 +69,11 @@ public class ContaManager {
 		Calendar c = Calendar.getInstance();
 		c.setTime(dataLocal);
 		c.add(Calendar.YEAR, 5);	
-		Date dataVigencia = c.getTime();
+//		LocalDate dataVigencia = c.getTime();
 		Conta conta = new Conta();
 		conta.setAgencia(obj.getAgencia());
 		conta.setSenha(obj.getSenha());
-		conta.setDataVigencia(dataVigencia);
+		//conta.setDataVigencia(dataVigencia);
 		conta.setTipoConta(obj.getTipoConta());
 		conta.setSaldo(00.00);
 		conta.setStatus(StatusContaEnum.ATIVA);

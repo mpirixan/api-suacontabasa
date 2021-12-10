@@ -1,9 +1,9 @@
 package br.com.bancoamazonia.api.suacontabasa.domain.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,8 +11,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,22 +40,23 @@ public class Conta {
 	@Column(name="saldo")
 	private Double saldo;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="datavigencia")
-	private Date dataVigencia;
+	@Column(name="datavigencia", insertable=false ,updatable=false)
+	private LocalDate dataVigencia;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="tipoconta")
 	private TipoContaEnum tipoConta;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="datavigencia")
+	private Date dataInicioRelacionamento;
 	
-	
-	public Date getDataVigencia() {
+	public LocalDate getDataVigencia() {
 		return dataVigencia;
 	}
 
 
-	public void setDataVigencia(Date dataVigencia) {
+	public void setDataVigencia(LocalDate dataVigencia) {
 		this.dataVigencia = dataVigencia;
 	}
 
@@ -67,7 +66,7 @@ public class Conta {
 		
 	}
 
-	public Conta(Long idConta, Long agencia, StatusContaEnum status, Double saldo,Date dataVigencia, TipoContaEnum tipoConta) {
+	public Conta(Long idConta, Long agencia, StatusContaEnum status, Double saldo,LocalDate dataVigencia, TipoContaEnum tipoConta) {
 		super();
 		this.idConta = idConta;
 		this.agencia = agencia;

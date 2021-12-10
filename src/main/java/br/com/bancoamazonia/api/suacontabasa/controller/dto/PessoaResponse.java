@@ -1,7 +1,7 @@
 package br.com.bancoamazonia.api.suacontabasa.controller.dto;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,7 +21,7 @@ public class PessoaResponse implements Serializable {
 
 	
 	@Schema(description = "dataNascimento - Data de Nascimento da pessoa")
-	private Date dataNascimento;
+	private Calendar dataNascimento;
 	
 	
 	@Override
@@ -59,11 +59,11 @@ public class PessoaResponse implements Serializable {
 		this.idFiscal = idFiscal;
 	}
 
-	public Date getDataNascimento() {
+	public Calendar getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(Calendar dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
