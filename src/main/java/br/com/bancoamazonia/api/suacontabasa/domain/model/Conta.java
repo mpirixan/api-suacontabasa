@@ -40,7 +40,7 @@ public class Conta {
 	@Column(name="saldo")
 	private Double saldo;
 
-	@Column(name="datavigencia", insertable=false ,updatable=false)
+	@Column(name="datavigencia", insertable=false ,updatable=false,columnDefinition = "DATE")
 	private LocalDate dataVigencia;
 	
 	@Enumerated(EnumType.STRING)

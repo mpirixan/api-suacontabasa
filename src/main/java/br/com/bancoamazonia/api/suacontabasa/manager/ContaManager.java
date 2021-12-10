@@ -1,8 +1,6 @@
 package br.com.bancoamazonia.api.suacontabasa.manager;
 
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -65,15 +63,11 @@ public class ContaManager {
 		if (repository.obterIdConta(idPessoa) != null){
 			throw new BusinessException(String.format("Pessoa com id %s  já possui conta cadastrada! ",idPessoa));
 		}
-		Date dataLocal = new Date();
-		Calendar c = Calendar.getInstance();
-		c.setTime(dataLocal);
-		c.add(Calendar.YEAR, 5);	
-//		LocalDate dataVigencia = c.getTime();
+		LocalDate dataVigencia = LocalDate.now();
 		Conta conta = new Conta();
 		conta.setAgencia(obj.getAgencia());
 		conta.setSenha(obj.getSenha());
-		//conta.setDataVigencia(dataVigencia);
+		conta.setDataVigencia(dataVigencia.plusYears(5));
 		conta.setTipoConta(obj.getTipoConta());
 		conta.setSaldo(00.00);
 		conta.setStatus(StatusContaEnum.ATIVA);
