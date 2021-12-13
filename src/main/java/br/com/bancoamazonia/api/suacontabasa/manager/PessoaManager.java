@@ -50,7 +50,10 @@ public class PessoaManager {
 	}
 */
 	public List<Pessoa> findByNome (String nome){
-
+		List<Pessoa> pessoa = repository.findByNome(nome.toUpperCase());
+		if(pessoa.isEmpty() == true) {
+			throw new BusinessException("Não foi possivel localizar a pessoa com nome "+nome);
+		}
 		return repository.findByNome(nome.toUpperCase());
 	}
 	
