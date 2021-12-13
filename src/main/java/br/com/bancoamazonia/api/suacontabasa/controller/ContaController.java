@@ -66,9 +66,9 @@ public class ContaController {
 	
 	// inserção com corpo JSON
 
-	@PostMapping(value="/cadastro/{idPessoa}")
-	public CadastroContaRequest cadastro(@PathVariable("idPessoa") Long idPessoa, @RequestBody CadastroContaRequest obj){
-		 return modelMapper.map(manager.cadastro(idPessoa,obj),CadastroContaRequest.class);
+	@PostMapping(value="/cadastro/{idFiscal}")
+	public CadastroContaRequest cadastro(@PathVariable("idFiscal") Long idFiscal, @RequestBody CadastroContaRequest obj){
+		 return modelMapper.map(manager.cadastro(idFiscal,obj),CadastroContaRequest.class);
 	} 
 	/*
 	@PostMapping(value="/cadastro")

@@ -1,7 +1,7 @@
 package br.com.bancoamazonia.api.suacontabasa.controller.dto;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -51,7 +51,10 @@ public class ContaResponse implements Serializable {
 	private Double saldo;
 
 	@Schema(description = "Data vigencia")
-	private Date dataVigencia;
+	private LocalDate dataVigencia;
+	
+	@Schema(description = "DAtainicio de relacionamento")
+	private LocalDate dataInicioRelacionamento;
 
 	@Schema(description = "Tipo de Conta")
 	private String tipoConta;
@@ -71,11 +74,11 @@ public class ContaResponse implements Serializable {
 	}
 
 
-	public Date getDataVigencia() {
+	public LocalDate getDataVigencia() {
 		return dataVigencia;
 	}
 
-	public void setDataVigencia(Date dataVigencia) {
+	public void setDataVigencia(LocalDate dataVigencia) {
 		this.dataVigencia = dataVigencia;
 	}
 
@@ -143,6 +146,16 @@ public class ContaResponse implements Serializable {
 
 	public Double getSaldo() {
 		return saldo;
+	}
+
+
+	public LocalDate getDataInicioRelacionamento() {
+		return dataInicioRelacionamento;
+	}
+
+
+	public void setDataInicioRelacionamento(LocalDate dataInicioRelacionamento) {
+		this.dataInicioRelacionamento = dataInicioRelacionamento;
 	}
 
 	

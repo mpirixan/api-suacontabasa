@@ -59,9 +59,9 @@ public class ContaManager {
 	}
 
 	@Transactional
-	public Conta cadastro(Long idPessoa, CadastroContaRequest obj) {
-		if (repository.obterIdConta(idPessoa) != null){
-			throw new BusinessException(String.format("Pessoa com id %s  já possui conta cadastrada! ",idPessoa));
+	public Conta cadastro(Long idFiscal, CadastroContaRequest obj) {
+		if (repository.obterIdConta(idFiscal) != null){
+			throw new BusinessException(String.format("Pessoa com id %s  já possui conta cadastrada! ",idFiscal));
 		}
 		LocalDate dataAtual = LocalDate.now();
 		Conta conta = new Conta();
@@ -72,7 +72,7 @@ public class ContaManager {
 		conta.setTipoConta(obj.getTipoConta());
 		conta.setSaldo(00.00);
 		conta.setStatus(StatusContaEnum.ATIVA);
-		Pessoa pessoa = pessoaManager.findByIdPessoa(idPessoa);
+		Pessoa pessoa = pessoaManager.findByIdFiscal(idFiscal);
 		pessoa.setConta(conta);
 		return repository.save(conta);
 	}
