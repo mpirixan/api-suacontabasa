@@ -49,15 +49,18 @@ public class PessoaManager {
 		return pessoa;
 	}
 */
-	public List<Pessoa> findByNome (String nome){
-		
-		return (List<Pessoa>) repository.findByNome(nome);
+	public Pessoa findByNome (String nome){
+		Pessoa pessoa = repository.findByNome(nome);
+		if(pessoa == null) {
+			throw new BusinessException("Não foi possivel localizar a pessoa com nome "+nome);
+		}
+		return repository.findByNome(nome.toUpperCase());
 	}
 	
 	@Transactional
 	public Pessoa insert(CadastroPessoaRequest obj) {
 		Pessoa pessoa = new Pessoa();
-		pessoa.setNome(obj.getNome());
+		pessoa.setNome(obj.getNome().toUpperCase());
 		pessoa.setIdFiscal(obj.getIdFiscal());
 		pessoa.setDataNascimento(obj.getDataNascimento());
 		pessoa.setTipoPessoa(obj.getTipoPessoa());

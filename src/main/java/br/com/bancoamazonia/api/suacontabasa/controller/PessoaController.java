@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroPessoaRequest;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.DadosGeraisResponse;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.PessoaResponse;
-import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
-import br.com.bancoamazonia.api.suacontabasa.manager.ContaManager;
 import br.com.bancoamazonia.api.suacontabasa.manager.PessoaManager;
 
 @CrossOrigin(origins = "http://127.0.0.1:3000")
@@ -29,9 +27,6 @@ public class PessoaController {
 
 	@Autowired
 	private PessoaManager manager;
-	
-	@Autowired
-	private ContaManager contaManager;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -49,7 +44,7 @@ public class PessoaController {
 	
 	@GetMapping(value="/nome/{nome}" )
 	public DadosGeraisResponse obterPorNome(@PathVariable("nome")String nome){
-		return   modelMapper.map(manager.findByNome(nome),DadosGeraisResponse.class);
+		return   modelMapper.map(manager.findByNome(nome.toUpperCase()),DadosGeraisResponse.class);
 	}
 	
 	@GetMapping(value = "/cpf-cnpj/{idFiscal}")
