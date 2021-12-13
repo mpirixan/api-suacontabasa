@@ -16,7 +16,7 @@ public interface PessoaRepository extends ExtendedJpaRepository<Pessoa, Long>{
 	
 	public Pessoa findByIdFiscal(Long idFiscal);
 	
-	public Pessoa findByNome(String nome);
+	public List<Pessoa> findByNome(String nome);
 
 	public Pessoa getOne(Long id);
 

@@ -1,5 +1,6 @@
 package br.com.bancoamazonia.api.suacontabasa.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -43,8 +44,10 @@ public class PessoaController {
 	}
 	
 	@GetMapping(value="/nome/{nome}" )
-	public DadosGeraisResponse obterPorNome(@PathVariable("nome")String nome){
-		return   modelMapper.map(manager.findByNome(nome.toUpperCase()),DadosGeraisResponse.class);
+	public List<DadosGeraisResponse> obterPorNome(@PathVariable("nome")String nome){
+
+		return Arrays.asList(modelMapper.map(manager.findByNome(nome), DadosGeraisResponse[].class));
+		//return    modelMapper.map(manager.findByNome(nome),DadosGeraisResponse.class);
 	}
 	
 	@GetMapping(value = "/cpf-cnpj/{idFiscal}")

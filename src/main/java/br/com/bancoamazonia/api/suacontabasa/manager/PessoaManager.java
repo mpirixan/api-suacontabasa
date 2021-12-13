@@ -49,11 +49,8 @@ public class PessoaManager {
 		return pessoa;
 	}
 */
-	public Pessoa findByNome (String nome){
-		Pessoa pessoa = repository.findByNome(nome);
-		if(pessoa == null) {
-			throw new BusinessException("Não foi possivel localizar a pessoa com nome "+nome);
-		}
+	public List<Pessoa> findByNome (String nome){
+
 		return repository.findByNome(nome.toUpperCase());
 	}
 	
