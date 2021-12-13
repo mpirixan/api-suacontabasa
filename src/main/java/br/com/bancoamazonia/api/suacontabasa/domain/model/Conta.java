@@ -1,7 +1,6 @@
 package br.com.bancoamazonia.api.suacontabasa.domain.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -12,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.StatusContaEnum;
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoContaEnum;
@@ -39,17 +36,16 @@ public class Conta {
 	
 	@Column(name="saldo")
 	private Double saldo;
-
-	@Column(name="datavigencia", insertable=false ,updatable=false,columnDefinition = "DATE")
+	
+	@Column(name="datavigencia", columnDefinition = "DATE")
 	private LocalDate dataVigencia;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="tipoconta")
 	private TipoContaEnum tipoConta;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="datavigencia")
-	private Date dataInicioRelacionamento;
+	@Column(name="datainiciorelacionamento",columnDefinition = "DATE")
+	private LocalDate dataInicioRelacionamento;
 	
 	public LocalDate getDataVigencia() {
 		return dataVigencia;
@@ -66,13 +62,14 @@ public class Conta {
 		
 	}
 
-	public Conta(Long idConta, Long agencia, StatusContaEnum status, Double saldo,LocalDate dataVigencia, TipoContaEnum tipoConta) {
+	public Conta(Long idConta, Long agencia, StatusContaEnum status, Double saldo,LocalDate dataVigencia, LocalDate dataInicioRelacionamento, TipoContaEnum tipoConta) {
 		super();
 		this.idConta = idConta;
 		this.agencia = agencia;
 		this.status = status;
 		this.saldo = saldo;
 		this.dataVigencia = dataVigencia;
+		this.dataInicioRelacionamento = dataInicioRelacionamento;
 		this.tipoConta = tipoConta;
 	}
 	
@@ -155,6 +152,16 @@ public class Conta {
 
 	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
+	}
+
+
+	public LocalDate getDataInicioRelacionamento() {
+		return dataInicioRelacionamento;
+	}
+
+
+	public void setDataInicioRelacionamento(LocalDate dataInicioRelacionamento) {
+		this.dataInicioRelacionamento = dataInicioRelacionamento;
 	}
 
 

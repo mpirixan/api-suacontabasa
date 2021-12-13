@@ -1,7 +1,7 @@
 package br.com.bancoamazonia.api.suacontabasa.controller.dto;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoPessoaEnum;
@@ -18,7 +18,7 @@ public class CadastroPessoaRequest implements Serializable {
 	private String nome;
 
 	@Schema(description = "dataNascimento - Data de Nascimento da pessoa")
-	private Calendar dataNascimento;
+	private LocalDate dataNascimento;
 	
 	@Schema(description = "Tipo de Pessoa")
 	private TipoPessoaEnum tipoPessoa;
@@ -56,11 +56,11 @@ public class CadastroPessoaRequest implements Serializable {
 		this.nome = nome;
 	}
 
-	public Calendar getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Calendar dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 

@@ -1,6 +1,7 @@
 package br.com.bancoamazonia.api.suacontabasa.controller.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -23,7 +24,7 @@ public class DadosGeraisResponse implements Serializable {
 	private String nome;
 
 	@Schema(description = "dataNascimento - Data de Nascimento da pessoa")
-	private Date dataNascimento;
+	private LocalDate dataNascimento;
 	
 	@Schema(description = "agencia - identificador agencia da Conta")
 	private Long agencia;
@@ -32,8 +33,11 @@ public class DadosGeraisResponse implements Serializable {
 	private String status;
 
 	@Schema(description = "Data vigencia")
-	private Date dataVigencia;
+	private LocalDate dataVigencia;
 
+	@Schema(description = "DAtainicio de relacionamento")
+	private LocalDate dataInicioRelacionamento;
+	
 	@Schema(description = "Tipo de Conta")
 	private String tipoConta;
 
@@ -57,7 +61,7 @@ public class DadosGeraisResponse implements Serializable {
 		return nome;
 	}
 
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
@@ -69,7 +73,7 @@ public class DadosGeraisResponse implements Serializable {
 		return status;
 	}
 
-	public Date getDataVigencia() {
+	public LocalDate getDataVigencia() {
 		return dataVigencia;
 	}
 
@@ -106,7 +110,7 @@ public class DadosGeraisResponse implements Serializable {
 		this.nome = nome;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
@@ -118,12 +122,20 @@ public class DadosGeraisResponse implements Serializable {
 		this.status = status;
 	}
 
-	public void setDataVigencia(Date dataVigencia) {
+	public void setDataVigencia(LocalDate dataVigencia) {
 		this.dataVigencia = dataVigencia;
 	}
 
 	public void setTipoConta(String tipoConta) {
 		this.tipoConta = tipoConta;
+	}
+
+	public LocalDate getDataInicioRelacionamento() {
+		return dataInicioRelacionamento;
+	}
+
+	public void setDataInicioRelacionamento(LocalDate dataInicioRelacionamento) {
+		this.dataInicioRelacionamento = dataInicioRelacionamento;
 	}
 	
 	
