@@ -2,7 +2,6 @@ package br.com.bancoamazonia.api.suacontabasa.controller.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;

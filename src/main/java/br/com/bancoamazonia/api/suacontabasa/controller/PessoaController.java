@@ -46,7 +46,7 @@ public class PessoaController {
 	@GetMapping(value="/nome/{nome}" )
 	public List<DadosGeraisResponse> obterPorNome(@PathVariable("nome")String nome){
 
-		return Arrays.asList(modelMapper.map(manager.findByNome(nome), DadosGeraisResponse[].class));
+		return Arrays.asList(modelMapper.map(manager.findByNome(nome.toUpperCase()), DadosGeraisResponse[].class));
 		//return    modelMapper.map(manager.findByNome(nome),DadosGeraisResponse.class);
 	}
 	
