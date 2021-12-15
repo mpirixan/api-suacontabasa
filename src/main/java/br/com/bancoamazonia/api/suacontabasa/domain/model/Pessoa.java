@@ -142,13 +142,6 @@ public class Pessoa {
 		this.conta = conta;
 	}
 
-
-	public static Object stream() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 	}
 	
 
