@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import br.com.bancoamazonia.api.suacontabasa.domain.enums.EstadoCivilEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DadosGeraisResponse implements Serializable {
@@ -21,6 +22,9 @@ public class DadosGeraisResponse implements Serializable {
 	
 	@Schema(description = "nome - nome da Pessoa")
 	private String nome;
+
+	@Schema(description = "Estado Civil")
+	private EstadoCivilEnum estadoCivil;
 
 	@Schema(description = "dataNascimento - Data de Nascimento da pessoa")
 	private LocalDate dataNascimento;
@@ -135,6 +139,14 @@ public class DadosGeraisResponse implements Serializable {
 
 	public void setDataInicioRelacionamento(LocalDate dataInicioRelacionamento) {
 		this.dataInicioRelacionamento = dataInicioRelacionamento;
+	}
+
+	public EstadoCivilEnum getEstadoCivil() {
+		return estadoCivil;
+	}
+
+	public void setEstadoCivil(EstadoCivilEnum estadoCivil) {
+		this.estadoCivil = estadoCivil;
 	}
 	
 	

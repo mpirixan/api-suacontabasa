@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import br.com.bancoamazonia.api.suacontabasa.domain.enums.EstadoCivilEnum;
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoPessoaEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -22,6 +23,9 @@ public class CadastroPessoaRequest implements Serializable {
 	
 	@Schema(description = "Tipo de Pessoa")
 	private TipoPessoaEnum tipoPessoa;
+
+	@Schema(description = "Estado Civil")
+	private EstadoCivilEnum estadoCivil;
 
 	@Override
 	public int hashCode() {
@@ -70,6 +74,14 @@ public class CadastroPessoaRequest implements Serializable {
 
 	public void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
+	}
+
+	public EstadoCivilEnum getEstadoCivil() {
+		return estadoCivil;
+	}
+
+	public void setEstadoCivil(EstadoCivilEnum estadoCivil) {
+		this.estadoCivil = estadoCivil;
 	}
 	
 	

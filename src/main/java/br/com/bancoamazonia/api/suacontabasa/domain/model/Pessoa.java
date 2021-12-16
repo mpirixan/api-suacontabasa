@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.com.bancoamazonia.api.suacontabasa.domain.enums.EstadoCivilEnum;
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoPessoaEnum;
 
 @Entity
@@ -38,6 +39,10 @@ public class Pessoa {
 	@Enumerated(EnumType.STRING)
 	@Column(name="tipopessoa")
 	private TipoPessoaEnum tipoPessoa;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name="estadoCivil")
+	private EstadoCivilEnum estadoCivil;
 
 	@OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
 	@JoinColumn(name = "conta", referencedColumnName= "idconta", nullable = true)
@@ -140,6 +145,16 @@ public class Pessoa {
 
 	public void setConta(Conta conta) {
 		this.conta = conta;
+	}
+
+
+	public EstadoCivilEnum getEstadoCivil() {
+		return estadoCivil;
+	}
+
+
+	public void setEstadoCivil(EstadoCivilEnum estadoCivil) {
+		this.estadoCivil = estadoCivil;
 	}
 
 	}

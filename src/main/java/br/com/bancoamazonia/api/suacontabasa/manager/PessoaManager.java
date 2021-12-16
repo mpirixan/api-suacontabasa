@@ -64,6 +64,7 @@ public class PessoaManager {
 		pessoa.setIdFiscal(obj.getIdFiscal());
 		pessoa.setDataNascimento(obj.getDataNascimento());
 		pessoa.setTipoPessoa(obj.getTipoPessoa());
+		pessoa.setEstadoCivil(obj.getEstadoCivil());
 		pessoa.setConta(null);
 		return repository.save(pessoa);
 	}
