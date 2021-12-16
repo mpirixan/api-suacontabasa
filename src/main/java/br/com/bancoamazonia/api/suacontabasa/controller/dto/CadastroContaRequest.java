@@ -1,7 +1,6 @@
 package br.com.bancoamazonia.api.suacontabasa.controller.dto;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoContaEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -13,15 +12,18 @@ public class CadastroContaRequest implements Serializable{
 	@Schema(description = "agencia - identificador agencia da Conta")
 	private Long agencia;
 	
-	@Schema(description = "senha - senha da conta")
-	private String senha;
-	
 	@Schema(description = "Tipo de Conta")
 	private TipoContaEnum tipoConta;
 
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(senha);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((agencia == null) ? 0 : agencia.hashCode());
+		result = prime * result + ((tipoConta == null) ? 0 : tipoConta.hashCode());
+		return result;
 	}
 
 	@Override
@@ -33,7 +35,14 @@ public class CadastroContaRequest implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		CadastroContaRequest other = (CadastroContaRequest) obj;
-		return Objects.equals(senha, other.senha);
+		if (agencia == null) {
+			if (other.agencia != null)
+				return false;
+		} else if (!agencia.equals(other.agencia))
+			return false;
+		if (tipoConta != other.tipoConta)
+			return false;
+		return true;
 	}
 
 	public Long getAgencia() {
@@ -42,14 +51,6 @@ public class CadastroContaRequest implements Serializable{
 
 	public void setAgencia(Long agencia) {
 		this.agencia = agencia;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
 	}
 
 

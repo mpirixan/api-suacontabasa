@@ -31,9 +31,6 @@ public class Conta {
 	@Column(name="status")
 	private StatusContaEnum status;
 	
-	@Column(name="senha")
-	private String senha;
-	
 	@Column(name="saldo")
 	private Double saldo;
 	
@@ -130,18 +127,6 @@ public class Conta {
 
 	public void setAgencia(Long agencia) {
 		this.agencia = agencia;
-	}
-
-
-
-
-	public String getSenha() {
-		return senha;
-	}
-
-
-	public void setSenha(String senha) {
-		this.senha = senha;
 	}
 
 

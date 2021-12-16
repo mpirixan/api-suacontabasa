@@ -2,7 +2,6 @@ package br.com.bancoamazonia.api.suacontabasa.controller.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -44,9 +43,6 @@ public class ContaResponse implements Serializable {
 	@Schema(description = "status - status da conta")
 	private String status;
 	
-	@Schema(description = "senha - senha da conta")
-	private String senha;
-
 	@Schema(description = "saldo - Saldo da Conta")
 	private Double saldo;
 
@@ -83,10 +79,24 @@ public class ContaResponse implements Serializable {
 	}
 
 
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(agencia, dataVigencia ,saldo, senha, status, tipoConta);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((agencia == null) ? 0 : agencia.hashCode());
+		result = prime * result + ((dataInicioRelacionamento == null) ? 0 : dataInicioRelacionamento.hashCode());
+		result = prime * result + ((dataVigencia == null) ? 0 : dataVigencia.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((idConta == null) ? 0 : idConta.hashCode());
+		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
+		result = prime * result + ((saldo == null) ? 0 : saldo.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((tipoConta == null) ? 0 : tipoConta.hashCode());
+		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -97,10 +107,54 @@ public class ContaResponse implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ContaResponse other = (ContaResponse) obj;
-		return Objects.equals(agencia, other.agencia) && Objects.equals(dataVigencia, other.dataVigencia)
-				&& Objects.equals(senha, other.senha) && Objects.equals(status, other.status)
-				&& Objects.equals(tipoConta, other.tipoConta);
+		if (agencia == null) {
+			if (other.agencia != null)
+				return false;
+		} else if (!agencia.equals(other.agencia))
+			return false;
+		if (dataInicioRelacionamento == null) {
+			if (other.dataInicioRelacionamento != null)
+				return false;
+		} else if (!dataInicioRelacionamento.equals(other.dataInicioRelacionamento))
+			return false;
+		if (dataVigencia == null) {
+			if (other.dataVigencia != null)
+				return false;
+		} else if (!dataVigencia.equals(other.dataVigencia))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (idConta == null) {
+			if (other.idConta != null)
+				return false;
+		} else if (!idConta.equals(other.idConta))
+			return false;
+		if (pessoa == null) {
+			if (other.pessoa != null)
+				return false;
+		} else if (!pessoa.equals(other.pessoa))
+			return false;
+		if (saldo == null) {
+			if (other.saldo != null)
+				return false;
+		} else if (!saldo.equals(other.saldo))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
+		if (tipoConta == null) {
+			if (other.tipoConta != null)
+				return false;
+		} else if (!tipoConta.equals(other.tipoConta))
+			return false;
+		return true;
 	}
+
 
 	public Long getAgencia() {
 		return agencia;
@@ -116,14 +170,6 @@ public class ContaResponse implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
 	}
 
 

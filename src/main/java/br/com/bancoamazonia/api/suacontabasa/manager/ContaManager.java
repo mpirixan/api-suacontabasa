@@ -66,7 +66,6 @@ public class ContaManager {
 		LocalDate dataAtual = LocalDate.now();
 		Conta conta = new Conta();
 		conta.setAgencia(obj.getAgencia());
-		conta.setSenha(obj.getSenha());
 		conta.setDataVigencia(dataAtual.plusYears(5));
 		conta.setDataInicioRelacionamento(dataAtual);
 		conta.setTipoConta(obj.getTipoConta());
