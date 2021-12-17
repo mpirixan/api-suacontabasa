@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.EstadoCivilEnum;
-import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoPessoaEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public class CadastroPessoaRequest implements Serializable {
@@ -21,8 +20,6 @@ public class CadastroPessoaRequest implements Serializable {
 	@Schema(description = "dataNascimento - Data de Nascimento da pessoa")
 	private LocalDate dataNascimento;
 	
-	@Schema(description = "Tipo de Pessoa")
-	private TipoPessoaEnum tipoPessoa;
 
 	@Schema(description = "Estado Civil")
 	private EstadoCivilEnum estadoCivil;
@@ -66,14 +63,6 @@ public class CadastroPessoaRequest implements Serializable {
 
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
-	}
-
-	public TipoPessoaEnum getTipoPessoa() {
-		return tipoPessoa;
-	}
-
-	public void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
-		this.tipoPessoa = tipoPessoa;
 	}
 
 	public EstadoCivilEnum getEstadoCivil() {
