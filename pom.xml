@@ -134,7 +134,7 @@
 
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
 
-
+ 	<packaging>jar</packaging>
 
 	</dependencies>
 
