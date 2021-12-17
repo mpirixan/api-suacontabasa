@@ -1,7 +1,6 @@
 package br.com.bancoamazonia.api.suacontabasa.domain.model;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
