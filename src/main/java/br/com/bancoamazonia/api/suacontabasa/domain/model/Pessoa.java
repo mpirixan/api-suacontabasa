@@ -14,9 +14,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.EstadoCivilEnum;
-import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoPessoaEnum;
+
 
 @Entity
 @Table(name="pessoa")
@@ -27,7 +28,8 @@ public class Pessoa {
 	@Column(name="idpessoa")
 	private Long idPessoa;
 	
-	@Column(name="idfiscal", unique=true)
+	@Size(min=11,max = 11)
+	@Column(name="idfiscal", unique=true,length=11)
 	private Long idFiscal;
 	
 	@Column(name="nome")
@@ -36,9 +38,6 @@ public class Pessoa {
 	@Column(name="datanascimento",columnDefinition = "DATE")
 	private LocalDate dataNascimento;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name="tipopessoa")
-	private TipoPessoaEnum tipoPessoa;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="estadoCivil")
@@ -48,14 +47,6 @@ public class Pessoa {
 	@JoinColumn(name = "conta", referencedColumnName= "idconta", nullable = true)
 	private Conta conta;
 	
-	public TipoPessoaEnum getTipoPessoa() {
-		return tipoPessoa;
-	}
-
-
-	public void setTipoPessoa(TipoPessoaEnum tipoPessoa) {
-		this.tipoPessoa = tipoPessoa;
-	}
 
 
 	public LocalDate getDataNascimento() {
@@ -72,13 +63,12 @@ public class Pessoa {
 		
 	}
 	
-	public Pessoa(Long idPessoa, Long idFiscal, String nome,LocalDate dataNascimento, TipoPessoaEnum tipoPessoa) {
+	public Pessoa(Long idPessoa, Long idFiscal, String nome,LocalDate dataNascimento) {
 		super();
 		this.idPessoa = idPessoa;
 		this.idFiscal = idFiscal;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
-		this.tipoPessoa = tipoPessoa;
 	}
 	
 	public Long getId() {
@@ -87,9 +77,18 @@ public class Pessoa {
 
 
 
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(conta, dataNascimento, idFiscal, idPessoa, nome, tipoPessoa);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((conta == null) ? 0 : conta.hashCode());
+		result = prime * result + ((dataNascimento == null) ? 0 : dataNascimento.hashCode());
+		result = prime * result + ((estadoCivil == null) ? 0 : estadoCivil.hashCode());
+		result = prime * result + ((idFiscal == null) ? 0 : idFiscal.hashCode());
+		result = prime * result + ((idPessoa == null) ? 0 : idPessoa.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		return result;
 	}
 
 
@@ -102,9 +101,34 @@ public class Pessoa {
 		if (getClass() != obj.getClass())
 			return false;
 		Pessoa other = (Pessoa) obj;
-		return Objects.equals(conta, other.conta) && Objects.equals(dataNascimento, other.dataNascimento)
-				&& Objects.equals(idFiscal, other.idFiscal) && Objects.equals(idPessoa, other.idPessoa)
-				&& Objects.equals(nome, other.nome) && tipoPessoa == other.tipoPessoa;
+		if (conta == null) {
+			if (other.conta != null)
+				return false;
+		} else if (!conta.equals(other.conta))
+			return false;
+		if (dataNascimento == null) {
+			if (other.dataNascimento != null)
+				return false;
+		} else if (!dataNascimento.equals(other.dataNascimento))
+			return false;
+		if (estadoCivil != other.estadoCivil)
+			return false;
+		if (idFiscal == null) {
+			if (other.idFiscal != null)
+				return false;
+		} else if (!idFiscal.equals(other.idFiscal))
+			return false;
+		if (idPessoa == null) {
+			if (other.idPessoa != null)
+				return false;
+		} else if (!idPessoa.equals(other.idPessoa))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
 	}
 
 
