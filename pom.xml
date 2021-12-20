@@ -11,6 +11,7 @@
 	<groupId>br.com.bancoamazonia</groupId>
 	<artifactId>api-suacontabasa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>api-suacontabasa</name>
 	<description>Treinamento CODEV de API </description>
 	<properties>
