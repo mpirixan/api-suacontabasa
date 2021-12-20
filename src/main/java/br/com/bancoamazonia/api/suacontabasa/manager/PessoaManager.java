@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import br.com.amazoniafw.base.exceptions.displayable.BusinessException;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroPessoaRequest;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
+import br.com.bancoamazonia.api.suacontabasa.manager.exceptions.GlobalDefaultExceptionHandler;
 import br.com.bancoamazonia.api.suacontabasa.repository.PessoaRepository;
 
 @Service
@@ -28,7 +28,7 @@ public class PessoaManager {
 	public Pessoa findByIdPessoa(Long idPessoa) {
 		Pessoa pessoa = repository.findByIdPessoa(idPessoa);
 		if(pessoa == null) {
-			throw new BusinessException("Não foi possivel localizar a pessoa com matricula cadastral "+idPessoa);
+			throw new GlobalDefaultExceptionHandler();
 		}
 		return pessoa;
 	}
@@ -36,7 +36,7 @@ public class PessoaManager {
 	public Pessoa findByIdFiscal(Long idFiscal) {
 		Pessoa pessoa = repository.findByIdFiscal(idFiscal);
 		if(pessoa == null) {
-			throw new BusinessException("Não foi possivel localizar a pessoa com Cpf/Cnpj "+idFiscal);
+			throw new GlobalDefaultExceptionHandler();
 		}
 		return pessoa;
 	}
@@ -52,7 +52,7 @@ public class PessoaManager {
 	public List<Pessoa> findByNome (String nome){
 		List<Pessoa> pessoa = repository.findByNome(nome);
 		if(pessoa.isEmpty() == true) {
-			throw new BusinessException("Não foi possivel localizar a pessoa com nome "+nome);
+			throw new GlobalDefaultExceptionHandler();
 		}
 		return repository.findByNome(nome);
 	}

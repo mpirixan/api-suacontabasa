@@ -1,39 +1,11 @@
-amazonia-framework:
-  application-id: api-suacontabasa
-  display-name: API SuaConta
-  version: "@project.version@"
-  legacy-configuration: false
-  auditing:
-   enabled: false # Habilita a ferramenta de auditoria do framework. Padrão false.
-   audit-log-enabled: false # Indica que o sistema deve realizar log de auditoria
-   error-logging-enabled: false # Sistema deve realizar log de erros. Exceções ocorridas em métodos auditados ainda serão salvos.
-   multi-thread-enabled: false # Permite que os beans de auditoria executem em threads próprias
-   database-persistence-enabled: false # Habilita a persistência as informações auditadas em banco de dados
-   force-audit-tables-creation: false # Força a criação das tabelas de monitoramento. Não tem efeito em ambiente de produção
-   parameter-logging-enabled: false # Habilita a auditoria de parâmetros de entrada dos métodos
-   response-logging-enabled: false # Habilita a auditoria do objeto de retorno dos métodos
-   core-pool-size: 50 # Indica a quantidade mínima de threads a alocar para auditoria. Padrão 50
-   max-pool-size: 100 # Indica a quantidade máxima de threads a alocar para auditoria. Padrão 50
-
- 
-  persistence:
-    database:
-      auto-create-datasources: true     
-      jpa-validation: true
-      primary-datasource: testdb
-      jdbc-datasources:
-        testdb:
+spring:
+  datasource:
           url: jdbc:h2:file:~/data/demo
           username: sa
           password: sa
-          dialect: h2
-          create-jpa-context: true
-          
-        #    console:
-       #       enabled: true
-      #        path: /h2-console
+          driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
 
 server:
   port : 8090
-
-

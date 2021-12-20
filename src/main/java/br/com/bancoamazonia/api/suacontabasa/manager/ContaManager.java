@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import br.com.amazoniafw.base.exceptions.displayable.BusinessException;
+import br.com.bancoamazonia.api.suacontabasa.manager.exceptions.GlobalDefaultExceptionHandler;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroContaRequest;
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.StatusContaEnum;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
@@ -43,7 +43,7 @@ public class ContaManager {
 	public Conta findByIdConta(Long idConta) {
 		Conta conta = repository.findByIdConta(idConta);
 		if(conta == null) {
-			throw new BusinessException(String.format("Não foi possivel localizar a conta "+idConta));
+			throw new GlobalDefaultExceptionHandler();
 		}
 		return conta;
 	}
@@ -61,7 +61,7 @@ public class ContaManager {
 	@Transactional
 	public Conta cadastro(Long idFiscal, CadastroContaRequest obj) {
 		if (repository.obterIdConta(idFiscal) != null){
-			throw new BusinessException(String.format("Pessoa com id %s  já possui conta cadastrada! ",idFiscal));
+			throw new GlobalDefaultExceptionHandler();
 		}
 		LocalDate dataAtual = LocalDate.now();
 		Conta conta = new Conta();
@@ -79,7 +79,7 @@ public class ContaManager {
 	public void depositoSaldo(Long idConta, Double obj) {
 		Conta entity = repository.findByIdConta(idConta);
 		if (entity.getStatus() != StatusContaEnum.ATIVA) {
-			throw new BusinessException(("Conta " + idConta+ " não está Ativa! "));
+			throw new GlobalDefaultExceptionHandler();
 		}
 		else {
 		repository.setDepositoSaldo(obj, idConta);
@@ -89,7 +89,7 @@ public class ContaManager {
 	public void saqueSaldo(Long idConta, Double obj) {
 		Conta entity = repository.findByIdConta(idConta);
 		if (obj >= entity.getSaldo()) {
-			throw new BusinessException(("Saldo insuficiente! "));
+			throw new GlobalDefaultExceptionHandler();
 		}		
 		else {
 		repository.setSaqueSaldo(obj, idConta);
@@ -102,13 +102,13 @@ public class ContaManager {
 	public Conta delete(Long idConta) {
 		Conta conta = repository.findByIdConta(idConta);
 		if(conta == null) {
-			throw new BusinessException(("Conta Inexistente! "));
+			throw new GlobalDefaultExceptionHandler();
 		}
 		if(conta.getStatus() != StatusContaEnum.ATIVA) {
-			throw new BusinessException(("Conta Já se encontra Desativada! "));
+			throw new GlobalDefaultExceptionHandler();
 		}
 		if (conta.getSaldo() != 0) {
-			throw new BusinessException(("Deixe o Saldo da Conta em R$00.00! "));
+			throw new GlobalDefaultExceptionHandler();
 		}
 		else {
 			conta.setStatus(StatusContaEnum.DESATIVADO);	
@@ -119,10 +119,10 @@ public class ContaManager {
 	public Double obterSaldoIdConta(Long idConta) {
 		Conta conta = repository.findByIdConta(idConta);
 		if (conta == null) {
-			throw new BusinessException(("Conta Inexistente! "));
+			throw new GlobalDefaultExceptionHandler();
 		}
 		if (conta != null && conta.getStatus() != StatusContaEnum.ATIVA) {
-			throw new BusinessException(("Conta Desativada! "));
+			throw new GlobalDefaultExceptionHandler();
 		}
 		else {
 			return repository.obterSaldoIdConta(idConta);
@@ -135,10 +135,10 @@ public class ContaManager {
 		Long idConta = repository.obterIdConta(idPessoa.getIdPessoa());
 		Conta conta = repository.findByIdConta(idConta);
 		if (conta == null) {
-			throw new BusinessException(("Conta Inexistente! "));
+			throw new GlobalDefaultExceptionHandler();
 		}
 		if (conta != null && conta.getStatus() != StatusContaEnum.ATIVA) {
-			throw new BusinessException(("Conta Desativada! "));
+			throw new GlobalDefaultExceptionHandler();
 		}
 		else {
 			return  repository.obterSaldoIdConta(idConta);
