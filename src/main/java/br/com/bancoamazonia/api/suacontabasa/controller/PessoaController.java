@@ -20,9 +20,10 @@ import br.com.bancoamazonia.api.suacontabasa.controller.dto.DadosGeraisResponse;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.PessoaResponse;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
 import br.com.bancoamazonia.api.suacontabasa.manager.PessoaManager;
-
+import io.swagger.annotations.Api;
 @CrossOrigin(origins = "http://127.0.0.1:3000")
 @RestController
+@Api
 @RequestMapping(value = "/pessoas")
 public class PessoaController {
 

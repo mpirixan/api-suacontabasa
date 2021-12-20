@@ -122,6 +122,7 @@
 <dependency>
  <groupId>org.hibernate</groupId>
  <artifactId>hibernate-core</artifactId>
+</dependency>
 <dependency>
 <groupId>io.springfox</groupId>
 <artifactId>springfox-swagger2</artifactId>
@@ -133,7 +134,6 @@
 <version>2.9.2</version>
 <scope>compile</scope>
 </dependency>
-</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -142,7 +142,7 @@
 
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
 
- 	<packaging>jar</packaging>
+
 
 	</dependencies>
 

@@ -19,9 +19,11 @@ import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroContaRequest
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.ContaResponse;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 import br.com.bancoamazonia.api.suacontabasa.manager.ContaManager;
+import io.swagger.annotations.Api;
 
 @CrossOrigin(origins = "http://127.0.0.1:3000")
 @RestController
+@Api
 @RequestMapping(value = "/contas")
 public class ContaController {
 	
