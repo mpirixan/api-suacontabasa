@@ -9,7 +9,8 @@ import org.springframework.validation.annotation.Validated;
 
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroPessoaRequest;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
-import br.com.bancoamazonia.api.suacontabasa.manager.exceptions.GlobalDefaultExceptionHandler;
+import br.com.bancoamazonia.api.suacontabasa.manager.exceptions.BusinessException;
+import br.com.bancoamazonia.api.suacontabasa.manager.exceptions.ResourceNotFoundException;
 import br.com.bancoamazonia.api.suacontabasa.repository.PessoaRepository;
 
 @Service
@@ -19,16 +20,14 @@ public class PessoaManager {
 	@Autowired
 	private PessoaRepository repository;
 	
-	
-	
 	public List<Pessoa> findAll(){
 		return (List<Pessoa>) repository.findAll();
 	}
-
+	
 	public Pessoa findByIdPessoa(Long idPessoa) {
 		Pessoa pessoa = repository.findByIdPessoa(idPessoa);
 		if(pessoa == null) {
-			throw new GlobalDefaultExceptionHandler();
+			throw new ResourceNotFoundException("Elemento não encontrado. IdPessoa" + idPessoa);
 		}
 		return pessoa;
 	}
@@ -36,7 +35,7 @@ public class PessoaManager {
 	public Pessoa findByIdFiscal(Long idFiscal) {
 		Pessoa pessoa = repository.findByIdFiscal(idFiscal);
 		if(pessoa == null) {
-			throw new GlobalDefaultExceptionHandler();
+			throw new ResourceNotFoundException("Elemento não encontrado. CPF " + idFiscal);
 		}
 		return pessoa;
 	}
@@ -52,7 +51,7 @@ public class PessoaManager {
 	public List<Pessoa> findByNome (String nome){
 		List<Pessoa> pessoa = repository.findByNome(nome);
 		if(pessoa.isEmpty() == true) {
-			throw new GlobalDefaultExceptionHandler();
+			throw new ResourceNotFoundException("Elemento não encontrado: " + nome);
 		}
 		return repository.findByNome(nome);
 	}

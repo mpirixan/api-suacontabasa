@@ -39,7 +39,7 @@ public class Pessoa {
 	
 
 	@Enumerated(EnumType.STRING)
-	@Column(name="estadoCivil")
+	@Column(name="estadocivil")
 	private EstadoCivilEnum estadoCivil;
 
 	@OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
@@ -62,12 +62,13 @@ public class Pessoa {
 		
 	}
 	
-	public Pessoa(Long idPessoa, Long idFiscal, String nome,LocalDate dataNascimento) {
+	public Pessoa(Long idPessoa, Long idFiscal, String nome,LocalDate dataNascimento, EstadoCivilEnum estadoCivil) {
 		super();
 		this.idPessoa = idPessoa;
 		this.idFiscal = idFiscal;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
+		this.estadoCivil = estadoCivil;
 	}
 	
 	public Long getId() {

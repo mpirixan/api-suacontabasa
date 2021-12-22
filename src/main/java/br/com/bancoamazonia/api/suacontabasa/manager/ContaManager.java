@@ -11,11 +11,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import br.com.bancoamazonia.api.suacontabasa.manager.exceptions.GlobalDefaultExceptionHandler;
 import br.com.bancoamazonia.api.suacontabasa.controller.dto.CadastroContaRequest;
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.StatusContaEnum;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Conta;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Pessoa;
+import br.com.bancoamazonia.api.suacontabasa.manager.exceptions.BusinessException;
+import br.com.bancoamazonia.api.suacontabasa.manager.exceptions.ResourceNotFoundException;
 import br.com.bancoamazonia.api.suacontabasa.repository.ContaRepository;
 
 @Component
@@ -43,7 +44,7 @@ public class ContaManager {
 	public Conta findByIdConta(Long idConta) {
 		Conta conta = repository.findByIdConta(idConta);
 		if(conta == null) {
-			throw new GlobalDefaultExceptionHandler();
+			throw new ResourceNotFoundException("Elemento não encontrado. Idconta " + idConta);
 		}
 		return conta;
 	}
@@ -61,7 +62,7 @@ public class ContaManager {
 	@Transactional
 	public Conta cadastro(Long idFiscal, CadastroContaRequest obj) {
 		if (repository.obterIdConta(idFiscal) != null){
-			throw new GlobalDefaultExceptionHandler();
+			throw new ResourceNotFoundException("Elemento não encontrado. CPF " + idFiscal);
 		}
 		LocalDate dataAtual = LocalDate.now();
 		Conta conta = new Conta();
@@ -78,8 +79,11 @@ public class ContaManager {
 
 	public void depositoSaldo(Long idConta, Double obj) {
 		Conta entity = repository.findByIdConta(idConta);
+		if(entity == null) {
+			throw new ResourceNotFoundException("Elemento não encontrado. IdConta " + idConta);
+		}
 		if (entity.getStatus() != StatusContaEnum.ATIVA) {
-			throw new GlobalDefaultExceptionHandler();
+			throw new BusinessException("Conta" + idConta + "encontra-se Desativada");
 		}
 		else {
 		repository.setDepositoSaldo(obj, idConta);
@@ -88,8 +92,11 @@ public class ContaManager {
 	
 	public void saqueSaldo(Long idConta, Double obj) {
 		Conta entity = repository.findByIdConta(idConta);
+		if(entity == null) {
+			throw new ResourceNotFoundException("Elemento não encontrado. IdConta " + idConta);
+		}
 		if (obj >= entity.getSaldo()) {
-			throw new GlobalDefaultExceptionHandler();
+			throw new BusinessException("Saldo insuficiente!");
 		}		
 		else {
 		repository.setSaqueSaldo(obj, idConta);
@@ -102,13 +109,13 @@ public class ContaManager {
 	public Conta delete(Long idConta) {
 		Conta conta = repository.findByIdConta(idConta);
 		if(conta == null) {
-			throw new GlobalDefaultExceptionHandler();
+			throw new BusinessException("Conta Inexistente!");
 		}
 		if(conta.getStatus() != StatusContaEnum.ATIVA) {
-			throw new GlobalDefaultExceptionHandler();
+			throw new BusinessException("Conta Desativada!");
 		}
 		if (conta.getSaldo() != 0) {
-			throw new GlobalDefaultExceptionHandler();
+			throw new BusinessException("Sem saldo suficiente!");
 		}
 		else {
 			conta.setStatus(StatusContaEnum.DESATIVADO);	
@@ -119,10 +126,10 @@ public class ContaManager {
 	public Double obterSaldoIdConta(Long idConta) {
 		Conta conta = repository.findByIdConta(idConta);
 		if (conta == null) {
-			throw new GlobalDefaultExceptionHandler();
+			throw new ResourceNotFoundException("Elemento não encontrado. IdConta " + idConta);
 		}
 		if (conta != null && conta.getStatus() != StatusContaEnum.ATIVA) {
-			throw new GlobalDefaultExceptionHandler();
+			throw new BusinessException("Conta Desativada");
 		}
 		else {
 			return repository.obterSaldoIdConta(idConta);
@@ -135,10 +142,10 @@ public class ContaManager {
 		Long idConta = repository.obterIdConta(idPessoa.getIdPessoa());
 		Conta conta = repository.findByIdConta(idConta);
 		if (conta == null) {
-			throw new GlobalDefaultExceptionHandler();
+			throw new ResourceNotFoundException("Elemento não encontrado. IdConta " + idConta);
 		}
 		if (conta != null && conta.getStatus() != StatusContaEnum.ATIVA) {
-			throw new GlobalDefaultExceptionHandler();
+			throw new BusinessException("Conta Desativada");
 		}
 		else {
 			return  repository.obterSaldoIdConta(idConta);
