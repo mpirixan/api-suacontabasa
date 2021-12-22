@@ -1,14 +1,12 @@
 spring:
   datasource:
-          url: jdbc:h2:file:~/data/demo
+          platform: h2
+          url: jdbc:h2:mem:appbanco
           username: sa
           password: sa
           driverClassName: org.h2.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-server:
-  error:
-      include-message: always
-      include-binding-errors: always
-      include-stacktrace: on-trace-param
-      include-exception: false
+    show-sql: true
+  h2:
+    console.enabled: true

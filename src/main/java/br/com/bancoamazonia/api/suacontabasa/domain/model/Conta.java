@@ -1,5 +1,6 @@
 package br.com.bancoamazonia.api.suacontabasa.domain.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -17,8 +18,13 @@ import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoContaEnum;
 
 @Entity
 @Table(name="conta")
-public class Conta {
+public class Conta implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9190089336173218525L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "idconta")
