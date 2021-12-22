@@ -35,7 +35,7 @@ import br.com.bancoamazonia.api.suacontabasa.manager.exceptions.ResourceNotFound
 	
 	@ExceptionHandler(BusinessException.class)	
 	public ResponseEntity<StandardError> business(BusinessException e, HttpServletRequest request){
-		String error = "Erro de Negócio";
+		String error = "Erro de negócio";
 		HttpStatus status = HttpStatus.ACCEPTED;
 		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
