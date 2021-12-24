@@ -1,10 +1,12 @@
 package br.com.bancoamazonia.api.suacontabasa.domain.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,9 +33,8 @@ public class Agencia {
 	private Conta conta;
 
 
-	@OneToMany(cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
-	@JoinColumn(name="funcionario", referencedColumnName="idFuncionario")
-	private Funcionario funcionario;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "agencia")
+	private List<Funcionario> funcionario;
 	
 	public Agencia() {
 		
@@ -98,12 +99,12 @@ public class Agencia {
 	}
 
 
-	public Funcionario getFuncionario() {
+	public List<Funcionario> getFuncionario() {
 		return funcionario;
 	}
 
 
-	public void setFuncionario(Funcionario funcionario) {
+	public void setFuncionario(List<Funcionario> funcionario) {
 		this.funcionario = funcionario;
 	}
 	

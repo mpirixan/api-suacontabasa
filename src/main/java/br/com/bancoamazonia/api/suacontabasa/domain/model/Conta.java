@@ -12,7 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.StatusContaEnum;
@@ -49,7 +49,7 @@ public class Conta implements Serializable{
 	@Column(name="datainiciorelacionamento",columnDefinition = "DATE")
 	private LocalDate dataInicioRelacionamento;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "agencia")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "conta")
 	private Agencia agencia;
 	
 	public LocalDate getDataVigencia() {

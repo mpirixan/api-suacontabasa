@@ -1,6 +1,7 @@
 package br.com.bancoamazonia.api.suacontabasa.controller.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoContaEnum;
 import br.com.bancoamazonia.api.suacontabasa.domain.model.Agencia;
