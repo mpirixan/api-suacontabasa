@@ -3,6 +3,7 @@ package br.com.bancoamazonia.api.suacontabasa.controller.dto;
 import java.io.Serializable;
 
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.TipoContaEnum;
+import br.com.bancoamazonia.api.suacontabasa.domain.model.Agencia;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public class CadastroContaRequest implements Serializable{
@@ -10,7 +11,7 @@ public class CadastroContaRequest implements Serializable{
 	private static final long serialVersionUID = 1399392304940041785L;
 	
 	@Schema(description = "agencia - identificador agencia da Conta")
-	private Long agencia;
+	private Agencia agencia;
 	
 	@Schema(description = "Tipo de Conta")
 	private TipoContaEnum tipoConta;
@@ -45,11 +46,11 @@ public class CadastroContaRequest implements Serializable{
 		return true;
 	}
 
-	public Long getAgencia() {
+	public Agencia getAgencia() {
 		return agencia;
 	}
 
-	public void setAgencia(Long agencia) {
+	public void setAgencia(Agencia agencia) {
 		this.agencia = agencia;
 	}
 

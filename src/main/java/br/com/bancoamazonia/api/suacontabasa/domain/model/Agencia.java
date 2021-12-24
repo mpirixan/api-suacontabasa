@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,7 +31,7 @@ public class Agencia {
 	private Conta conta;
 
 
-	@ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+	@OneToMany(cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
 	@JoinColumn(name="funcionario", referencedColumnName="idFuncionario")
 	private Funcionario funcionario;
 	

@@ -47,7 +47,6 @@ public class Pessoa {
 	private Conta conta;
 	
 
-
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}

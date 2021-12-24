@@ -8,9 +8,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.bancoamazonia.api.suacontabasa.domain.enums.StatusContaEnum;
@@ -30,9 +32,6 @@ public class Conta implements Serializable{
 	@Column(name = "idconta")
 	private Long idConta;
 	
-	@Column(name="agencia")
-	private Long agencia;
-	
 	@Enumerated(EnumType.STRING)
 	@Column(name="status")
 	private StatusContaEnum status;
@@ -50,6 +49,9 @@ public class Conta implements Serializable{
 	@Column(name="datainiciorelacionamento",columnDefinition = "DATE")
 	private LocalDate dataInicioRelacionamento;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "agencia")
+	private Agencia agencia;
+	
 	public LocalDate getDataVigencia() {
 		return dataVigencia;
 	}
@@ -65,7 +67,7 @@ public class Conta implements Serializable{
 		
 	}
 
-	public Conta(Long idConta, Long agencia, StatusContaEnum status, Double saldo,LocalDate dataVigencia, LocalDate dataInicioRelacionamento, TipoContaEnum tipoConta) {
+	public Conta(Long idConta, Agencia agencia, StatusContaEnum status, Double saldo,LocalDate dataVigencia, LocalDate dataInicioRelacionamento, TipoContaEnum tipoConta) {
 		super();
 		this.idConta = idConta;
 		this.agencia = agencia;
@@ -126,12 +128,12 @@ public class Conta implements Serializable{
 	}
 
 
-	public Long getAgencia() {
+	public Agencia getAgencia() {
 		return agencia;
 	}
 
 
-	public void setAgencia(Long agencia) {
+	public void setAgencia(Agencia agencia) {
 		this.agencia = agencia;
 	}
 
